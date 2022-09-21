@@ -13,7 +13,7 @@ include('includes/dbconnection.php');
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span></button>
-                <a class="navbar-brand" href="user-dashboard.php"><span>ASport for Business</img></span></a>
+                <a class="navbar-brand" href="business-dashboard.php"><span>ASport for Business</img></span></a>
             </div>
         </div>
         <!-- /.container-fluid -->
