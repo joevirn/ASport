@@ -53,7 +53,7 @@
 							}
 						?>
 					>
-						<a href="user-new-booking.php"><em class="fa fa-calendar-plus-o">&nbsp;</em>&nbsp New Booking</a>
+						<a href="user-bookings-new.php"><em class="fa fa-calendar-plus-o">&nbsp;</em>&nbsp New Booking</a>
 					</li>
 
 					<li class="parent ">
@@ -78,7 +78,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="user-my-bookings-upcoming.php"><span class="fa fa-calendar-o">&nbsp;</span> Upcoming
+									href="user-bookings-upcoming.php"><span class="fa fa-calendar-o">&nbsp;</span> Upcoming
 								</a>
 							</li>
 							<li>
@@ -88,7 +88,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="user-my-bookings-past.php"><span class="fa fa-calendar-check-o">&nbsp;</span> Past
+									href="user-bookings-past.php"><span class="fa fa-calendar-check-o">&nbsp;</span> Past
 								</a>
 							</li>
 						</ul>
