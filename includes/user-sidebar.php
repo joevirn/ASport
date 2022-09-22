@@ -232,7 +232,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="user-helpcentre-contactus.php"> <span class="fa fa-phone">&nbsp;</span> Contact Us
+									href="user-helpcentre-contact-us.php"> <span class="fa fa-phone">&nbsp;</span> Contact Us
 								</a>
 							</li>
 						</ul>
