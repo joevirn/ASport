@@ -74,79 +74,67 @@ if (strlen($_SESSION['detsuid'] == 0)) {
 
 			<div class="row">
 				<div class="col-md-4">
+					<a href="user-bookings-new-badminton.php">
 						<div class="panel panel-default">
 							<div class="panel-body easypiechart-panel">
 								<h3><b>Badminton</b></h4>
-								<p>
-									<a href="user-bookings-new-badminton.php">
-										<img src="images/badminton.png" width="200" height="200">
-									</a>
-								</p>
+								<p><img src="images/badminton.png" width="200" height="200"></p>
 							</div><!-- /.panel-body-->
 						</div><!-- /.panel-->
+					</a>
 				</div><!-- /.col-->
 				<div class="col-md-4">
+					<a href="user-bookings-new-basketball.php">
 						<div class="panel panel-default">
 							<div class="panel-body easypiechart-panel">
 								<h3><b>Basketball</b></h4>
-								<p>
-									<a href="user-bookings-new-basketball.php">
-										<img src="images/basketball.png" width="200" height="200">
-									</a>
-								</p>
+								<p><img src="images/basketball.png" width="200" height="200"></p>
 							</div><!-- /.panel-body-->
 						</div><!-- /.panel-->
+					</a>
 				</div><!-- /.col-->
 				<div class="col-md-4">
+					<a href="user-bookings-new-football.php">
 						<div class="panel panel-default">
 							<div class="panel-body easypiechart-panel">
 								<h3><b>Football</b></h4>
-								<p>
-									<a href="user-bookings-new-football.php">
-										<img src="images/football.png" width="200" height="200">
-									</a>
-								</p>
+								<p><img src="images/football.png" width="200" height="200"></p>
 							</div><!-- /.panel-body-->
 						</div><!-- /.panel-->
+					</a>
 				</div><!-- /.col-->
 			</div><!-- /.row-->
 
 			<div class="row">
 				<div class="col-md-4">
+					<a href="user-bookings-new-futsal.php">
 						<div class="panel panel-default">
 							<div class="panel-body easypiechart-panel">
 								<h3><b>Futsal</b></h4>
-								<p>
-									<a href="user-bookings-new-futsal.php">
-										<img src="images/futsal.png" width="200" height="200">
-									</a>
-								</p>
+								<p><img src="images/futsal.png" width="200" height="200"></p>
 							</div><!-- /.panel-body-->
 						</div><!-- /.panel-->
+					</a>
 				</div><!-- /.col-->
 				<div class="col-md-4">
+					<a href="user-bookings-new-squash.php">
 						<div class="panel panel-default">
 							<div class="panel-body easypiechart-panel">
 								<h3><b>Squash</b></h4>
-								<p>
-									<a href="user-bookings-new-squash.php">
-										<img src="images/squash.png" width="200" height="200">
-									</a>
-								</p>
+								<p><img src="images/squash.png" width="200" height="200"></p>
 							</div><!-- /.panel-body-->
 						</div><!-- /.panel-->
+					</a>
 				</div><!-- /.col-->
 				<div class="col-md-4">
+					<a href="user-bookings-new-tennis.php">
 						<div class="panel panel-default">
 							<div class="panel-body easypiechart-panel">
 								<h3><b>Tennis</b></h4>
-								<p>
-									<a href="user-bookings-new-tennis.php">
-										<img src="images/tennis.png" width="200" height="200">
-									</a>
-								</p>
+								<p><img src="images/tennis.png" width="200" height="200"></p>
 							</div><!-- /.panel-body-->
 						</div><!-- /.panel-->
+					</a>
 				</div><!-- /.col-->
 			</div><!-- /.row-->
 
