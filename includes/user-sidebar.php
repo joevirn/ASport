@@ -48,12 +48,22 @@
 
 					<li
 						<?php
+							if (PAGE == 'My Favourite Venues') {
+								echo "class='active'";
+							}
+						?>
+					>
+						<a href="user-favourite-venues.php"><em class="fa fa-star">&nbsp;</em> My Favourite Venues</a>
+					</li>
+
+					<li
+						<?php
 							if (PAGE == 'New Booking') {
 								echo "class='active'";
 							}
 						?>
 					>
-						<a href="user-bookings-new.php"><em class="fa fa-calendar-plus-o">&nbsp;</em>&nbsp New Booking</a>
+						<a href="user-bookings-new.php"><em class="fa fa-calendar-plus-o">&nbsp;</em> New Booking</a>
 					</li>
 
 					<li class="parent ">
@@ -137,54 +147,6 @@
 										}
 									?>
 									href="user-loyalty-rewards-catalogue.php"><span class="fa fa-th-large">&nbsp;</span> Rewards Catalogue
-								</a>
-							</li>
-						</ul>
-					</li><!--parent-->
-
-					<li class="parent">
-						<a data-toggle="collapse" href="#sub-item-3">
-							<em class="fa fa-map-pin">&nbsp;</em> Facilities<span data-toggle="collapse" href="#sub-item-3" class="icon pull-right"><em class="fa fa-plus"></em></span>
-						</a>
-						<ul
-							<?php
-							if (PAGE == "Badminton" || PAGE == "Futsal" || PAGE == "Tennis") {
-								echo "class='children collapse in'";
-							}
-							else {
-								echo "class='children collapse'";
-							}
-							?>
-							id="sub-item-3"
-						>
-							<li>
-								<a
-									<?php
-										if (PAGE == 'Badminton') {
-											echo "class='active'";
-										}
-									?>
-									href="user-facilities-badminton.php"> <span class="fa fa-star">&nbsp;</span> Badminton
-								</a>
-							</li>
-							<li>
-								<a
-									<?php
-										if (PAGE == 'Futsal') {
-											echo "class='active'";
-										}
-									?>
-									href="user-facilities-futsal.php"> <span class="fa fa-futbol-o">&nbsp;</span> Futsal
-								</a>
-							</li>
-							<li>
-								<a
-									<?php
-										if (PAGE == 'Tennis') {
-											echo "class='active'";
-										}
-									?>
-									href="user-facilities-tennis.php"> <span class="fa fa-star">&nbsp;</span> Tennis
 								</a>
 							</li>
 						</ul>
