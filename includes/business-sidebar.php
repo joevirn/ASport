@@ -164,7 +164,7 @@
 
 					<li class="parent">
 						<a data-toggle="collapse" href="#sub-item-3">
-							<em class="fa fa-building-o">&nbsp;</em> Complex Management<span data-toggle="collapse" href="#sub-item-3" class="icon pull-right"><em class="fa fa-plus"></em></span>
+							<em class="fa fa-building-o">&nbsp;</em> Venue Management<span data-toggle="collapse" href="#sub-item-3" class="icon pull-right"><em class="fa fa-plus"></em></span>
 						</a>
 						<ul
 							<?php
@@ -184,7 +184,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="business-facility-management-about-us.php"> <span class="fa fa-info-circle">&nbsp;</span> About Us
+									href="business-venue-management-about-us.php"> <span class="fa fa-info-circle">&nbsp;</span> About Us
 								</a>
 							</li>
 							<li>
@@ -194,7 +194,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="business-facility-management-contact-us.php"> <span class="fa fa-phone">&nbsp;</span> Contact Us
+									href="business-venue-management-contact-us.php"> <span class="fa fa-phone">&nbsp;</span> Contact Us
 								</a>
 							</li>
 							<li>
@@ -204,7 +204,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="business-facility-management-opening-hours.php"> <span class="fa fa-clock-o">&nbsp;</span> Opening Hours
+									href="business-venue-management-opening-hours.php"> <span class="fa fa-clock-o">&nbsp;</span> Opening Hours
 								</a>
 							</li>
 							<li>
@@ -214,7 +214,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="business-facility-management-gallery.php"> <span class="fa fa-photo">&nbsp;</span> Gallery
+									href="business-venue-management-gallery.php"> <span class="fa fa-photo">&nbsp;</span> Gallery
 								</a>
 							</li>
 						</ul>
