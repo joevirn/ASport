@@ -89,14 +89,15 @@ if (strlen($_SESSION['detsuid'] == 0)) {
 	                <h4 align="left"><font color="#30a5ff"><span class="fa fa-search"></span></font>&nbsp &nbsp<tt><input id="myInput" type="text" placeholder="Search.."></tt></h4>
 	                <thead>
 	                  <tr>
-											<th>&nbsp <span class="fa fa-calendar"></span>&nbsp Booking ID</th>
-	                    <th>&nbsp <span class="fa fa-calendar"></span>&nbsp Date</th>
-											<th>&nbsp <span class="fa fa-clock-o"></span>&nbsp Start Time</th>
-											<th>&nbsp <span class="fa fa-clock-o"></span>&nbsp End Time</th>
-											<th>&nbsp <span class="fa fa-list"></span>&nbsp Duration</th>
-	                    <th>&nbsp <span class="fa fa-map-pin"></span>&nbsp Facility Type</th>
-											<th>&nbsp <span class="fa fa-location-arrow"></span>&nbsp Venue</th>
-											<th>&nbsp <span class="fa fa-money"></span>&nbsp Amount Paid (RM)</th>
+											<th width="10%">&nbsp <span class="fa fa-id-card-o"></span>&nbsp Booking ID</th>
+	                    <th width="10%">&nbsp <span class="fa fa-calendar"></span>&nbsp Date</th>
+											<th width="10%">&nbsp <span class="fa fa-clock-o"></span>&nbsp Start Time</th>
+											<th width="10%">&nbsp <span class="fa fa-clock-o"></span>&nbsp End Time</th>
+											<th width="10%">&nbsp <span class="fa fa-list"></span>&nbsp Duration (Hours)</th>
+											<th width="10%">&nbsp <span class="fa fa-location-arrow"></span>&nbsp Venue</th>
+	                    <th width="10%">&nbsp <span class="fa fa-th-large"></span>&nbsp Category</th>
+											<th width="10%">&nbsp <span class="fa fa-info-circle"></span>&nbsp Facility No</th>
+											<th width="10%">&nbsp <span class="fa fa-money"></span>&nbsp Price (RM)</th>
 	                  </tr>
 	                </thead>
 	                <tbody id="myTable">
