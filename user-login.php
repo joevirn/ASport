@@ -26,11 +26,9 @@ if(isset($_POST['login']))
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>ASport | Login</title>
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/datepicker3.css" rel="stylesheet">
-	<link href="css/styles.css" rel="stylesheet">
-  <link rel="icon" type="image/png" href="images/ASport.png" sizes="113x113" >
-
+  <?php
+  include('includes/user-head-styles.php');
+  ?>
 </head>
 <body>
 
