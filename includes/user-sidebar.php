@@ -18,17 +18,15 @@
               ?>
               <div class="profile-usertitle-name"><?php echo $name; ?></div>
               <div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
-							<a href="user-logout.php"><i class="fa fa-power-off fa-lg" aria-hidden="true"></i></a>
-							<!-- <div class="profile-logout"><a href="" onclick="logoutConfirmation()"><i class="fa fa-power-off fa-lg" aria-hidden="true"></i></a></div> -->
-							<!-- <script>
-							function logoutConfirmation() {
-								var logout = confirm("Are you sure to logout?");
-
-								if(logout){
-										 location.href = "logout.php";
+							<div class="profile-logout"><a href="" onclick="logoutConfirmation()"><i class="fa fa-power-off fa-lg" aria-hidden="true"></i></a></div>
+							<script>
+								function logoutConfirmation() {
+									if (confirm("Are you sure to logout?") == true) {
+										location.href = "user-logout.php";
+										location.href = "user-login.php";
+									}
 								}
-							}
-							</script> -->
+							</script>
             </div>
             <div class="clear"></div>
         </div>
@@ -174,7 +172,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="user-helpcentre-faq.php"> <span class="fa fa-question">&nbsp;</span> Frequently Asked Questions
+									href="user-helpCentre-faq.php"> <span class="fa fa-question">&nbsp;</span> Frequently Asked Questions
 								</a>
 							</li>
 							<li>
@@ -184,7 +182,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="user-helpcentre-tnc.php"> <span class="fa fa-list-alt">&nbsp;</span> Terms and Conditions
+									href="user-helpCentre-tnc.php"> <span class="fa fa-list-alt">&nbsp;</span> Terms and Conditions
 								</a>
 							</li>
 							<li>
@@ -194,7 +192,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="user-helpcentre-contact-us.php"> <span class="fa fa-phone">&nbsp;</span> Contact Us
+									href="user-helpCentre-contact-us.php"> <span class="fa fa-phone">&nbsp;</span> Contact Us
 								</a>
 							</li>
 						</ul>
