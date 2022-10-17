@@ -7,28 +7,26 @@
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
         <div class="profile-sidebar">
             <div class="profile-userpic">
-                <img src="images/useravatar.png" class="img-responsive">
+                <img src="images/business/avatar.png" class="img-responsive">
             </div>
             <div class="profile-usertitle">
               <?php
 	              $uid=$_SESSION['detsuid'];
-	              $ret=mysqli_query($con,"select userName from users where userID='$uid'");
+	              $ret=mysqli_query($con,"select businessName from business where businessID='$uid'");
 	              $row=mysqli_fetch_array($ret);
-	              $name=$row['userName'];
+	              $name=$row['businessName'];
               ?>
               <div class="profile-usertitle-name"><?php echo $name; ?></div>
               <div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
-							<a href="user-logout.php"><i class="fa fa-power-off fa-lg" aria-hidden="true"></i></a>
-							<!-- <div class="profile-logout"><a href="" onclick="logoutConfirmation()"><i class="fa fa-power-off fa-lg" aria-hidden="true"></i></a></div> -->
-							<!-- <script>
-							function logoutConfirmation() {
-								var logout = confirm("Are you sure to logout?");
-
-								if(logout){
-										 location.href = "logout.php";
+							<div class="profile-logout"><a href="" onclick="logoutConfirmation()"><i class="fa fa-power-off fa-lg" aria-hidden="true"></i></a></div>
+							<script>
+								function logoutConfirmation() {
+									if (confirm("Are you sure to logout?") == true) {
+										location.href = "business-logout.php";
+										location.href = "business-login.php";
+									}
 								}
-							}
-							</script> -->
+							</script>
             </div>
             <div class="clear"></div>
         </div>
@@ -53,7 +51,7 @@
 							}
 						?>
 					>
-						<a href="business-new-booking.php"><em class="fa fa-lightbulb-o">&nbsp;</em>&nbsp Analytics</a>
+						<a href="business-analytics.php"><em class="fa fa-lightbulb-o">&nbsp;</em>&nbsp Analytics</a>
 					</li>
 
 					<li
@@ -63,7 +61,7 @@
 							}
 						?>
 					>
-						<a href="business-entrance-verification.php"><em class="fa fa-check">&nbsp;</em>&nbsp Entrance Verification</a>
+						<a href="business-entranceVerification.php"><em class="fa fa-check">&nbsp;</em>&nbsp Entrance Verification</a>
 					</li>
 
 					<li class="parent ">
@@ -88,7 +86,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="business-bookings-management-new.php"><span class="fa fa-calendar-plus-o">&nbsp;</span> New
+									href="business-bookingsManagement-new.php"><span class="fa fa-calendar-plus-o">&nbsp;</span> New
 								</a>
 							</li>
 							<li>
@@ -98,7 +96,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="business-bookings-management-upcoming.php"><span class="fa fa-calendar-o">&nbsp;</span> Upcoming
+									href="business-bookingsManagement-upcoming.php"><span class="fa fa-calendar-o">&nbsp;</span> Upcoming
 								</a>
 							</li>
 							<li>
@@ -108,7 +106,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="business-bookings-management-past.php"><span class="fa fa-calendar-check-o">&nbsp;</span> Past
+									href="business-bookingManagement-past.php"><span class="fa fa-calendar-check-o">&nbsp;</span> Past
 								</a>
 							</li>
 						</ul>
@@ -120,7 +118,7 @@
 						</a>
 						<ul
 							<?php
-							if (PAGE == "Points" || PAGE == "Rewards" || PAGE == "Rewards Catalogue") {
+							if (PAGE == "Add New Facility" || PAGE == "My Facilities") {
 								echo "class='children collapse in'";
 							}
 							else {
@@ -136,27 +134,17 @@
 											echo "class='active'";
 										}
 									?>
-									href="business-facility-management-add-new-facility.php"><span class="fa fa-plus">&nbsp;</span> Add New Facility
+									href="business-facilityManagement-addNewFacility.php"><span class="fa fa-plus">&nbsp;</span> Add New Facility
 								</a>
 							</li>
 							<li>
 								<a
 									<?php
-										if (PAGE == 'Badminton') {
+										if (PAGE == 'My Facilities') {
 											echo "class='active'";
 										}
 									?>
-									href="business-facility-management-badminton.php"><span class="fa fa-hand-o-right">&nbsp;</span> Badminton
-								</a>
-							</li>
-							<li>
-								<a
-									<?php
-										if (PAGE == 'Tennis') {
-											echo "class='active'";
-										}
-									?>
-									href="business-facility-management-tennis.php"><span class="fa fa-thumbs-o-down">&nbsp;</span> Tennis
+									href="business-facilityManagement-myFacilities.php"><span class="fa fa-hand-o-right">&nbsp;</span> My Facilities
 								</a>
 							</li>
 						</ul>
@@ -184,7 +172,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="business-venue-management-about-us.php"> <span class="fa fa-info-circle">&nbsp;</span> About Us
+									href="business-venueManagement-aboutUs.php"> <span class="fa fa-info-circle">&nbsp;</span> About Us
 								</a>
 							</li>
 							<li>
@@ -194,7 +182,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="business-venue-management-contact-us.php"> <span class="fa fa-phone">&nbsp;</span> Contact Us
+									href="business-venueManagement-contactUs.php"> <span class="fa fa-phone">&nbsp;</span> Contact Us
 								</a>
 							</li>
 							<li>
@@ -204,7 +192,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="business-venue-management-opening-hours.php"> <span class="fa fa-clock-o">&nbsp;</span> Opening Hours
+									href="business-venueManagement-openingHours.php"> <span class="fa fa-clock-o">&nbsp;</span> Opening Hours
 								</a>
 							</li>
 							<li>
@@ -214,7 +202,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="business-venue-management-gallery.php"> <span class="fa fa-photo">&nbsp;</span> Gallery
+									href="business-venueManagement-gallery.php"> <span class="fa fa-photo">&nbsp;</span> Gallery
 								</a>
 							</li>
 						</ul>
@@ -242,7 +230,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="user-settings-profile-maintainance.php"><span class="fa fa-user">&nbsp;</span> Profile Maintainance
+									href="business-settings-profileMaintainance.php"><span class="fa fa-user">&nbsp;</span> Profile Maintainance
 								</a>
 							</li>
 							<li>
@@ -252,7 +240,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="user-settings-change-password.php"><span class="fa fa-key">&nbsp;</span> Change Password
+									href="business-settings-changePassword.php"><span class="fa fa-key">&nbsp;</span> Change Password
 								</a>
 							</li>
 						</ul>
