@@ -22,19 +22,9 @@ if (strlen($_SESSION['detsuid'] == 0)) {
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!--title of the webpage-->
 		<title>ASport | New Booking - Relau Sports Complex</title>
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link href="css/font-awesome.min.css" rel="stylesheet">
-		<link href="css/datepicker3.css" rel="stylesheet">
-		<link href="css/styles.css" rel="stylesheet">
-		<link rel="icon" type="image/png" href="images/ASport.png" sizes="113x113" >
-
-		<!--Custom Font-->
-		<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-		<!--[if lt IE 9]>
-		<script src="js/html5shiv.js"></script>
-		<script src="js/respond.min.js"></script>
-		<![endif]-->
-
+		<?php
+	  include('includes/user-head-styles.php');
+	  ?>
 		<style>
 			table {
 			  font-family: arial, sans-serif;
@@ -169,6 +159,19 @@ if (strlen($_SESSION['detsuid'] == 0)) {
 											<h4><b>Badminton</b></h4>
 											<h4><b>Court 1</b></h4>
 										</td>
+									</tr>
+								</table>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-5">
+					<div class="panel panel-default">
+						<div class="panel-body easypiechart-panel">
+							<h3><b>Facility Layout</b></h3>
+								<table>
+									<tr>
+										<td style="border:none;" width="100%"><img src="images/badminton-court-layout.png" width="200" height="200"></td>
 									</tr>
 								</table>
 						</div>
