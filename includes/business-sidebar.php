@@ -7,11 +7,11 @@
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
         <div class="profile-sidebar">
             <div class="profile-userpic">
-                <img src="images/business/avatar.png" class="img-responsive">
+                <img src="images/business/defaultAvatar.png" class="img-responsive">
             </div>
             <div class="profile-usertitle">
               <?php
-	              $uid=$_SESSION['detsuid'];
+	              $uid=$_SESSION['ASportBusinessSessionCounter'];
 	              $ret=mysqli_query($con,"select businessName from business where businessID='$uid'");
 	              $row=mysqli_fetch_array($ret);
 	              $name=$row['businessName'];

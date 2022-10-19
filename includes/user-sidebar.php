@@ -7,11 +7,11 @@
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
         <div class="profile-sidebar">
             <div class="profile-userpic">
-                <img src="images/useravatar.png" class="img-responsive">
+                <img src="images/users/defaultAvatar.png" class="img-responsive">
             </div>
             <div class="profile-usertitle">
               <?php
-	              $uid=$_SESSION['detsuid'];
+	              $uid=$_SESSION['ASportUserSessionCounter'];
 	              $ret=mysqli_query($con,"select userName from users where userID='$uid'");
 	              $row=mysqli_fetch_array($ret);
 	              $name=$row['userName'];
@@ -51,7 +51,7 @@
 							}
 						?>
 					>
-						<a href="user-favourite-venues.php"><em class="fa fa-star">&nbsp;</em> My Favourite Venues</a>
+						<a href="user-myFavouriteVenues.php"><em class="fa fa-star">&nbsp;</em> My Favourite Venues</a>
 					</li>
 
 					<li
@@ -144,7 +144,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="user-loyalty-rewards-catalogue.php"><span class="fa fa-th-large">&nbsp;</span> Rewards Catalogue
+									href="user-loyalty-rewardsCatalogue.php"><span class="fa fa-th-large">&nbsp;</span> Rewards Catalogue
 								</a>
 							</li>
 						</ul>
@@ -192,7 +192,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="user-helpCentre-contact-us.php"> <span class="fa fa-phone">&nbsp;</span> Contact Us
+									href="user-helpCentre-contactUs.php"> <span class="fa fa-phone">&nbsp;</span> Contact Us
 								</a>
 							</li>
 						</ul>
@@ -220,7 +220,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="user-settings-profile-maintainance.php"><span class="fa fa-user">&nbsp;</span> Profile Maintainance
+									href="user-settings-profileMaintainance.php"><span class="fa fa-user">&nbsp;</span> Profile Maintainance
 								</a>
 							</li>
 							<li>
@@ -230,7 +230,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="user-settings-change-password.php"><span class="fa fa-key">&nbsp;</span> Change Password
+									href="user-settings-changePassword.php"><span class="fa fa-key">&nbsp;</span> Change Password
 								</a>
 							</li>
 						</ul>
