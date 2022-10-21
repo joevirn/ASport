@@ -11,7 +11,7 @@ if(isset($_POST['login']))
     $ret = mysqli_fetch_array($query);
 
     if($ret>0){
-      $_SESSION['detsuid'] = $ret['userID'];
+      $_SESSION['ASportUserSessionCounter'] = $ret['userID'];
       header('location:user-dashboard.php');
     }
     else{
@@ -33,7 +33,7 @@ if(isset($_POST['login']))
 <body>
 
 	<div class="row">
-    <h2 align="center"><a href="index-home.php"><img src="images/ASport.png" width="50px"/></a></h2>
+    <h2 align="center"><a href="user-dashboard.php"><img src="images/ASport.png" width="50px"/></a></h2>
 			<h2 align="center">ASport</h2>
 	<hr/>
 		<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
@@ -54,7 +54,7 @@ if(isset($_POST['login']))
 						<div class="checkbox">
   						<button type="submit" value="login" name="login" class="btn btn-primary" style="width: 100%;">LOGIN</button><br><br>
   						<p style="text-align: center;">Not registered? <a href="user-register.php">Register Now</a></p>
-              <!-- <p align="center"><a href="mailto:forgetpassword@myfinance.com">Forget Password</a></p> -->
+              <!-- <p align="center"><a href="mailto:forgetpassword@asport.com">Forget Password</a></p> -->
 						</div>
 						</fieldset>
 					</form>
