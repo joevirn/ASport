@@ -6,7 +6,7 @@ error_reporting(0);
 include('includes/dbconnection.php');
 
 //if the user id in the session is being cleared, log out the user
-if (strlen($_SESSION['detsuid'] == 0)) {
+if (strlen($_SESSION['ASportUserSessionCounter'] == 0)) {
 	header('location:user-logout.php');
 } else {
 ?> -->
