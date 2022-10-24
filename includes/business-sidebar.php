@@ -144,7 +144,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="business-facilityManagement-myFacilities.php"><span class="fa fa-hand-o-right">&nbsp;</span> My Facilities
+									href="business-facilityManagement-myFacilities1.php"><span class="fa fa-hand-o-right">&nbsp;</span> My Facilities
 								</a>
 							</li>
 						</ul>
