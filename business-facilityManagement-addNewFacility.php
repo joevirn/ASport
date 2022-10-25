@@ -26,177 +26,73 @@ else {
 		}
 
 	  $totalNo = $_POST['totalNo'];
-		$openingMonday = $_POST['openingMonday'];
-		$openingTuesday = $_POST['openingTuesday'];
-		$openingWednesday = $_POST['openingWednesday'];
-		$openingThursday = $_POST['openingThursday'];
-		$openingFriday = $_POST['openingFriday'];
-		$openingSaturday = $_POST['openingSaturday'];
-		$openingSunday = $_POST['openingSunday'];
-		$defaultOpeningTime = $_POST['defaultOpeningTime'];
-		$defaultClosingTime = $_POST['defaultClosingTime'];
-		$defaultPrice = $_POST['defaultPrice'];
+
+		$mondayIsOpen = $_POST['mondayIsOpen'];
+		$mondayOpeningTime = $_POST['mondayOpeningTime'];
+		$mondayClosingTime = $_POST['mondayClosingTime'];
+		$mondayPrice = $_POST['mondayPrice'];
+
+		$tuesdayIsOpen = $_POST['tuesdayIsOpen'];
+		$tuesdayOpeningTime = $_POST['tuesdayOpeningTime'];
+		$tuesdayClosingTime = $_POST['tuesdayClosingTime'];
+		$tuesdayPrice = $_POST['tuesdayPrice'];
+
+		$wednesdayIsOpen = $_POST['wednesdayIsOpen'];
+		$wednesdayOpeningTime = $_POST['wednesdayOpeningTime'];
+		$wednesdayClosingTime = $_POST['wednesdayClosingTime'];
+		$wednesdayPrice = $_POST['wednesdayPrice'];
+
+		$thursdayIsOpen = $_POST['thursdayIsOpen'];
+		$thursdayOpeningTime = $_POST['thursdayOpeningTime'];
+		$thursdayClosingTime = $_POST['thursdayClosingTime'];
+		$thursdayPrice = $_POST['thursdayPrice'];
+
+		$fridayIsOpen = $_POST['fridayIsOpen'];
+		$fridayOpeningTime = $_POST['fridayOpeningTime'];
+		$fridayClosingTime = $_POST['fridayClosingTime'];
+		$fridayPrice = $_POST['fridayPrice'];
+
+		$saturdayIsOpen = $_POST['saturdayIsOpen'];
+		$saturdayOpeningTime = $_POST['saturdayOpeningTime'];
+		$saturdayClosingTime = $_POST['saturdayClosingTime'];
+		$saturdayPrice = $_POST['saturdayPrice'];
+
+		$sundayIsOpen = $_POST['sundayIsOpen'];
+		$sundayOpeningTime = $_POST['sundayOpeningTime'];
+		$sundayClosingTime = $_POST['sundayClosingTime'];
+		$sundayPrice = $_POST['sundayPrice'];
 
 		//ADD FORM FIELDS TO DATABASE
 	  $sqlAdd = mysqli_query($con,
-	    "INSERT INTO businessFacility(businessID, businessFacilityCategoryID, totalNo, openingMonday, openingTuesday, openingWednesday, openingThursday, openingFriday, openingSaturday, openingSunday, defaultOpeningTime, defaultClosingTime, defaultPrice)
-	     VALUE            					('$businessID','$facilityCategoryID','$totalNo','$openingMonday','$openingTuesday','$openingWednesday','$openingThursday','$openingFriday','$openingSaturday','$openingSunday','$defaultOpeningTime','$defaultClosingTime','$defaultPrice')
+	    "INSERT INTO businessFacility(businessID, businessFacilityCategoryID, totalNo,
+																		mondayIsOpen, mondayOpeningTime, mondayClosingTime, mondayPrice,
+																		tuesdayIsOpen, tuesdayOpeningTime, tuesdayClosingTime, tuesdayPrice,
+																		wednesdayIsOpen, wednesdayOpeningTime, wednesdayClosingTime, wednesdayPrice,
+																		thursdayIsOpen, thursdayOpeningTime, thursdayClosingTime, thursdayPrice,
+																		fridayIsOpen, fridayOpeningTime, fridayClosingTime, fridayPrice,
+																		saturdayIsOpen, saturdayOpeningTime, saturdayClosingTime, saturdayPrice,
+																		sundayIsOpen, sundayOpeningTime, sundayClosingTime, sundayPrice)
+	     VALUE            					('$businessID', '$facilityCategoryID', '$totalNo',
+																	 '$mondayIsOpen', '$mondayOpeningTime', '$mondayClosingTime', '$mondayPrice',
+																	 '$tuesdayIsOpen', '$tuesdayOpeningTime', '$tuesdayClosingTime', '$tuesdayPrice',
+																	 '$wednesdayIsOpen', '$wednesdayOpeningTime', '$wednesdayClosingTime', '$wednesdayPrice',
+																	 '$thursdayIsOpen', '$thursdayOpeningTime', '$thursdayClosingTime', '$thursdayPrice',
+																	 '$fridayIsOpen', '$fridayOpeningTime', '$fridayClosingTime', '$fridayPrice',
+																	 '$saturdayIsOpen', '$saturdayOpeningTime', '$saturdayClosingTime', '$saturdayPrice',
+																	 '$sundayIsOpen', '$sundayOpeningTime', '$sundayClosingTime', '$sundayPrice')
 			");
-
-		//GENERATE DEFAULT SCHEDULER
-
-		//GET businessFacilityID
-		$sqlBusinessFacilityID = mysqli_query($con,
-			"SELECT businessFacilityID
-				FROM businessFacility
-				WHERE businessFacilityCategoryID=$facilityCategoryID
-			");
-		while ($row = $sqlBusinessFacilityID->fetch_assoc()){
-			$businessFacilityID = $row['businessFacilityID'];
-		}
-
-		//GET number of time slots to generate
-		$totalTimeSlots = (strtotime($defaultClosingTime) - strtotime($defaultOpeningTime)) / 3600;
-		$slotTime = $defaultOpeningTime;
-
-		//MONDAY
-		if ($openingMonday=='1') {
-			//generate hourly timeslots based on opening and closing time
-			for ($i=0; $i<$totalTimeSlots; $i++) {
-				$facilityNo = '1';
-				//add court number columns based on number of courts
-				for ($j=0; $j<$totalNo; $j++) {
-					$sqlGenerateDefaultScheduler = mysqli_query($con,
-						"INSERT INTO businessFacilitySchedule(businessID, businessFacilityID, day, startTime, facilityNo, facilityPrice)
-						 VALUE            										('$businessID','$businessFacilityID','Monday','$slotTime','$facilityNo','$defaultPrice')
-						");
-					$facilityNo++;
-				}
-				$newTime = date('H:i',strtotime('+1 hour',strtotime($slotTime)));
-				$slotTime = $newTime;
-			}
-		}
-		//TUESDAY
-		if ($openingTuesday=='1') {
-			//generate hourly timeslots based on opening and closing time
-			for ($i=0; $i<$totalTimeSlots; $i++) {
-				$facilityNo = '1';
-				//add court number columns based on number of courts
-				for ($j=0; $j<$totalNo; $j++) {
-					$sqlGenerateDefaultScheduler = mysqli_query($con,
-						"INSERT INTO businessFacilitySchedule(businessID, businessFacilityID, day, startTime, facilityNo, facilityPrice)
-						 VALUE            										('$businessID','$businessFacilityID','Tuesday','$slotTime','$facilityNo','$defaultPrice')
-						");
-					$facilityNo++;
-				}
-				$newTime = date('H:i',strtotime('+1 hour',strtotime($slotTime)));
-				$slotTime = $newTime;
-			}
-		}
-		//WEDNESDAY
-		if ($openingWednesday=='1') {
-			//generate hourly timeslots based on opening and closing time
-			for ($i=0; $i<$totalTimeSlots; $i++) {
-				$facilityNo = '1';
-				//add court number columns based on number of courts
-				for ($j=0; $j<$totalNo; $j++) {
-					$sqlGenerateDefaultScheduler = mysqli_query($con,
-						"INSERT INTO businessFacilitySchedule(businessID, businessFacilityID, day, startTime, facilityNo, facilityPrice)
-						 VALUE            										('$businessID','$businessFacilityID','Wednesday','$slotTime','$facilityNo','$defaultPrice')
-						");
-					$facilityNo++;
-				}
-				$newTime = date('H:i',strtotime('+1 hour',strtotime($slotTime)));
-				$slotTime = $newTime;
-			}
-		}
-		//THURSDAY
-		if ($openingThursday=='1') {
-			//generate hourly timeslots based on opening and closing time
-			for ($i=0; $i<$totalTimeSlots; $i++) {
-				$facilityNo = '1';
-				//add court number columns based on number of courts
-				for ($j=0; $j<$totalNo; $j++) {
-					$sqlGenerateDefaultScheduler = mysqli_query($con,
-						"INSERT INTO businessFacilitySchedule(businessID, businessFacilityID, day, startTime, facilityNo, facilityPrice)
-						 VALUE            										('$businessID','$businessFacilityID','Thursday','$slotTime','$facilityNo','$defaultPrice')
-						");
-					$facilityNo++;
-				}
-				$newTime = date('H:i',strtotime('+1 hour',strtotime($slotTime)));
-				$slotTime = $newTime;
-			}
-		}
-		//FRIDAY
-		if ($openingFriday=='1') {
-			//generate hourly timeslots based on opening and closing time
-			for ($i=0; $i<$totalTimeSlots; $i++) {
-				$facilityNo = '1';
-				//add court number columns based on number of courts
-				for ($j=0; $j<$totalNo; $j++) {
-					$sqlGenerateDefaultScheduler = mysqli_query($con,
-						"INSERT INTO businessFacilitySchedule(businessID, businessFacilityID, day, startTime, facilityNo, facilityPrice)
-						 VALUE            										('$businessID','$businessFacilityID','Friday','$slotTime','$facilityNo','$defaultPrice')
-						");
-					$facilityNo++;
-				}
-				$newTime = date('H:i',strtotime('+1 hour',strtotime($slotTime)));
-				$slotTime = $newTime;
-			}
-		}
-		//SATURDAY
-		if ($openingSaturday=='1') {
-			//generate hourly timeslots based on opening and closing time
-			for ($i=0; $i<$totalTimeSlots; $i++) {
-				$facilityNo = '1';
-				//add court number columns based on number of courts
-				for ($j=0; $j<$totalNo; $j++) {
-					$sqlGenerateDefaultScheduler = mysqli_query($con,
-						"INSERT INTO businessFacilitySchedule(businessID, businessFacilityID, day, startTime, facilityNo, facilityPrice)
-						 VALUE            										('$businessID','$businessFacilityID','Saturday','$slotTime','$facilityNo','$defaultPrice')
-						");
-					$facilityNo++;
-				}
-				$newTime = date('H:i',strtotime('+1 hour',strtotime($slotTime)));
-				$slotTime = $newTime;
-			}
-		}
-		//SUNDAY
-		if ($openingSunday=='1') {
-			//generate hourly timeslots based on opening and closing time
-			for ($i=0; $i<$totalTimeSlots; $i++) {
-				$facilityNo = '1';
-				//add court number columns based on number of courts
-				for ($j=0; $j<$totalNo; $j++) {
-					$sqlGenerateDefaultScheduler = mysqli_query($con,
-						"INSERT INTO businessFacilitySchedule(businessID, businessFacilityID, day, startTime, facilityNo, facilityPrice)
-						 VALUE            										('$businessID','$businessFacilityID','Sunday','$slotTime','$facilityNo','$defaultPrice')
-						");
-					$facilityNo++;
-				}
-				$newTime = date('H:i',strtotime('+1 hour',strtotime($slotTime)));
-				$slotTime = $newTime;
-			}
-		}
 
 		//JAVASCRIPT ALERT STATUS
 
 		//Facility Add Status
 	  if($sqlAdd){
 	    echo "<script>alert('Facility has been added!');</script>";
+			echo "<script>window.location.href='business-facilityManagement-myFacilities1.php'</script>";
 	  }
 		else {
 			echo "<script>alert('There is a problem adding this facility. Please try again.');</script>";
+			echo "<script>alert('$businessID $facilityCategoryID $totalNo $mondayIsOpen $mondayOpeningTime $mondayClosingTime $mondayPrice $tuesdayIsOpen $tuesdayOpeningTime $tuesdayClosingTime $tuesdayPrice $wednesdayIsOpen $wednesdayOpeningTime $wednesdayClosingTime $wednesdayPrice $thursdayIsOpen $thursdayOpeningTime $thursdayClosingTime $thursdayPrice $fridayIsOpen $fridayOpeningTime $fridayClosingTime $fridayPrice $saturdayIsOpen $saturdayOpeningTime $saturdayClosingTime $saturdayPrice $sundayIsOpen $sundayOpeningTime $sundayClosingTime $sundayPrice');</script>";
 		}
-
-		//Default Scheduler Generation Status
-		if($sqlGenerateDefaultScheduler){
-			echo "<script>alert('Default scheduler has been generated!');</script>";
-			echo "<script>window.location.href='business-facilityManagement-myFacilities.php'</script>";
-		}
-	  else {
-	    echo "<script>alert('There is a problem generating a default schedule. Please try again.');</script>";
-	  }
 	}
 
 ?>
@@ -296,8 +192,8 @@ else {
 	  						<div class="col-md-8">
 									<div class="form-group">
 										<label><span class="fa fa-list"></span>&nbsp Category</label>
-										<select class="form-control" name="facilityCategoryName">
-											<option value="" selected="true" disabled="disabled">SELECT CATEGORY</option>
+										<select class="form-control" name="facilityCategoryName" required>
+											<option value="" selected="true">SELECT CATEGORY</option>
 											<?php
 												$sql = $con->query("SELECT categoryName FROM businessFacilityCategories ORDER BY categoryName");
 												while($data = $sql->fetch_array()) {
@@ -310,48 +206,157 @@ else {
 	                  <label><span class="fa fa-info-circle"></span>&nbsp Total Number of Facilities of This Category</label>
 	                  <input class="form-control" type="number" name="totalNo" min="1" max="20" step="1" required="true">
 	                </div>
-                  <div class="form-group">
-                    <label><span class="fa fa-calendar"></span>&nbsp Facility Opening Days</label><br>
-										<input type="hidden" name="openingMonday" value="0">
-                    <input type="checkbox" name="openingMonday" value="1">
-                    <label for="Monday">&nbsp Monday</label><br>
-										<input type="hidden" name="openingTuesday" value="0">
-                    <input type="checkbox" name="openingTuesday" value="1">
-                    <label for="Tuesday">&nbsp Tuesday</label><br>
-										<input type="hidden" name="openingWednesday" value="0">
-                    <input type="checkbox" name="openingWednesday" value="1">
-                    <label for="Wednesday">&nbsp Wednesday</label><br>
-										<input type="hidden" name="openingThursday" value="0">
-                    <input type="checkbox" name="openingThursday" value="1">
-                    <label for="Thursday">&nbsp Thursday</label><br>
-										<input type="hidden" name="openingFriday" value="0">
-                    <input type="checkbox" name="openingFriday" value="1">
-                    <label for="Friday">&nbsp Friday</label><br>
-										<input type="hidden" name="openingSaturday" value="0">
-                    <input type="checkbox" name="openingSaturday" value="1">
-                    <label for="Saturday">&nbsp Saturday</label><br>
-										<input type="hidden" name="openingSunday" value="0">
-                    <input type="checkbox" name="openingSunday" value="1">
-                    <label for="Sunday">&nbsp Sunday</label><br>
-                  </div>
-                  <div class="form-group">
-										<label><span class="fa fa-clock-o"></span>&nbsp Default Opening Time</label>
-                    <input class="form-control" type="time" step="1800" name="defaultOpeningTime" required="true">
-									</div>
-                  <div class="form-group">
-                    <label><span class="fa fa-clock-o"></span>&nbsp Default Closing Time</label>
-                    <input class="form-control" type="time" step="1800" name="defaultClosingTime" required="true">
-                  </div>
-                  <div class="form-group">
-                    <label><span class="fa fa-money"></span>&nbsp Default Price Per Hour (RM)</label>
-                    <input class="form-control" type="number" name="defaultPrice" min="1" required="true">
-                  </div>
 									<br>
-									<div align="center" class="form-group has-success">
-										<button type="submit" class="btn btn-primary" name="submit" style="width: 50%;">ADD</button>
-									</div>
+									<h3 align="center"><b><span class="fa fa-calendar"></span>&nbsp Add Opening Hours</b></h3><br>
 	              </div>
 								<div class="col-md-2"></div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<input type="hidden" name="mondayIsOpen" value="0">
+										<input type="checkbox" name="mondayIsOpen" id="mondayIsOpen" value="1" onclick="EnableDisableMonday(this)">
+										<label for="Monday"><h4><b>&nbsp Monday</b></h4></label>
+									</div>
+									<div class="form-group">
+										<label><span class="fa fa-clock-o"></span>&nbsp Opening Time</label>
+										<input class="form-control" type="time" step="1800" name="mondayOpeningTime" id='mondayOpeningTime' value="10:00" readonly="readonly">
+									</div>
+									<div class="form-group">
+										<label><span class="fa fa-clock-o"></span>&nbsp Closing Time</label>
+										<input class="form-control" type="time" step="1800" name="mondayClosingTime" id='mondayClosingTime' value="22:00" readonly="readonly">
+									</div>
+									<div class="form-group">
+										<label><span class="fa fa-money"></span>&nbsp Price Per Hour (RM)</label>
+										<input class="form-control" type="number" name="mondayPrice" id='mondayPrice' min="1" value="10" readonly="readonly">
+									</div>
+									<br>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<input type="hidden" name="tuesdayIsOpen" value="0">
+										<input type="checkbox" name="tuesdayIsOpen" id="tuesdayIsOpen" value="1" onclick="EnableDisableTuesday(this)">
+										<label for="Monday"><h4><b>&nbsp Tuesday</b></h4></label>
+									</div>
+									<div class="form-group">
+										<label><span class="fa fa-clock-o"></span>&nbsp Opening Time</label>
+										<input class="form-control" type="time" step="1800" name="tuesdayOpeningTime" id='tuesdayOpeningTime' value="10:00" readonly="readonly">
+									</div>
+									<div class="form-group">
+										<label><span class="fa fa-clock-o"></span>&nbsp Closing Time</label>
+										<input class="form-control" type="time" step="1800" name="tuesdayClosingTime" id='tuesdayClosingTime' value="22:00" readonly="readonly">
+									</div>
+									<div class="form-group">
+										<label><span class="fa fa-money"></span>&nbsp Price Per Hour (RM)</label>
+										<input class="form-control" type="number" name="tuesdayPrice" id='tuesdayPrice' min="1" value="10" readonly="readonly">
+									</div>
+									<br>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<input type="hidden" name="wednesdayIsOpen" value="0">
+										<input type="checkbox" name="wednesdayIsOpen" id="wednesdayIsOpen" value="1" onclick="EnableDisableWednesday(this)">
+										<label for="Monday"><h4><b>&nbsp Wednesday</b></h4></label>
+									</div>
+									<div class="form-group">
+										<label><span class="fa fa-clock-o"></span>&nbsp Opening Time</label>
+										<input class="form-control" type="time" step="1800" name="wednesdayOpeningTime" id='wednesdayOpeningTime' value="10:00" readonly="readonly">
+									</div>
+									<div class="form-group">
+										<label><span class="fa fa-clock-o"></span>&nbsp Closing Time</label>
+										<input class="form-control" type="time" step="1800" name="wednesdayClosingTime" id='wednesdayClosingTime' value="22:00" readonly="readonly">
+									</div>
+									<div class="form-group">
+										<label><span class="fa fa-money"></span>&nbsp Price Per Hour (RM)</label>
+										<input class="form-control" type="number" name="wednesdayPrice" id='wednesdayPrice' min="1" value="10" readonly="readonly">
+									</div>
+									<br>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<input type="hidden" name="thursdayIsOpen" value="0">
+										<input type="checkbox" name="thursdayIsOpen" id="thursdayIsOpen" value="1" onclick="EnableDisableThursday(this)">
+										<label for="Monday"><h4><b>&nbsp Thursday</b></h4></label>
+									</div>
+									<div class="form-group">
+										<label><span class="fa fa-clock-o"></span>&nbsp Opening Time</label>
+										<input class="form-control" type="time" step="1800" name="thursdayOpeningTime" id='thursdayOpeningTime' value="10:00" readonly="readonly">
+									</div>
+									<div class="form-group">
+										<label><span class="fa fa-clock-o"></span>&nbsp Closing Time</label>
+										<input class="form-control" type="time" step="1800" name="thursdayClosingTime" id='thursdayClosingTime' value="22:00" readonly="readonly">
+									</div>
+									<div class="form-group">
+										<label><span class="fa fa-money"></span>&nbsp Price Per Hour (RM)</label>
+										<input class="form-control" type="number" name="thursdayPrice" id='thursdayPrice' min="1" value="10" readonly="readonly">
+									</div>
+									<br>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<input type="hidden" name="fridayIsOpen" value="0">
+										<input type="checkbox" name="fridayIsOpen" id="fridayIsOpen" value="1" onclick="EnableDisableFriday(this)">
+										<label for="Monday"><h4><b>&nbsp Friday</b></h4></label>
+									</div>
+									<div class="form-group">
+										<label><span class="fa fa-clock-o"></span>&nbsp Opening Time</label>
+										<input class="form-control" type="time" step="1800" name="fridayOpeningTime" id='fridayOpeningTime' value="10:00" readonly="readonly">
+									</div>
+									<div class="form-group">
+										<label><span class="fa fa-clock-o"></span>&nbsp Closing Time</label>
+										<input class="form-control" type="time" step="1800" name="fridayClosingTime" id='fridayClosingTime' value="22:00" readonly="readonly">
+									</div>
+									<div class="form-group">
+										<label><span class="fa fa-money"></span>&nbsp Price Per Hour (RM)</label>
+										<input class="form-control" type="number" name="fridayPrice" id='fridayPrice' min="1" value="10" readonly="readonly">
+									</div>
+									<br>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<input type="hidden" name="saturdayIsOpen" value="0">
+										<input type="checkbox" name="saturdayIsOpen" id="saturdayIsOpen" value="1" onclick="EnableDisableSaturday(this)">
+										<label for="Monday"><h4><b>&nbsp Saturday</b></h4></label>
+									</div>
+									<div class="form-group">
+										<label><span class="fa fa-clock-o"></span>&nbsp Opening Time</label>
+										<input class="form-control" type="time" step="1800" name="saturdayOpeningTime" id='saturdayOpeningTime' value="10:00" readonly="readonly">
+									</div>
+									<div class="form-group">
+										<label><span class="fa fa-clock-o"></span>&nbsp Closing Time</label>
+										<input class="form-control" type="time" step="1800" name="saturdayClosingTime" id='saturdayClosingTime' value="22:00" readonly="readonly">
+									</div>
+									<div class="form-group">
+										<label><span class="fa fa-money"></span>&nbsp Price Per Hour (RM)</label>
+										<input class="form-control" type="number" name="saturdayPrice" id='saturdayPrice' min="1" value="10" readonly="readonly">
+									</div>
+									<br>
+								</div>
+								<div class="col-md-4"></div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<input type="hidden" name="sundayIsOpen" value="0">
+										<input type="checkbox" name="sundayIsOpen" id="sundayIsOpen" value="1" onclick="EnableDisableSunday(this)">
+										<label for="Monday"><h4><b>&nbsp Sunday</b></h4></label>
+									</div>
+									<div class="form-group">
+										<label><span class="fa fa-clock-o"></span>&nbsp Opening Time</label>
+										<input class="form-control" type="time" step="1800" name="sundayOpeningTime" id='sundayOpeningTime' value="10:00" readonly="readonly">
+									</div>
+									<div class="form-group">
+										<label><span class="fa fa-clock-o"></span>&nbsp Closing Time</label>
+										<input class="form-control" type="time" step="1800" name="sundayClosingTime" id='sundayClosingTime' value="22:00" readonly="readonly">
+									</div>
+									<div class="form-group">
+										<label><span class="fa fa-money"></span>&nbsp Price Per Hour (RM)</label>
+										<input class="form-control" type="number" name="sundayPrice" id='sundayPrice' min="1" value="10" readonly="readonly">
+									</div>
+									<br>
+								</div>
+								<br>
+								<div class="col-md-12">
+								<div align="center" class="form-group has-success">
+									<br>
+									<button type="submit" class="btn btn-primary" name="submit" style="width: 40%;">ADD</button>
+								</div>
 							</form>
 						</div><!-- /.panel-body-->
 					</div><!-- /.panel-->
@@ -364,6 +369,65 @@ else {
 
 		</div>
 		<!--end of division class 1-->
+
+		<script type="text/javascript">
+			function EnableDisableMonday(mondayIsOpen) {
+					var mondayOpeningTime = document.getElementById("mondayOpeningTime");
+					var mondayClosingTime = document.getElementById("mondayClosingTime");
+					var mondayPrice = document.getElementById("mondayPrice");
+					mondayOpeningTime.readOnly = mondayIsOpen.checked ? false : true;
+					mondayClosingTime.readOnly = mondayIsOpen.checked ? false : true;
+					mondayPrice.readOnly = mondayIsOpen.checked ? false : true;
+			}
+			function EnableDisableTuesday(tuesdayIsOpen) {
+					var tuesdayOpeningTime = document.getElementById("tuesdayOpeningTime");
+					var tuesdayClosingTime = document.getElementById("tuesdayClosingTime");
+					var tuesdayPrice = document.getElementById("tuesdayPrice");
+					tuesdayOpeningTime.readOnly = tuesdayIsOpen.checked ? false : true;
+					tuesdayClosingTime.readOnly = tuesdayIsOpen.checked ? false : true;
+					tuesdayPrice.readOnly = tuesdayIsOpen.checked ? false : true;
+			}
+			function EnableDisableWednesday(wednesdayIsOpen) {
+					var wednesdayOpeningTime = document.getElementById("wednesdayOpeningTime");
+					var wednesdayClosingTime = document.getElementById("wednesdayClosingTime");
+					var wednesdayPrice = document.getElementById("wednesdayPrice");
+					wednesdayOpeningTime.readOnly = wednesdayIsOpen.checked ? false : true;
+					wednesdayClosingTime.readOnly = wednesdayIsOpen.checked ? false : true;
+					wednesdayPrice.readOnly = wednesdayIsOpen.checked ? false : true;
+			}
+			function EnableDisableThursday(thursdayIsOpen) {
+					var thursdayOpeningTime = document.getElementById("thursdayOpeningTime");
+					var thursdayClosingTime = document.getElementById("thursdayClosingTime");
+					var thursdayPrice = document.getElementById("thursdayPrice");
+					thursdayOpeningTime.readOnly = thursdayIsOpen.checked ? false : true;
+					thursdayClosingTime.readOnly = thursdayIsOpen.checked ? false : true;
+					thursdayPrice.readOnly = thursdayIsOpen.checked ? false : true;
+			}
+			function EnableDisableFriday(fridayIsOpen) {
+					var fridayOpeningTime = document.getElementById("fridayOpeningTime");
+					var fridayClosingTime = document.getElementById("fridayClosingTime");
+					var fridayPrice = document.getElementById("fridayPrice");
+					fridayOpeningTime.readOnly = fridayIsOpen.checked ? false : true;
+					fridayClosingTime.readOnly = fridayIsOpen.checked ? false : true;
+					fridayPrice.readOnly = fridayIsOpen.checked ? false : true;
+			}
+			function EnableDisableSaturday(saturdayIsOpen) {
+					var saturdayOpeningTime = document.getElementById("saturdayOpeningTime");
+					var saturdayClosingTime = document.getElementById("saturdayClosingTime");
+					var saturdayPrice = document.getElementById("saturdayPrice");
+					saturdayOpeningTime.readOnly = saturdayIsOpen.checked ? false : true;
+					saturdayClosingTime.readOnly = saturdayIsOpen.checked ? false : true;
+					saturdayPrice.readOnly = saturdayIsOpen.checked ? false : true;
+			}
+			function EnableDisableSunday(sundayIsOpen) {
+					var sundayOpeningTime = document.getElementById("sundayOpeningTime");
+					var sundayClosingTime = document.getElementById("sundayClosingTime");
+					var sundayPrice = document.getElementById("sundayPrice");
+					sundayOpeningTime.readOnly = sundayIsOpen.checked ? false : true;
+					sundayClosingTime.readOnly = sundayIsOpen.checked ? false : true;
+					sundayPrice.readOnly = sundayIsOpen.checked ? false : true;
+			}
+		</script>
 
 		<!--javascript source-->
 		<script src="js/jquery-1.11.1.min.js"></script>
