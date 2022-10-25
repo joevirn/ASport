@@ -91,7 +91,6 @@ else {
 	  }
 		else {
 			echo "<script>alert('There is a problem adding this facility. Please try again.');</script>";
-			echo "<script>alert('$businessID $facilityCategoryID $totalNo $mondayIsOpen $mondayOpeningTime $mondayClosingTime $mondayPrice $tuesdayIsOpen $tuesdayOpeningTime $tuesdayClosingTime $tuesdayPrice $wednesdayIsOpen $wednesdayOpeningTime $wednesdayClosingTime $wednesdayPrice $thursdayIsOpen $thursdayOpeningTime $thursdayClosingTime $thursdayPrice $fridayIsOpen $fridayOpeningTime $fridayClosingTime $fridayPrice $saturdayIsOpen $saturdayOpeningTime $saturdayClosingTime $saturdayPrice $sundayIsOpen $sundayOpeningTime $sundayClosingTime $sundayPrice');</script>";
 		}
 	}
 
@@ -371,6 +370,12 @@ else {
 		<!--end of division class 1-->
 
 		<script type="text/javascript">
+			function httpGet(theUrl){
+		    var xmlHttp = new XMLHttpRequest();
+		    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+		    xmlHttp.send( null );
+		    return xmlHttp.responseText;
+			}
 			function EnableDisableMonday(mondayIsOpen) {
 					var mondayOpeningTime = document.getElementById("mondayOpeningTime");
 					var mondayClosingTime = document.getElementById("mondayClosingTime");
