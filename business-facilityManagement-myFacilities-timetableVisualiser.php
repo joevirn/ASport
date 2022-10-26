@@ -57,7 +57,11 @@ else {
 		$sundayPrice = $data['sundayPrice'];
 	}
 
-
+	$sql = "SELECT * FROM businessFacilityCategories WHERE businessFacilityCategoryID='$businessFacilityCategoryID'";
+	$result = mysqli_query($con,$sql);
+	while ($data = $result->fetch_assoc()){
+		$categoryName = $data['categoryName'];
+	}
 
 ?>
 
@@ -104,7 +108,7 @@ else {
 					<li><a href="business-dashboard.php">
 						<em class="fa fa-home"></em>
 					</a></li>
-					<li class="active">Facility Management -> My Facilities -> Timetable Visualiser</li>
+					<li class="active">Facility Management -> My Facilities -> <?php echo $categoryName ?> -> Timetable Visualiser</li>
 					<!--end of list-->
 				</ol>
 				<!--end of ordered list-->
