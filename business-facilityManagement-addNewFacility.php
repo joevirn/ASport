@@ -71,7 +71,7 @@ else {
 																		thursdayIsOpen, thursdayOpeningTime, thursdayClosingTime, thursdayPrice,
 																		fridayIsOpen, fridayOpeningTime, fridayClosingTime, fridayPrice,
 																		saturdayIsOpen, saturdayOpeningTime, saturdayClosingTime, saturdayPrice,
-																		sundayIsOpen, sundayOpeningTime, sundayClosingTime, sundayPrice)
+																		sundayIsOpen, sundayOpeningTime, sundayClosingTime, sundayPrice, timeStampEdited)
 	     VALUE            					('$businessID', '$facilityCategoryID', '$totalNo',
 																	 '$mondayIsOpen', '$mondayOpeningTime', '$mondayClosingTime', '$mondayPrice',
 																	 '$tuesdayIsOpen', '$tuesdayOpeningTime', '$tuesdayClosingTime', '$tuesdayPrice',
@@ -79,7 +79,7 @@ else {
 																	 '$thursdayIsOpen', '$thursdayOpeningTime', '$thursdayClosingTime', '$thursdayPrice',
 																	 '$fridayIsOpen', '$fridayOpeningTime', '$fridayClosingTime', '$fridayPrice',
 																	 '$saturdayIsOpen', '$saturdayOpeningTime', '$saturdayClosingTime', '$saturdayPrice',
-																	 '$sundayIsOpen', '$sundayOpeningTime', '$sundayClosingTime', '$sundayPrice')
+																	 '$sundayIsOpen', '$sundayOpeningTime', '$sundayClosingTime', '$sundayPrice', now())
 			");
 
 		//JAVASCRIPT ALERT STATUS
@@ -185,7 +185,7 @@ else {
 				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<h3 align="center"><b>Add A New Facility</b></h3>
+							<h3 align="center"><b>ADD<br>New Facility</b></h3>
 							<form role="form" method="post" action="">
 	              <div class="col-md-2"></div>
 	  						<div class="col-md-8">
@@ -206,7 +206,7 @@ else {
 	                  <input class="form-control" type="number" name="totalNo" min="1" max="20" step="1" required="true">
 	                </div>
 									<br>
-									<h3 align="center"><b><span class="fa fa-calendar"></span>&nbsp Add Opening Hours</b></h3><br>
+									<div class="panel-heading"><center><span class="fa fa-calendar"></span>&nbsp Opening Hours & Price</center></div><br>
 	              </div>
 								<div class="col-md-2"></div>
 								<div class="col-md-4">
