@@ -11,8 +11,51 @@ if (strlen($_SESSION['ASportBusinessSessionCounter'] == 0)) {
 }
 else {
 	$businessID = $_SESSION['ASportBusinessSessionCounter'];
+	$businessFacilityID = $_GET['businessFacilityID'];
 
+	$sql = "SELECT * FROM businessFacility WHERE businessFacilityID='$businessFacilityID' AND businessID='$businessID'";
+	$result = mysqli_query($con,$sql);
+	while ($data = $result->fetch_assoc()){
+		$businessFacilityID = $data['businessFacilityID'];
+		$businessFacilityCategoryID = $data['businessFacilityCategoryID'];
 
+		$totalNo = $data['totalNo'];
+
+		$mondayIsOpen = $data['mondayIsOpen'];
+		$mondayOpeningTime = date('H:i',strtotime($data['mondayOpeningTime']));
+		$mondayClosingTime = date('H:i',strtotime($data['mondayClosingTime']));
+		$mondayPrice = $data['mondayPrice'];
+
+		$tuesdayIsOpen = $data['tuesdayIsOpen'];
+		$tuesdayOpeningTime = date('H:i',strtotime($data['tuesdayOpeningTime']));
+		$tuesdayClosingTime = date('H:i',strtotime($data['tuesdayClosingTime']));
+		$tuesdayPrice = $data['tuesdayPrice'];
+
+		$wednesdayIsOpen = $data['wednesdayIsOpen'];
+		$wednesdayOpeningTime = date('H:i',strtotime($data['wednesdayOpeningTime']));
+		$wednesdayClosingTime = date('H:i',strtotime($data['wednesdayClosingTime']));
+		$wednesdayPrice = $data['wednesdayPrice'];
+
+		$thursdayIsOpen = $data['thursdayIsOpen'];
+		$thursdayOpeningTime = date('H:i',strtotime($data['thursdayOpeningTime']));
+		$thursdayClosingTime = date('H:i',strtotime($data['thursdayClosingTime']));
+		$thursdayPrice = $data['thursdayPrice'];
+
+		$fridayIsOpen = $data['fridayIsOpen'];
+		$fridayOpeningTime = date('H:i',strtotime($data['fridayOpeningTime']));
+		$fridayClosingTime = date('H:i',strtotime($data['fridayClosingTime']));
+		$fridayPrice = $data['fridayPrice'];
+
+		$saturdayIsOpen = $data['saturdayIsOpen'];
+		$saturdayOpeningTime = date('H:i',strtotime($data['saturdayOpeningTime']));
+		$saturdayClosingTime = date('H:i',strtotime($data['saturdayClosingTime']));
+		$saturdayPrice = $data['saturdayPrice'];
+
+		$sundayIsOpen = $data['sundayIsOpen'];
+		$sundayOpeningTime = date('H:i',strtotime($data['sundayOpeningTime']));
+		$sundayClosingTime = date('H:i',strtotime($data['sundayClosingTime']));
+		$sundayPrice = $data['sundayPrice'];
+	}
 
 
 
@@ -76,6 +119,7 @@ else {
 				</div>
 			</div>
 
+			<?php if ($mondayIsOpen): ?>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel panel-default">
@@ -83,20 +127,6 @@ else {
 							<div class="panel-heading"><center>Day 1 - Monday</center></div><br>
 							<table id="monday_table" class="table table-stripped table-hover table-bordered">
 								<?php
-									//GET total number of time slots (rows) and courts (columns)
-									$sqlGetBusinessFacility = mysqli_query($con,
-										"SELECT * FROM businessFacility
-											WHERE
-												businessFacilityCategoryID='1'
-												AND
-												businessID='$businessID'
-										");
-									while ($data = $sqlGetBusinessFacility->fetch_assoc()){
-										$totalNo = $data['totalNo'];
-										$mondayOpeningTime = $data['mondayOpeningTime'];
-										$mondayClosingTime = $data['mondayClosingTime'];
-										$mondayPrice = $data['mondayPrice'];
-									}
 									//GET number of time slots to generate
 									$totalTimeSlots = (strtotime($mondayClosingTime) - strtotime($mondayOpeningTime)) / 3600;
 									$slotTime = date('H:i',strtotime($mondayOpeningTime));
@@ -109,7 +139,7 @@ else {
 										 for ($i=0; $i < $totalNo; $i++) {
 										 ?>
 											<th style="width:5%"><?php echo "C$facilityNoHeader";?></th>
- 										 <?php
+										 <?php
 										 $facilityNoHeader++;
 										 }
 										 ?>
@@ -123,10 +153,12 @@ else {
 								<?php
 									//generate rows (start time)
 									for ($i=0; $i<$totalTimeSlots; $i++) {
-										?>
+								?>
 										<tr>
 											<th><?php echo $slotTime;?></th>
-											<td colspan="<?php echo "$totalNo";?>"><?php echo $mondayPrice;?></td>
+											<?php for ($j=0; $j<$totalNo; $j++) { ?>
+											<td><?php echo $mondayPrice;?></td>
+											<?php } ?>
 										</tr>
 								<?php
 									$newTime = date('H:i',strtotime('+1 hour',strtotime($slotTime)));
@@ -139,41 +171,332 @@ else {
 					</div><!-- /.panel-->
 				</div><!-- /.col-->
 			</div><!-- /.row -->
+			<?php endif; ?>
 
+			<?php if ($tuesdayIsOpen): ?>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<div class="panel-heading"><center>Day 2 - Tuesday</center></div><br>
-							<table id="exp_cat_table" class="table table-stripped table-hover table-bordered">
+							<table id="monday_table" class="table table-stripped table-hover table-bordered">
+								<?php
+									//GET number of time slots to generate
+									$totalTimeSlots = (strtotime($tuesdayClosingTime) - strtotime($tuesdayOpeningTime)) / 3600;
+									$slotTime = date('H:i',strtotime($tuesdayOpeningTime));
+								 ?>
 								<thead>
 									<tr>
-										 <th id="Time" style="width:5%;"><span class="fa fa-info"></span>&nbsp Facility No</th>
-										 <th id="C1" style="width:5%;">C1</th>
-										 <th id="C2" style="width:5%;">C2</th>
-										 <th id="C3" style="width:5%;">C3</th>
-										 <th id="C4" style="width:5%;">C4</th>
-										 <th id="C5" style="width:5%;">C5</th>
-										 <th id="C6" style="width:5%;">C6</th>
-										 <th id="C7" style="width:5%;">C7</th>
-										 <th id="C8" style="width:5%;">C8</th>
-										 <th id="C9" style="width:5%;">C9</th>
-										 <th id="C10" style="width:5%;">C10</th>
-										 <th rowspan="2" id="Action" style="width:5%;">ACTION</th>
+										 <th id="Facility No" style="width:5%;"><span class="fa fa-info"></span>&nbsp Facility No</th>
+										 <?php
+										 $facilityNoHeader = '1';
+										 for ($i=0; $i < $totalNo; $i++) {
+										 ?>
+											<th style="width:5%"><?php echo "C$facilityNoHeader";?></th>
+										 <?php
+										 $facilityNoHeader++;
+										 }
+										 ?>
 									</tr>
 									<tr>
 										 <th id="Time" style="width:5%;"><span class="fa fa-clock-o"></span>&nbsp Time</th>
-										 <th colspan="10" id="C1" style="width:5%;"><span class="fa fa-money"></span>&nbsp Price (RM)</th>
+										 <th colspan="<?php echo "$totalNo"; ?>" id="C1" style="width:5%;"><span class="fa fa-money"></span>&nbsp Price (RM)</th>
 									</tr>
 								</thead>
-								<tbody class="expense">
-
+								<tbody>
+								<?php
+									//generate rows (start time)
+									for ($i=0; $i<$totalTimeSlots; $i++) {
+								?>
+										<tr>
+											<th><?php echo $slotTime;?></th>
+											<?php for ($j=0; $j<$totalNo; $j++) { ?>
+											<td><?php echo $tuesdayPrice;?></td>
+											<?php } ?>
+										</tr>
+								<?php
+									$newTime = date('H:i',strtotime('+1 hour',strtotime($slotTime)));
+									$slotTime = $newTime;
+									}
+								?>
 								</tbody>
 							</table>
 						</div><!-- /.panel-body-->
 					</div><!-- /.panel-->
 				</div><!-- /.col-->
 			</div><!-- /.row -->
+			<?php endif; ?>
+
+			<?php if ($wednesdayIsOpen): ?>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="panel-heading"><center>Day 3 - Wednesday</center></div><br>
+							<table id="monday_table" class="table table-stripped table-hover table-bordered">
+								<?php
+									//GET number of time slots to generate
+									$totalTimeSlots = (strtotime($wednesdayClosingTime) - strtotime($wednesdayOpeningTime)) / 3600;
+									$slotTime = date('H:i',strtotime($wednesdayOpeningTime));
+								 ?>
+								<thead>
+									<tr>
+										 <th id="Facility No" style="width:5%;"><span class="fa fa-info"></span>&nbsp Facility No</th>
+										 <?php
+										 $facilityNoHeader = '1';
+										 for ($i=0; $i < $totalNo; $i++) {
+										 ?>
+											<th style="width:5%"><?php echo "C$facilityNoHeader";?></th>
+										 <?php
+										 $facilityNoHeader++;
+										 }
+										 ?>
+									</tr>
+									<tr>
+										 <th id="Time" style="width:5%;"><span class="fa fa-clock-o"></span>&nbsp Time</th>
+										 <th colspan="<?php echo "$totalNo"; ?>" id="C1" style="width:5%;"><span class="fa fa-money"></span>&nbsp Price (RM)</th>
+									</tr>
+								</thead>
+								<tbody>
+								<?php
+									//generate rows (start time)
+									for ($i=0; $i<$totalTimeSlots; $i++) {
+								?>
+										<tr>
+											<th><?php echo $slotTime;?></th>
+											<?php for ($j=0; $j<$totalNo; $j++) { ?>
+											<td><?php echo $wednesdayPrice;?></td>
+											<?php } ?>
+										</tr>
+								<?php
+									$newTime = date('H:i',strtotime('+1 hour',strtotime($slotTime)));
+									$slotTime = $newTime;
+									}
+								?>
+								</tbody>
+							</table>
+						</div><!-- /.panel-body-->
+					</div><!-- /.panel-->
+				</div><!-- /.col-->
+			</div><!-- /.row -->
+			<?php endif; ?>
+
+			<?php if ($thursdayIsOpen): ?>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="panel-heading"><center>Day 4 - Thursday</center></div><br>
+							<table id="monday_table" class="table table-stripped table-hover table-bordered">
+								<?php
+									//GET number of time slots to generate
+									$totalTimeSlots = (strtotime($thursdayClosingTime) - strtotime($thursdayOpeningTime)) / 3600;
+									$slotTime = date('H:i',strtotime($thursdayOpeningTime));
+								 ?>
+								<thead>
+									<tr>
+										 <th id="Facility No" style="width:5%;"><span class="fa fa-info"></span>&nbsp Facility No</th>
+										 <?php
+										 $facilityNoHeader = '1';
+										 for ($i=0; $i < $totalNo; $i++) {
+										 ?>
+											<th style="width:5%"><?php echo "C$facilityNoHeader";?></th>
+										 <?php
+										 $facilityNoHeader++;
+										 }
+										 ?>
+									</tr>
+									<tr>
+										 <th id="Time" style="width:5%;"><span class="fa fa-clock-o"></span>&nbsp Time</th>
+										 <th colspan="<?php echo "$totalNo"; ?>" id="C1" style="width:5%;"><span class="fa fa-money"></span>&nbsp Price (RM)</th>
+									</tr>
+								</thead>
+								<tbody>
+								<?php
+									//generate rows (start time)
+									for ($i=0; $i<$totalTimeSlots; $i++) {
+								?>
+										<tr>
+											<th><?php echo $slotTime;?></th>
+											<?php for ($j=0; $j<$totalNo; $j++) { ?>
+											<td><?php echo $thursdayPrice;?></td>
+											<?php } ?>
+										</tr>
+								<?php
+									$newTime = date('H:i',strtotime('+1 hour',strtotime($slotTime)));
+									$slotTime = $newTime;
+									}
+								?>
+								</tbody>
+							</table>
+						</div><!-- /.panel-body-->
+					</div><!-- /.panel-->
+				</div><!-- /.col-->
+			</div><!-- /.row -->
+			<?php endif; ?>
+
+			<?php if ($fridayIsOpen): ?>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="panel-heading"><center>Day 5 - Friday</center></div><br>
+							<table id="monday_table" class="table table-stripped table-hover table-bordered">
+								<?php
+									//GET number of time slots to generate
+									$totalTimeSlots = (strtotime($fridayClosingTime) - strtotime($fridayOpeningTime)) / 3600;
+									$slotTime = date('H:i',strtotime($fridayOpeningTime));
+								 ?>
+								<thead>
+									<tr>
+										 <th id="Facility No" style="width:5%;"><span class="fa fa-info"></span>&nbsp Facility No</th>
+										 <?php
+										 $facilityNoHeader = '1';
+										 for ($i=0; $i < $totalNo; $i++) {
+										 ?>
+											<th style="width:5%"><?php echo "C$facilityNoHeader";?></th>
+										 <?php
+										 $facilityNoHeader++;
+										 }
+										 ?>
+									</tr>
+									<tr>
+										 <th id="Time" style="width:5%;"><span class="fa fa-clock-o"></span>&nbsp Time</th>
+										 <th colspan="<?php echo "$totalNo"; ?>" id="C1" style="width:5%;"><span class="fa fa-money"></span>&nbsp Price (RM)</th>
+									</tr>
+								</thead>
+								<tbody>
+								<?php
+									//generate rows (start time)
+									for ($i=0; $i<$totalTimeSlots; $i++) {
+								?>
+										<tr>
+											<th><?php echo $slotTime;?></th>
+											<?php for ($j=0; $j<$totalNo; $j++) { ?>
+											<td><?php echo $fridayPrice;?></td>
+											<?php } ?>
+										</tr>
+								<?php
+									$newTime = date('H:i',strtotime('+1 hour',strtotime($slotTime)));
+									$slotTime = $newTime;
+									}
+								?>
+								</tbody>
+							</table>
+						</div><!-- /.panel-body-->
+					</div><!-- /.panel-->
+				</div><!-- /.col-->
+			</div><!-- /.row -->
+			<?php endif; ?>
+
+			<?php if ($saturdayIsOpen): ?>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="panel-heading"><center>Day 6 - Saturday</center></div><br>
+							<table id="monday_table" class="table table-stripped table-hover table-bordered">
+								<?php
+									//GET number of time slots to generate
+									$totalTimeSlots = (strtotime($saturdayClosingTime) - strtotime($saturdayOpeningTime)) / 3600;
+									$slotTime = date('H:i',strtotime($saturdayOpeningTime));
+								 ?>
+								<thead>
+									<tr>
+										 <th id="Facility No" style="width:5%;"><span class="fa fa-info"></span>&nbsp Facility No</th>
+										 <?php
+										 $facilityNoHeader = '1';
+										 for ($i=0; $i < $totalNo; $i++) {
+										 ?>
+											<th style="width:5%"><?php echo "C$facilityNoHeader";?></th>
+										 <?php
+										 $facilityNoHeader++;
+										 }
+										 ?>
+									</tr>
+									<tr>
+										 <th id="Time" style="width:5%;"><span class="fa fa-clock-o"></span>&nbsp Time</th>
+										 <th colspan="<?php echo "$totalNo"; ?>" id="C1" style="width:5%;"><span class="fa fa-money"></span>&nbsp Price (RM)</th>
+									</tr>
+								</thead>
+								<tbody>
+								<?php
+									//generate rows (start time)
+									for ($i=0; $i<$totalTimeSlots; $i++) {
+								?>
+										<tr>
+											<th><?php echo $slotTime;?></th>
+											<?php for ($j=0; $j<$totalNo; $j++) { ?>
+											<td><?php echo $saturdayPrice;?></td>
+											<?php } ?>
+										</tr>
+								<?php
+									$newTime = date('H:i',strtotime('+1 hour',strtotime($slotTime)));
+									$slotTime = $newTime;
+									}
+								?>
+								</tbody>
+							</table>
+						</div><!-- /.panel-body-->
+					</div><!-- /.panel-->
+				</div><!-- /.col-->
+			</div><!-- /.row -->
+			<?php endif; ?>
+
+			<?php if ($sundayIsOpen): ?>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="panel-heading"><center>Day 7 - Sunday</center></div><br>
+							<table id="monday_table" class="table table-stripped table-hover table-bordered">
+								<?php
+									//GET number of time slots to generate
+									$totalTimeSlots = (strtotime($sundayClosingTime) - strtotime($sundayOpeningTime)) / 3600;
+									$slotTime = date('H:i',strtotime($sundayOpeningTime));
+								 ?>
+								<thead>
+									<tr>
+										 <th id="Facility No" style="width:5%;"><span class="fa fa-info"></span>&nbsp Facility No</th>
+										 <?php
+										 $facilityNoHeader = '1';
+										 for ($i=0; $i < $totalNo; $i++) {
+										 ?>
+											<th style="width:5%"><?php echo "C$facilityNoHeader";?></th>
+										 <?php
+										 $facilityNoHeader++;
+										 }
+										 ?>
+									</tr>
+									<tr>
+										 <th id="Time" style="width:5%;"><span class="fa fa-clock-o"></span>&nbsp Time</th>
+										 <th colspan="<?php echo "$totalNo"; ?>" id="C1" style="width:5%;"><span class="fa fa-money"></span>&nbsp Price (RM)</th>
+									</tr>
+								</thead>
+								<tbody>
+								<?php
+									//generate rows (start time)
+									for ($i=0; $i<$totalTimeSlots; $i++) {
+								?>
+										<tr>
+											<th><?php echo $slotTime;?></th>
+											<?php for ($j=0; $j<$totalNo; $j++) { ?>
+											<td><?php echo $sundayPrice;?></td>
+											<?php } ?>
+										</tr>
+								<?php
+									$newTime = date('H:i',strtotime('+1 hour',strtotime($slotTime)));
+									$slotTime = $newTime;
+									}
+								?>
+								</tbody>
+							</table>
+						</div><!-- /.panel-body-->
+					</div><!-- /.panel-->
+				</div><!-- /.col-->
+			</div><!-- /.row -->
+			<?php endif; ?>
+
 
 			<!--include the footer-->
 			<?php include_once('includes/footer.php'); ?>
