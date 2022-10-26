@@ -156,7 +156,7 @@
 						</a>
 						<ul
 							<?php
-							if (PAGE == "About Us" || PAGE == "Contact Us" || PAGE == "Opening Hours" || PAGE == "Gallery") {
+							if (PAGE == "About Us" || PAGE == "Contact Us" || PAGE == "Gallery") {
 								echo "class='children collapse in'";
 							}
 							else {
@@ -183,16 +183,6 @@
 										}
 									?>
 									href="business-venueManagement-contactUs.php"> <span class="fa fa-phone">&nbsp;</span> Contact Us
-								</a>
-							</li>
-							<li>
-								<a
-									<?php
-										if (PAGE == 'Opening Hours') {
-											echo "class='active'";
-										}
-									?>
-									href="business-venueManagement-openingHours.php"> <span class="fa fa-clock-o">&nbsp;</span> Opening Hours
 								</a>
 							</li>
 							<li>
