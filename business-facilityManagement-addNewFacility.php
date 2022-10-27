@@ -17,9 +17,9 @@ else {
 
 		$facilityCategoryName = $_POST['facilityCategoryName'];
 		$sqlFacilityCategoryID = mysqli_query($con,
-			"SELECT businessFacilityCategoryID, categoryName
+			"SELECT businessFacilityCategoryID
 				FROM businessFacilityCategories
-				WHERE categoryName='Badminton'
+				WHERE categoryName='$facilityCategoryName'
 			");
 		while ($row = $sqlFacilityCategoryID->fetch_assoc()){
 			$facilityCategoryID = $row['businessFacilityCategoryID'];
@@ -112,32 +112,6 @@ else {
 	  ?>
 
 		<style>
-			table {
-			  font-family: arial, sans-serif;
-			  border-collapse: collapse;
-			  width: 100%;
-			}
-			td, th {
-			  border: 1px solid #dddddd;
-				text-align: center;
-			  padding: 8px;
-			}
-			.available {
-				background-color: white;
-			}
-			td:hover.available{
-		   cursor: pointer;
-		   background-color: #30a5ff;
-		 	}
-			.booked {
-				background-color: lightgray;
-			}
-			.locked {
-				background-color: gray;
-			}
-			.selection {
-				background-color: #30a5ff;
-			}
       .panel-body input[type=checkbox]:checked + label {
         text-decoration: underline;
         color: #777;
