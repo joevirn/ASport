@@ -176,32 +176,6 @@ else {
 	  ?>
 
 		<style>
-			table {
-			  font-family: arial, sans-serif;
-			  border-collapse: collapse;
-			  width: 100%;
-			}
-			td, th {
-			  border: 1px solid #dddddd;
-				text-align: center;
-			  padding: 8px;
-			}
-			.available {
-				background-color: white;
-			}
-			td:hover.available{
-		   cursor: pointer;
-		   background-color: #30a5ff;
-		 	}
-			.booked {
-				background-color: lightgray;
-			}
-			.locked {
-				background-color: gray;
-			}
-			.selection {
-				background-color: #30a5ff;
-			}
       .panel-body input[type=checkbox]:checked + label {
         text-decoration: underline;
         color: #777;
@@ -243,6 +217,91 @@ else {
 						<div class="panel-heading">Edit Facility Information</div>
 					</div>
 				</div>
+			</div>
+
+			<div class="row">
+				<?php
+				$sql = "SELECT * FROM businessFacility WHERE businessID='$businessID' AND businessFacilityID='$businessFacilityID'";
+				$result = mysqli_query($con,$sql);
+				while ($column = $result->fetch_array()){
+					$businessFacilityID = $column['businessFacilityID'];
+					$businessFacilityCategoryID = $column['businessFacilityCategoryID'];
+				?>
+					<?php if ($businessFacilityCategoryID==1) { ?>
+						<div class="col-md-12">
+							<a href="business-facilityManagement-myFacilities2.php?businessFacilityID=<?php echo $businessFacilityID ?>">
+								<div class="panel panel-default">
+									<div class="panel-body easypiechart-panel">
+										<h3><b>Badminton</b></h4>
+										<p><img src="images/badminton.png" width="200" height="200"></p>
+									</div><!-- /.panel-body-->
+								</div><!-- /.panel-->
+							</a>
+						</div><!-- /.col-->
+					<?php } ?>
+					<?php if ($businessFacilityCategoryID==2) { ?>
+						<div class="col-md-12">
+							<a href="business-facilityManagement-myFacilities2.php?businessFacilityID=<?php echo $businessFacilityID ?>">
+								<div class="panel panel-default">
+									<div class="panel-body easypiechart-panel">
+										<h3><b>Basketball</b></h4>
+										<p><img src="images/basketball.png" width="200" height="200"></p>
+									</div><!-- /.panel-body-->
+								</div><!-- /.panel-->
+							</a>
+						</div><!-- /.col-->
+					<?php } ?>
+					<?php if ($businessFacilityCategoryID==3) { ?>
+						<div class="col-md-3">
+							<a href="business-facilityManagement-myFacilities2.php?businessFacilityID=<?php echo $businessFacilityID ?>">
+								<div class="panel panel-default">
+									<div class="panel-body easypiechart-panel">
+										<h3><b>Football</b></h4>
+										<p><img src="images/football.png" width="200" height="200"></p>
+									</div><!-- /.panel-body-->
+								</div><!-- /.panel-->
+							</a>
+						</div><!-- /.col-->
+					<?php } ?>
+					<?php if ($businessFacilityCategoryID==4) { ?>
+						<div class="col-md-12">
+							<a href="business-facilityManagement-myFacilities2.php?businessFacilityID=<?php echo $businessFacilityID ?>">
+								<div class="panel panel-default">
+									<div class="panel-body easypiechart-panel">
+										<h3><b>Futsal</b></h4>
+										<p><img src="images/futsal.png" width="200" height="200"></p>
+									</div><!-- /.panel-body-->
+								</div><!-- /.panel-->
+							</a>
+						</div><!-- /.col-->
+					<?php } ?>
+					<?php if ($businessFacilityCategoryID==5) { ?>
+						<div class="col-md-12">
+							<a href="business-facilityManagement-myFacilities2.php?businessFacilityID=<?php echo $businessFacilityID ?>">
+								<div class="panel panel-default">
+									<div class="panel-body easypiechart-panel">
+										<h3><b>Squash</b></h4>
+										<p><img src="images/squash.png" width="200" height="200"></p>
+									</div><!-- /.panel-body-->
+								</div><!-- /.panel-->
+							</a>
+						</div><!-- /.col-->
+					<?php } ?>
+					<?php if ($businessFacilityCategoryID==6) { ?>
+						<div class="col-md-12">
+							<a href="business-facilityManagement-myFacilities2.php?businessFacilityID=<?php echo $businessFacilityID ?>">
+								<div class="panel panel-default">
+									<div class="panel-body easypiechart-panel">
+										<h3><b>Tennis</b></h4>
+										<p><img src="images/tennis.png" width="200" height="200"></p>
+									</div><!-- /.panel-body-->
+								</div><!-- /.panel-->
+							</a>
+						</div><!-- /.col-->
+					<?php } ?>
+				<?php
+				}
+				?>
 			</div>
 
 			<div class="row">
