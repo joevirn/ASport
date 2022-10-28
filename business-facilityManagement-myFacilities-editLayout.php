@@ -32,7 +32,7 @@ else {
 
 	//FILE UPLOAD
 	if(isset($_POST["upload"])){
-		$targetDir = "./uploads/";
+		$targetDir = "./uploads/businessFacilityLayout/";
 		$layoutFileName = $_FILES["file"]["name"];
 		$tempName = $_FILES["file"]["tmp_name"];
 		$targetFilePath = $targetDir . $businessFacilityID . "-" .$layoutFileName;
@@ -62,7 +62,7 @@ else {
 							//store the path of source file
 							$sourceFilePath = $current_layoutFileName;
 							//Store the path of destination file
-							$destinationFilePath = './uploads/deleted/'.basename($sourceFilePath);
+							$destinationFilePath = './uploads/businessFacilityLayout/deleted/'.basename($sourceFilePath);
 							//move image file from existing folder (./uploads/) to deleted folder (./uploads/deleted)
 							if(rename($sourceFilePath, $destinationFilePath)) {
 								$statusMsg = 'Existing facility layout file has been moved to the deleted folder at '.$destinationFilePath.'';
@@ -295,7 +295,7 @@ else {
 												<tr>
 													<th id="FileName" style="width:5%;"><span class="fa fa-file"></span>&nbsp File Path Name</th>
 													<th id="Format" style="width:5%;"><span class="fa fa-file-image-o"></span>&nbsp File Format</th>
-													<th id="DateUploaded" style="width:5%;"><span class="fa fa-file-text-o"></span>&nbsp Uploaded Time Stamp</th>
+													<th id="DateUploaded" style="width:5%;"><span class="fa fa-upload"></span>&nbsp Uploaded On</th>
 												</tr>
 											</thead>
 											<tbody>
