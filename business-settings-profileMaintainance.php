@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 //start the session
 session_start();
 error_reporting(0);
@@ -24,19 +24,22 @@ if(isset($_POST['submit'])) {
 		SET
 			businessName = '$businessName',
 			businessEmail = '$businessEmail',
-			businessPhoneNumber = '$businessPhoneNumber'
+			businessPhoneNumber = '$businessPhoneNumber',
+			businessLastUpdateDate = now()
 		WHERE
 			businessID = '$businessID'
 	");
 
 	if ($query) {
 		$msg = "Business profile has been updated!";
+		echo "<script>alert('$msg');</script>";
 	}
 	else {
 		$msg = "Something Went Wrong. Please try again.";
+		echo "<script>alert('$msg');</script>";
 	}
 }
-?> -->
+?>
 
 	<!DOCTYPE html>
 	<!--start of html-->
@@ -81,17 +84,16 @@ if(isset($_POST['submit'])) {
 	    </div>
 
 			<div class="row">
-				<div class="col-lg-12">
+				<div class="col-md-8">
 					<div class="panel panel-default">
-						<div class="panel-body">
-							<p style="font-size:16px; color:red" align="center">
-	              <?php if($msg){ echo $msg;} ?>
-	            </p>
+						<div class="panel-body"><br>
 							<div class="col-md-2"></div>
 	            <div class="col-md-8">
 	  					  <?php
 	              $ret = mysqli_query($con,"SELECT * FROM business WHERE businessID='$businessID'");
 	              while ($row = mysqli_fetch_array($ret)) {
+									$businessRegistrationDate = $row['businessRegistrationDate'];
+									$businessLastUpdateDate = $row['businessLastUpdateDate'];
 	              ?>
 	  							<form role="form" method="post" action="">
 	  								<div class="form-group">
@@ -106,10 +108,6 @@ if(isset($_POST['submit'])) {
 	  									<label><span class="fa fa-phone"></span>&nbsp Phone Number</label>
 	  									<input class="form-control" type="text" name="businessPhoneNumber" value="<?php  echo $row['businessPhoneNumber'];?>" required="true" maxlength="10">
 	  								</div>
-	  								<div class="form-group">
-	  									<label><span class="fa fa-calendar"></span>&nbsp Registration Date</label>
-	  									<input class="form-control" type="text"  name="businessRegistrationDate" value="<?php  echo $row['businessRegistrationDate'];?>" readonly="true">
-	  								</div>
 	                  <br>
 	                  <div align="center" class="form-group has-success">
 	                    <button type="submit" class="btn btn-primary" name="submit" style="width: 50%;">UPDATE</button>
@@ -121,7 +119,22 @@ if(isset($_POST['submit'])) {
 						</div>
 					</div><!-- /.panel-->
 				</div><!-- /.col-->
+				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-body easypiechart-panel">
+							<br><h4><b><span class="fa fa-pencil"></span>&nbsp Last Update Date:</b><br><br><?php echo $businessLastUpdateDate; ?></h4><br>
+						</div><!-- /.panel-body-->
+					</div><!-- /.panel-->
+				</div><!-- /.col-->
+				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-body easypiechart-panel">
+							<br><h4><b><span class="fa fa-file-o"></span>&nbsp Registration Date:</b><br><br><?php echo $businessRegistrationDate; ?></h4><br>
+						</div><!-- /.panel-body-->
+					</div><!-- /.panel-->
+				</div><!-- /.col-->
 			</div><!-- /.row -->
+			
 	    <?php include_once('includes/footer.php');?>
 		</div><!--/.main-->
 
