@@ -15,16 +15,30 @@ if(isset($_POST['submit'])) {
       $msg = "This email is already associated with another account.";
     }
     else{
-	  //insert new business
-      $query = mysqli_query($con, "INSERT INTO business(businessName, businessEmail, businessPassword,  businessPhoneNumber) value('$name', '$email', '$password', '$phoneNumber' )");
+	     //insert new business
+      $query = mysqli_query($con, "INSERT INTO business(businessName, businessEmail, businessPassword,  businessPhoneNumber) value('$name', '$email', '$password', '$phoneNumber')");
       if ($query) {
     		$msg = "You have successfully registered!";
+        echo "<script>alert('$msg');</script>";
     		$sqlGetbusinessId = mysqli_query($con, "SELECT businessID AS id FROM business WHERE businessEmail='$email'");
     		$business = mysqli_fetch_assoc($sqlGetbusinessId);
     		$businessID = $business['id'];
+
+        $queryAddVenueManagement = mysqli_query($con, "INSERT INTO businessVenueManagement(businessID, businessPhoneNumber,  businessEmail, timeStampLastEditContactUs) value('$businessID', '$phoneNumber', '$email', now())");
+        if ($queryAddVenueManagement) {
+          $msg = "Business Phone Number and Email have been copied to the Contact Us page!";
+          echo "<script>alert('$msg');</script>";
+        }
+        else {
+          $msg = "Error copying business phone number and email to the Contact Us page!";
+          echo "<script>alert('$msg');</script>";
+        }
+
+        echo "<script>window.location.href='business-login.php'</script>";
       }
       else {
         $msg="Something Went Wrong! Please try again";
+        echo "<script>alert('$msg');</script>";
       }
     }
 }
@@ -61,9 +75,6 @@ if(isset($_POST['submit'])) {
 				<div class="panel-heading" style="text-align: center;">Register</div>
 				<div class="panel-body">
 					<form role="form" action="" method="post" id="" name="register" onsubmit="return checkpass();">
-						<p style="font-size:16px; color:red" align="center"> <?php if($msg){
-              echo $msg;
-            }  ?> </p>
 						<fieldset>
 							<div class="form-group">
 								<input type="text" class="form-control" name="businessName" placeholder="Business Name" required="true">
