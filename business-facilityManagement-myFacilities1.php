@@ -27,39 +27,6 @@ else {
 		<?php
 	  include('includes/business-head-styles.php');
 	  ?>
-
-		<style>
-			table {
-			  font-family: arial, sans-serif;
-			  border-collapse: collapse;
-			  width: 100%;
-			}
-			td, th {
-			  border: 1px solid #dddddd;
-				text-align: center;
-			  padding: 8px;
-			}
-			.available {
-				background-color: white;
-			}
-			td:hover.available{
-		   cursor: pointer;
-		   background-color: #30a5ff;
-		 	}
-			.booked {
-				background-color: lightgray;
-			}
-			.locked {
-				background-color: gray;
-			}
-			.selection {
-				background-color: #30a5ff;
-			}
-      .panel-body input[type=checkbox]:checked + label {
-        text-decoration: underline;
-        color: #777;
-      }
-		</style>
 	</head>
 	<!--end of head-->
 
