@@ -70,7 +70,7 @@
 						</a>
 						<ul
 							<?php
-							if (PAGE == "Upcoming" || PAGE == "Past") {
+							if (PAGE == "New" || PAGE == "Upcoming" || PAGE == "Past") {
 								echo "class='children collapse in'";
 							}
 							else {
@@ -86,7 +86,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="business-bookingsManagement-new.php"><span class="fa fa-calendar-plus-o">&nbsp;</span> New
+									href="business-bookingsManagement-new1.php"><span class="fa fa-calendar-plus-o">&nbsp;</span> New
 								</a>
 							</li>
 							<li>
@@ -156,7 +156,7 @@
 						</a>
 						<ul
 							<?php
-							if (PAGE == "About Us" || PAGE == "Contact Us" || PAGE == "Gallery") {
+							if (PAGE == "About Us" || PAGE == "Contact Us" || PAGE == "Location"|| PAGE == "Gallery") {
 								echo "class='children collapse in'";
 							}
 							else {
@@ -183,6 +183,16 @@
 										}
 									?>
 									href="business-venueManagement-contactUs.php"> <span class="fa fa-phone">&nbsp;</span> Contact Us
+								</a>
+							</li>
+							<li>
+								<a
+									<?php
+										if (PAGE == 'Location') {
+											echo "class='active'";
+										}
+									?>
+									href="business-venueManagement-location.php"> <span class="fa fa-map">&nbsp;</span> Location
 								</a>
 							</li>
 							<li>

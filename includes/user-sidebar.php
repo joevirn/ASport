@@ -61,7 +61,7 @@
 							}
 						?>
 					>
-						<a href="user-bookings-new.php"><em class="fa fa-calendar-plus-o">&nbsp;</em> New Booking</a>
+						<a href="user-bookings-new1.php"><em class="fa fa-calendar-plus-o">&nbsp;</em> New Booking</a>
 					</li>
 
 					<li class="parent ">
