@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 //start the session
 session_start();
 error_reporting(0);
@@ -6,10 +6,19 @@ error_reporting(0);
 include('includes/dbconnection.php');
 
 //if the user id in the session is being cleared, log out the user
-if (strlen($_SESSION['detsuid'] == 0)) {
+if (strlen($_SESSION['ASportUserSessionCounter'] == 0)) {
 	header('location:user-logout.php');
-} else {
-?> -->
+}
+else {
+
+	$userID = $_SESSION['ASportUserSessionCounter'];
+
+	$sql = "SELECT * FROM userBookings WHERE userID=$userID AND bookingDate >= CURDATE()";
+	$result = mysqli_query($con,$sql);
+	while ($row = $result->fetch_assoc()){
+		$count++;
+	}
+?>
 
 	<!DOCTYPE html>
 	<!--start of html-->
@@ -25,6 +34,9 @@ if (strlen($_SESSION['detsuid'] == 0)) {
 		<?php
 	  include('includes/user-head-styles.php');
 	  ?>
+		<!-- for data tables -->
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/datatables.min.css"/>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.12.1/datatables.min.js"></script>
 	</head>
 	<!--end of head-->
 
@@ -68,7 +80,6 @@ if (strlen($_SESSION['detsuid'] == 0)) {
 	        <div class="panel panel-default">
 	          <div class="panel-body easypiechart-panel">
 	            <h3><b>Upcoming Bookings</b></h3>
-	            <h3><b><font color="blue"><?php echo "$header" ?></font></b></h3>
 	            <div class="easypiechart" id="easypiechart-blue" data-percent="100" >
 	              <span class="percent">
 	                <?php echo "$count" ?>
@@ -76,37 +87,45 @@ if (strlen($_SESSION['detsuid'] == 0)) {
 	            </div>
 	            <br>
 	            <div class="col-md-12">
-	              <table id="editable_table" class="table table-bordered table-striped">
-	                <h4 align="left"><font color="#30a5ff"><span class="fa fa-search"></span></font>&nbsp &nbsp<tt><input id="myInput" type="text" placeholder="Search.."></tt></h4>
+	              <table class="table table-bordered table-striped">
 	                <thead>
 	                  <tr>
-											<th width="10%">&nbsp <span class="fa fa-id-card-o"></span>&nbsp Booking ID</th>
-	                    <th width="10%">&nbsp <span class="fa fa-calendar"></span>&nbsp Date</th>
-											<th width="10%">&nbsp <span class="fa fa-clock-o"></span>&nbsp Start Time</th>
-											<th width="10%">&nbsp <span class="fa fa-clock-o"></span>&nbsp End Time</th>
-											<th width="10%">&nbsp <span class="fa fa-list"></span>&nbsp Duration (Hours)</th>
-											<th width="10%">&nbsp <span class="fa fa-location-arrow"></span>&nbsp Venue</th>
-	                    <th width="10%">&nbsp <span class="fa fa-th-large"></span>&nbsp Category</th>
-											<th width="10%">&nbsp <span class="fa fa-info-circle"></span>&nbsp Facility No</th>
-											<th width="10%">&nbsp <span class="fa fa-money"></span>&nbsp Price (RM)</th>
+	                    <th style="text-align: center"><span class="fa fa-calendar"></span><br>Date</th>
+											<th style="text-align: center"><span class="fa fa-clock-o"></span><br>Start Time</th>
+											<th style="text-align: center"><span class="fa fa-clock-o"></span><br>End Time</th>
+											<th style="text-align: center"><span class="fa fa-list"></span><br>Duration (Hours)</th>
+											<th style="text-align: center"><span class="fa fa-location-arrow"></span><br>Venue</th>
+	                    <th style="text-align: center"><span class="fa fa-th-large"></span><br>Category</th>
+											<th style="text-align: center"><span class="fa fa-info-circle"></span><br>Facility No</th>
+											<th style="text-align: center"><span class="fa fa-money"></span><br>Price (RM)</th>
+											<th style="text-align: center"><span class="fa fa-id-card-o"></span><br>Booking ID</th>
+											<th style="text-align: center"><span class="fa fa-eye"></span><br>ACTION</th>
 	                  </tr>
 	                </thead>
-	                <tbody id="myTable">
+	                <tbody>
 	                  <?php
-	                  foreach ($filter as $row) {
+										$sql = "SELECT * FROM userBookings WHERE userID=$userID AND bookingDate >= CURDATE()";
+										$result = mysqli_query($con,$sql);
+										while ($row = $result->fetch_assoc()){
 	                  ?>
 	                    <tr>
-						            <td><?php echo $row['bookingID'];?></td>
-	                      <td><?php echo $row[''];?></td>
-	                      <td><?php echo $row[''];?></td>
-	                      <td><?php echo $row[''];?></td>
-	                      <td><?php echo $row[''];?></td>
+	                      <td><b><?php echo $row['bookingDate'];?></b></td>
+	                      <td><?php echo $row['bookingStartTime'];?></td>
+	                      <td><?php echo $row['bookingEndTime'];?></td>
+	                      <td><?php echo $row['bookingDuration'];?></td>
+												<td><?php echo $row['bookingVenue'];?></td>
+												<td><?php echo $row['bookingCategory'];?></td>
+												<td><?php echo $row['bookingFacilityNo'];?></td>
+												<td><?php echo $row['bookingPrice'];?></td>
+						            <td><?php echo $row['userBookingID'];?></td>
+												<td><a target="_blank" href="user-bookings-receipt.php?userBookingID=<?php echo $row['userBookingID'];?>">View</a></td>
 	                    </tr>
 	                  <?php
 	                  }
 	                  ?>
 	                </tbody>
 	              </table>
+								<br>
 	            </div>
 	          </div><!-- /.panel-body-->
 	        </div><!-- /.panel-->
@@ -119,16 +138,19 @@ if (strlen($_SESSION['detsuid'] == 0)) {
 		</div>
 		<!--end of division class 1-->
 
+		<script type="text/javascript">
+			$(document).ready( function () {
+				$('table').DataTable({
+					order: [[0, 'desc'],[1, 'desc']],
+				});
+			});
+		</script>
+
 		<!--javascript source-->
-		<script src="js/jquery-1.11.1.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
-		<script src="js/chart.min.js"></script>
-		<script src="js/chart-data.js"></script>
 		<script src="js/easypiechart.js"></script>
 		<script src="js/easypiechart-data.js"></script>
-		<script src="js/bootstrap-datepicker.js"></script>
 		<script src="js/custom.js"></script>
-		<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 	</body>
 	<!--end of body-->
