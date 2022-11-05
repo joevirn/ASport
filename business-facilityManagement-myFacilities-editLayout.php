@@ -314,7 +314,7 @@ else {
 											</div>
 										</form>
 									<?php else: ?>
-										<center><img src="images/business/icon-noImageAvailable.png" width="50%" height="50%"></center>
+										<center><img src="images/icon-noImageAvailable.png" width="50%" height="50%"></center>
 									<?php endif; ?>
 									<br><br>
 								<div class="col-md-1"></div>

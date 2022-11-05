@@ -339,7 +339,7 @@ else {
 							<?php if ($layoutFileName): ?>
 								<p><img src="<?php echo $layoutFileName;?>" width="80%" height="80%" style="border: 1px solid"></p><br>
 							<?php else: ?>
-								<center><img src="images/business/icon-noImageAvailable.png" width="50%" height="50%"></center><br><br>
+								<center><img src="images/icon-noImageAvailable.png" width="50%" height="50%"></center><br><br>
 							<?php endif; ?>
 						</div><!-- /.panel-body-->
 					</div><!-- /.panel-->

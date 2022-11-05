@@ -7,7 +7,7 @@
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
         <div class="profile-sidebar">
             <div class="profile-userpic">
-                <img src="images/business/defaultAvatar.png" class="img-responsive">
+                <img src="images/businessAvatar.png" class="img-responsive">
             </div>
             <div class="profile-usertitle">
               <?php
