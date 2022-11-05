@@ -106,7 +106,7 @@
 											echo "class='active'";
 										}
 									?>
-									href="business-bookingManagement-past.php"><span class="fa fa-calendar-check-o">&nbsp;</span> Past
+									href="business-bookingsManagement-past.php"><span class="fa fa-calendar-check-o">&nbsp;</span> Past
 								</a>
 							</li>
 						</ul>
