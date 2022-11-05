@@ -21,57 +21,77 @@ else {
 		$businessFacilityID = $_POST['businessFacilityID'];
 		$bookingDate = $_POST['bookingDate'];
 		$bookingCategory = $_POST['bookingCategory'];
+		$bookingVenue = $_POST['bookingVenue'];
+		$slotPrice = $_POST['slotPrice'];
 
+		$bookingPrice = $slotPrice * $bookingDuration;
 		$bookingEndTime = date('H:i',strtotime($bookingStartTime.'+'.$bookingDuration.' hours'));
-	}
 
-	$sql = "SELECT * FROM businessFacility WHERE businessFacilityID='$businessFacilityID'";
-	$result = mysqli_query($con,$sql);
-	while ($data = $result->fetch_assoc()){
-		$businessFacilityID = $data['businessFacilityID'];
-		$businessFacilityCategoryID = $data['businessFacilityCategoryID'];
+		$sql = "SELECT * FROM businessFacility WHERE businessFacilityID='$businessFacilityID'";
+		$result = mysqli_query($con,$sql);
+		while ($data = $result->fetch_assoc()){
+			$businessFacilityID = $data['businessFacilityID'];
+			$businessFacilityCategoryID = $data['businessFacilityCategoryID'];
 
-		$totalNo = $data['totalNo'];
+			$totalNo = $data['totalNo'];
 
-		$mondayIsOpen = $data['mondayIsOpen'];
-		$mondayOpeningTime = date('H:i',strtotime($data['mondayOpeningTime']));
-		$mondayClosingTime = date('H:i',strtotime($data['mondayClosingTime']));
-		$mondayPrice = $data['mondayPrice'];
+			$mondayIsOpen = $data['mondayIsOpen'];
+			$mondayOpeningTime = date('H:i',strtotime($data['mondayOpeningTime']));
+			$mondayClosingTime = date('H:i',strtotime($data['mondayClosingTime']));
+			$mondayPrice = $data['mondayPrice'];
 
-		$tuesdayIsOpen = $data['tuesdayIsOpen'];
-		$tuesdayOpeningTime = date('H:i',strtotime($data['tuesdayOpeningTime']));
-		$tuesdayClosingTime = date('H:i',strtotime($data['tuesdayClosingTime']));
-		$tuesdayPrice = $data['tuesdayPrice'];
+			$tuesdayIsOpen = $data['tuesdayIsOpen'];
+			$tuesdayOpeningTime = date('H:i',strtotime($data['tuesdayOpeningTime']));
+			$tuesdayClosingTime = date('H:i',strtotime($data['tuesdayClosingTime']));
+			$tuesdayPrice = $data['tuesdayPrice'];
 
-		$wednesdayIsOpen = $data['wednesdayIsOpen'];
-		$wednesdayOpeningTime = date('H:i',strtotime($data['wednesdayOpeningTime']));
-		$wednesdayClosingTime = date('H:i',strtotime($data['wednesdayClosingTime']));
-		$wednesdayPrice = $data['wednesdayPrice'];
+			$wednesdayIsOpen = $data['wednesdayIsOpen'];
+			$wednesdayOpeningTime = date('H:i',strtotime($data['wednesdayOpeningTime']));
+			$wednesdayClosingTime = date('H:i',strtotime($data['wednesdayClosingTime']));
+			$wednesdayPrice = $data['wednesdayPrice'];
 
-		$thursdayIsOpen = $data['thursdayIsOpen'];
-		$thursdayOpeningTime = date('H:i',strtotime($data['thursdayOpeningTime']));
-		$thursdayClosingTime = date('H:i',strtotime($data['thursdayClosingTime']));
-		$thursdayPrice = $data['thursdayPrice'];
+			$thursdayIsOpen = $data['thursdayIsOpen'];
+			$thursdayOpeningTime = date('H:i',strtotime($data['thursdayOpeningTime']));
+			$thursdayClosingTime = date('H:i',strtotime($data['thursdayClosingTime']));
+			$thursdayPrice = $data['thursdayPrice'];
 
-		$fridayIsOpen = $data['fridayIsOpen'];
-		$fridayOpeningTime = date('H:i',strtotime($data['fridayOpeningTime']));
-		$fridayClosingTime = date('H:i',strtotime($data['fridayClosingTime']));
-		$fridayPrice = $data['fridayPrice'];
+			$fridayIsOpen = $data['fridayIsOpen'];
+			$fridayOpeningTime = date('H:i',strtotime($data['fridayOpeningTime']));
+			$fridayClosingTime = date('H:i',strtotime($data['fridayClosingTime']));
+			$fridayPrice = $data['fridayPrice'];
 
-		$saturdayIsOpen = $data['saturdayIsOpen'];
-		$saturdayOpeningTime = date('H:i',strtotime($data['saturdayOpeningTime']));
-		$saturdayClosingTime = date('H:i',strtotime($data['saturdayClosingTime']));
-		$saturdayPrice = $data['saturdayPrice'];
+			$saturdayIsOpen = $data['saturdayIsOpen'];
+			$saturdayOpeningTime = date('H:i',strtotime($data['saturdayOpeningTime']));
+			$saturdayClosingTime = date('H:i',strtotime($data['saturdayClosingTime']));
+			$saturdayPrice = $data['saturdayPrice'];
 
-		$sundayIsOpen = $data['sundayIsOpen'];
-		$sundayOpeningTime = date('H:i',strtotime($data['sundayOpeningTime']));
-		$sundayClosingTime = date('H:i',strtotime($data['sundayClosingTime']));
-		$sundayPrice = $data['sundayPrice'];
+			$sundayIsOpen = $data['sundayIsOpen'];
+			$sundayOpeningTime = date('H:i',strtotime($data['sundayOpeningTime']));
+			$sundayClosingTime = date('H:i',strtotime($data['sundayClosingTime']));
+			$sundayPrice = $data['sundayPrice'];
 
-		$timeStampAdded = $data['timeStampAdded'];
-		$timeStampEdited = $data['timeStampEdited'];
+			$timeStampAdded = $data['timeStampAdded'];
+			$timeStampEdited = $data['timeStampEdited'];
 
-		$layoutFileName = $data['layoutFileName'];
+			$layoutFileName = $data['layoutFileName'];
+		}
+
+		$sql =
+		"SELECT businessFacility.businessID, business.businessName, businessVenueManagement.locationCity, businessVenueManagement.locationState
+		FROM businessFacility, business, businessVenueManagement
+		WHERE businessFacility.businessFacilityID = $businessFacilityID AND businessFacility.businessID=business.businessID AND businessVenueManagement.businessID=business.businessID
+		";
+		$result = mysqli_query($con,$sql);
+		while ($column = $result->fetch_assoc()){
+			$businessID = $column['businessID'];
+			$businessName = $column['businessName'];
+			$locationCity = $column['locationCity'];
+			$locationState = $column['locationState'];
+
+			$str = $businessName;
+			$new_str = str_replace(' ', '', $str);
+			$imageFilePath = "images/facilities-".$new_str.".png";
+		}
 	}
 ?>
 
@@ -127,6 +147,7 @@ else {
 				</div>
 			</div>
 
+			<form method="post" action="user-bookings-new5.php">
 			<div class="row">
 				<div class="col-md-7">
 					<div class="panel panel-default">
@@ -136,44 +157,39 @@ else {
 								<div class="col-md-10">
 									<div class="form-group">
 										<label><span class="fa fa-calendar"></span>&nbsp Date</label>
-										<p class="form-control" type="text" name="bookingDate"><?php echo $bookingDate ?></p>
+										<input class="form-control" type="text" name="bookingDate" value="<?php echo $bookingDate ?>" readonly>
 									</div>
 									<div class="form-group">
 										<label><span class="fa fa-clock-o"></span>&nbsp Start Time</label>
-										<p class="form-control" type="text" name="bookingStartTime"><?php echo $bookingStartTime ?></p>
+										<input class="form-control" type="text" name="bookingStartTime" value="<?php echo $bookingStartTime ?>" readonly>
 									</div>
 									<div class="form-group">
 										<label><span class="fa fa-clock-o"></span>&nbsp End Time</label>
-										<p class="form-control" type="text" name="bookingEndTime"><?php echo $bookingEndTime ?></p>
+										<input class="form-control" type="text" name="bookingEndTime" value="<?php echo $bookingEndTime ?>" readonly>
 									</div>
 									<div class="form-group">
-										<label><span class="fa fa-list"></span>&nbsp Duration (hours)</label>
-										<p class="form-control" type="text" name="bookingDuration"><?php echo $bookingDuration ?></p>
+										<label><span class="fa fa-list"></span>&nbsp Duration (hour)</label>
+										<input class="form-control" type="text" name="bookingDuration" value="<?php echo $bookingDuration ?>" readonly>
 									</div>
 									<div class="form-group">
 										<label><span class="fa fa-location-arrow"></span>&nbsp Venue</label>
-										<p class="form-control" type="text" name="bookingVenue"><?php echo $bookingVenue ?></p>
+										<input class="form-control" type="text" name="bookingVenue" value="<?php echo $bookingVenue ?>" readonly>
 									</div>
 									<div class="form-group">
 										<label><span class="fa fa-th-large"></span>&nbsp Category</label>
-										<p class="form-control" type="text" name="bookingCategory"><?php echo $bookingCategory ?></p>
+										<input class="form-control" type="text" name="bookingCategory" value="<?php echo $bookingCategory ?>" readonly>
 									</div>
 									<div class="form-group">
-										<label><span class="fa fa-info-circle"></span>&nbsp Facility No</label>
-										<p class="form-control" type="text" name="bookingFacilityNo"><?php echo $bookingFacilityNo ?></p>
+										<label><span class="fa fa-info-circle"></span>&nbsp Facility No (Court No)</label>
+										<input class="form-control" type="text" name="bookingFacilityNo" value="<?php echo $bookingFacilityNo ?>" readonly>
 									</div>
 									<div class="form-group">
 										<label><span class="fa fa-money"></span>&nbsp Price (RM)</label>
-										<p class="form-control" type="text" name="bookingPrice"><?php echo $bookingPrice ?></p>
+										<input class="form-control" type="text" name="bookingPrice" value="<?php echo $bookingPrice ?>" readonly>
 									</div>
-									<?php
-										if($msg){
-											echo "<p style='color:red;'>";
-											echo $msg;
-											echo "</p>";
-										}
-									?>
 	                <br>
+									<input type="hidden" name="bookingLoyaltyPoints" value="<?php echo $bookingPrice ?>">
+									<input type="hidden" name="businessFacilityID" value="<?php echo $businessFacilityID ?>">
 	                <div align="center" class="form-group has-success">
 	                  <button type="submit" class="btn btn-primary" name="submit" style="width: 50%;">PROCEED TO PAYMENT</button>
 	                </div>
@@ -182,6 +198,7 @@ else {
 						</div><!-- /.panel-body-->
 					</div><!-- /.panel-->
 				</div><!-- /.col-->
+				</form>
 
 				<div class="col-md-5">
 					<div class="panel panel-default">
@@ -192,11 +209,11 @@ else {
 									<tr>
 										<td style="border:none; text-align:right;" width="55%"><img src="images/<?php echo $bookingCategory ?>.png" width="200" height="200"></td>
 										<td style="border:none; text-align:left;" width="45%">
-											<h4><b><?php echo $bookingCategory ?></b></h4>
-											<h4><b>Court <?php echo $bookingFacilityNo ?></b></h4>
+											<h4><b>&nbsp &nbsp <?php echo $bookingCategory ?></b></h4>
+											<h4><b>&nbsp &nbsp Court <?php echo $bookingFacilityNo ?></b></h4>
 										</td>
 									</tr>
-								</table>
+								</table><br>
 							</center>
 						</div>
 					</div>
@@ -215,40 +232,19 @@ else {
 					</div><!-- /.panel-->
 				</div><!-- /.col-->
 
-				<?php
-					$sql =
-					"SELECT businessFacility.businessID, business.businessName, businessVenueManagement.locationCity, businessVenueManagement.locationState
-					FROM businessFacility, business, businessVenueManagement
-					WHERE businessFacility.businessFacilityID = $businessFacilityID AND businessFacility.businessID=business.businessID AND businessVenueManagement.businessID=business.businessID
-					";
-					$result = mysqli_query($con,$sql);
-					while ($column = $result->fetch_assoc()){
-						$businessID = $column['businessID'];
-						$businessName = $column['businessName'];
-						$locationCity = $column['locationCity'];
-						$locationState = $column['locationState'];
-
-						$str = $businessName;
-						$new_str = str_replace(' ', '', $str);
-						$imageFilePath = "images/facilities-".$new_str.".png";
-				 ?>
-				 <div class="col-md-5">
-					 <div class="panel panel-default">
-						 <div class="panel-body easypiechart-panel">
-							 <h3><b>Venue Information</b></h3>
-							 <p><img src="<?php echo $imageFilePath ?>" width="100%" height="250"></p>
-							 <h3><b><?php echo $businessName ?></b></h3>
-							 <h5><b><?php echo "$locationCity, $locationState"; ?></b></h5>
-							 <p>
-								 <a href="" class="btn btn-default" style="width: 45%;">Complex Details</a>
-							 </p>
-						 </div>
+			 <div class="col-md-5">
+				 <div class="panel panel-default">
+					 <div class="panel-body easypiechart-panel">
+						 <h3><b>Venue Information</b></h3>
+						 <p><img src="<?php echo $imageFilePath ?>" width="100%" height="250"></p>
+						 <h3><b><?php echo $businessName ?></b></h3>
+						 <h5><b><?php echo "$locationCity, $locationState"; ?></b></h5>
+						 <p>
+							 <a href="" class="btn btn-default" style="width: 45%;">Complex Details</a>
+						 </p>
 					 </div>
 				 </div>
-
-				 <?php
-					}
-					?>
+			 </div>
 
 			</div><!-- /.row-->
 

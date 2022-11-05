@@ -82,6 +82,23 @@ else {
 	else if ($businessFacilityCategoryID==6) {
 		$bookingCategory = "Tennis";
 	}
+
+	$sql =
+	"SELECT businessFacility.businessID, business.businessName, businessVenueManagement.locationCity, businessVenueManagement.locationState
+	FROM businessFacility, business, businessVenueManagement
+	WHERE businessFacility.businessFacilityID = $businessFacilityID AND businessFacility.businessID=business.businessID AND businessVenueManagement.businessID=business.businessID
+	";
+	$result = mysqli_query($con,$sql);
+	while ($column = $result->fetch_assoc()){
+		$businessID = $column['businessID'];
+		$businessName = $column['businessName'];
+		$locationCity = $column['locationCity'];
+		$locationState = $column['locationState'];
+
+		$str = $businessName;
+		$new_str = str_replace(' ', '', $str);
+		$imageFilePath = "images/facilities-".$new_str.".png";
+	}
 ?>
 
 	<!DOCTYPE html>
@@ -307,6 +324,8 @@ else {
 									<input type="hidden" name="businessFacilityID" value="<?php echo $businessFacilityID ?>">
 									<input type="hidden" name="bookingDate" value="<?php echo $bookingDateForAvailabilityCheck ?>">
 									<input type="hidden" name="bookingCategory" value="<?php echo $bookingCategory ?>">
+									<input type="hidden" name="bookingVenue" value="<?php echo $businessName ?>">
+									<input type="hidden" name="slotPrice" value="<?php echo $slotPrice ?>">
 
 									<div align="center" class="form-group has-success">
 										<button type="submit" class="btn btn-primary" name="next" style="width: 50%;">NEXT</button>
@@ -487,40 +506,19 @@ else {
 					</div><!-- /.panel-->
 				</div><!-- /.col-->
 
-				<?php
-					$sql =
-					"SELECT businessFacility.businessID, business.businessName, businessVenueManagement.locationCity, businessVenueManagement.locationState
-					FROM businessFacility, business, businessVenueManagement
-					WHERE businessFacility.businessFacilityID = $businessFacilityID AND businessFacility.businessID=business.businessID AND businessVenueManagement.businessID=business.businessID
-					";
-					$result = mysqli_query($con,$sql);
-					while ($column = $result->fetch_assoc()){
-						$businessID = $column['businessID'];
-						$businessName = $column['businessName'];
-						$locationCity = $column['locationCity'];
-						$locationState = $column['locationState'];
-
-						$str = $businessName;
-						$new_str = str_replace(' ', '', $str);
-						$imageFilePath = "images/facilities-".$new_str.".png";
-				 ?>
-				 <div class="col-md-5">
-					 <div class="panel panel-default">
-						 <div class="panel-body easypiechart-panel">
-							 <h3><b>Venue Information</b></h3>
-							 <p><img src="<?php echo $imageFilePath ?>" width="100%" height="250"></p>
-							 <h3><b><?php echo $businessName ?></b></h3>
-							 <h5><b><?php echo "$locationCity, $locationState"; ?></b></h5>
-							 <p>
-								 <a href="" class="btn btn-default" style="width: 45%;">Complex Details</a>
-							 </p>
-						 </div>
+			 <div class="col-md-5">
+				 <div class="panel panel-default">
+					 <div class="panel-body easypiechart-panel">
+						 <h3><b>Venue Information</b></h3>
+						 <p><img src="<?php echo $imageFilePath ?>" width="100%" height="250"></p>
+						 <h3><b><?php echo $businessName ?></b></h3>
+						 <h5><b><?php echo "$locationCity, $locationState"; ?></b></h5>
+						 <p>
+							 <a href="" class="btn btn-default" style="width: 45%;">Complex Details</a>
+						 </p>
 					 </div>
 				 </div>
-
-				 <?php
-			 		}
-			  	?>
+			 </div>
 
 				<div class="col-md-5">
 					<div class="panel panel-default">
