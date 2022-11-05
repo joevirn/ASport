@@ -114,7 +114,7 @@ else {
 										while ($row = $result->fetch_assoc()){
 	                  ?>
 	                    <tr>
-	                      <th><?php echo $row['bookingDate'];?></th>
+	                      <td><b><?php echo $row['bookingDate'];?></b></td>
 	                      <td><?php echo $row['bookingStartTime'];?></td>
 	                      <td><?php echo $row['bookingEndTime'];?></td>
 	                      <td><?php echo $row['bookingDuration'];?></td>
