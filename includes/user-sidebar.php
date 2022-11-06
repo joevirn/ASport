@@ -46,16 +46,6 @@
 
 					<li
 						<?php
-							if (PAGE == 'My Favourite Venues') {
-								echo "class='active'";
-							}
-						?>
-					>
-						<a href="user-myFavouriteVenues.php"><em class="fa fa-star">&nbsp;</em> My Favourite Venues</a>
-					</li>
-
-					<li
-						<?php
 							if (PAGE == 'New Booking') {
 								echo "class='active'";
 							}
