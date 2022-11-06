@@ -109,6 +109,7 @@ else {
 									$userRegistrationDate = $row['userRegistrationDate'];
 									$userLastPasswordChangeDate = $row['userLastPasswordChangeDate'];
 	              ?>
+								<br>
 								<form role="form" method="post" action="" name="changePassword" onsubmit="return checkpass();">
 									<div class="form-group">
 										<label><span class="fa fa-key"></span>&nbsp Current Password</label>

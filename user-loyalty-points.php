@@ -144,7 +144,7 @@ else {
 	      <div class="col-md-12">
 	        <div class="panel panel-default">
 	          <div class="panel-body easypiechart-panel"><br>
-	            <h3><b><span class="fa fa-history"></span>&nbsp Transaction History</b></h3>
+	            <h3><b><span class="fa fa-history"></span><br>Transaction History</b></h3>
 	            <br>
 	            <div class="col-md-12">
 	              <table class="table table-bordered table-striped" id="transactionHistory">

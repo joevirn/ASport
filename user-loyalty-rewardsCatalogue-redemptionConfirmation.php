@@ -226,7 +226,7 @@ else {
 				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
-							<h3><b><span class="fa fa-info"></span><br>Voucher Terms and Conditions</b></h3>
+							<h3><b><span class="fa fa-info-circle"></span><br>Voucher Terms and Conditions</b></h3>
 							<br>
 
 							<div class="col-md-1"></div>

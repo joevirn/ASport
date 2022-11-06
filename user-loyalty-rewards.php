@@ -73,7 +73,7 @@ else {
 	      <div class="col-md-12">
 	        <div class="panel panel-default">
 	          <div class="panel-body easypiechart-panel"><br>
-	            <h3><b><span class="fa fa-plus"></span>&nbsp Vouchers Available</b></h3>
+	            <h3><b><span class="fa fa-plus"></span><br>Vouchers Available</b></h3>
 	            <br>
 							<div class="col-md-1"></div>
 	            <div class="col-md-10">
@@ -113,7 +113,7 @@ else {
 				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel"><br>
-							<h3><b><span class="fa fa-minus"></span>&nbsp Vouchers Used</b></h3>
+							<h3><b><span class="fa fa-minus"></span><br>Vouchers Used</b></h3>
 							<br>
 							<div class="col-md-1"></div>
 							<div class="col-md-10">
@@ -155,7 +155,7 @@ else {
 				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
-							<h3><b><span class="fa fa-info"></span><br>Voucher Terms and Conditions</b></h3>
+							<h3><b><span class="fa fa-info-circle"></span><br>Voucher Terms and Conditions</b></h3>
 							<br>
 
 							<div class="col-md-1"></div>
