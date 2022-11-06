@@ -61,7 +61,7 @@
 							}
 						?>
 					>
-						<a href="business-entranceVerification.php"><em class="fa fa-check">&nbsp;</em>&nbsp Entrance Verification</a>
+						<a href="business-entranceVerification.php"><em class="fa fa-qrcode">&nbsp;</em>&nbsp Entrance Verification</a>
 					</li>
 
 					<li class="parent ">
