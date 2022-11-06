@@ -34,7 +34,7 @@
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-4">
-			<a href="user-login.php" target="_blank">
+			<a href="user-dashboard.php" target="_blank">
 				<div class="panel panel-default">
 					<div class="panel-body easypiechart-panel">
 						<h3><b>VISIT USER PORTAL</b></h4><br>
@@ -44,7 +44,7 @@
 			</a>
 		</div><!-- /.col-->
 		<div class="col-md-4">
-			<a href="business-login.php" target="_blank">
+			<a href="business-dashboard.php" target="_blank">
 				<div class="panel panel-default">
 					<div class="panel-body easypiechart-panel">
 						<h3><b>VISIT BUSINESS PORTAL</b></h4><br>
