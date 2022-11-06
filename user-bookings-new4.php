@@ -191,7 +191,7 @@ else {
 									<input type="hidden" name="bookingLoyaltyPoints" value="<?php echo $bookingPrice ?>">
 									<input type="hidden" name="businessFacilityID" value="<?php echo $businessFacilityID ?>">
 	                <div align="center" class="form-group has-success">
-	                  <button type="submit" class="btn btn-primary" name="submit" style="width: 50%;">PROCEED TO PAYMENT</button>
+	                  <button type="submit" class="btn btn-primary" name="submit" style="width: 50%;"><b>PROCEED TO PAYMENT</b></button>
 	                </div>
 	              </div>
 								<div class="col-md-1"></div>
@@ -226,7 +226,7 @@ else {
 							<?php if ($layoutFileName): ?>
 								<p><img src="<?php echo $layoutFileName;?>" width="80%" height="80%" style="border: 1px solid"></p><br>
 							<?php else: ?>
-								<center><img src="images/business/icon-noImageAvailable.png" width="50%" height="50%"></center><br><br>
+								<center><img src="images/icon-noImageAvailable.png" width="50%" height="50%"></center><br><br>
 							<?php endif; ?>
 						</div><!-- /.panel-body-->
 					</div><!-- /.panel-->
@@ -240,7 +240,7 @@ else {
 						 <h3><b><?php echo $businessName ?></b></h3>
 						 <h5><b><?php echo "$locationCity, $locationState"; ?></b></h5>
 						 <p>
-							 <a href="" class="btn btn-default" style="width: 45%;">Complex Details</a>
+							 <a href="" class="btn btn-warning" style="width: 45%;"><b>VENUE DETAILS</b></a>
 						 </p>
 					 </div>
 				 </div>

@@ -133,7 +133,7 @@ else {
 											qr = new QRious({
 											element: document.getElementById('qr-code'),
 											size: 200,
-											value: 'ASport/bookingID=<?php echo $userBookingID ?>&userID=<?php echo $userID ?>'
+											value: 'userBookingID=<?php echo $userBookingID ?>&userID=<?php echo $userID ?>'
 										});
 									})();
 								</script>
@@ -213,12 +213,8 @@ else {
 										<p class="form-control" type="text" name="bookingTransactionTimeStamp"><?php echo $bookingTransactionTimeStamp ?></p>
 									</div>
 	                <br>
-	                <div align="center" class="form-group has-success">
-	                  <button type="submit" class="btn btn-default" name="submit" style="width: 30%;">PRINT</button> &nbsp
-										<button type="submit" class="btn btn-default" name="submit" style="width: 30%;">SAVE AS PDF</button>
-	                </div>
 									<div align="center" class="form-group has-success">
-										<button type="submit" class="btn btn-danger" name="submit" style="width: 40%;">CANCEL BOOKING</button>
+										<button type="submit" class="btn btn-danger" name="submit" style="width: 40%;"><b>CANCEL BOOKING</b></button>
 									</div>
 	              </div>
 								<div class="col-md-1"></div>
@@ -267,7 +263,7 @@ else {
 						 <h3><b><?php echo $businessName ?></b></h3>
 						 <h5><b><?php echo "$locationCity, $locationState"; ?></b></h5>
 						 <p>
-							 <a href="" class="btn btn-default" style="width: 45%;">Complex Details</a>
+							 <a href="" class="btn btn-warning" style="width: 45%;"><b>VENUE DETAILS</b></a>
 						 </p>
 					 </div>
 				 </div>

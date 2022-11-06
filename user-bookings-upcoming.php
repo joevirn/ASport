@@ -141,7 +141,7 @@ else {
 		<script type="text/javascript">
 			$(document).ready( function () {
 				$('table').DataTable({
-					order: [[0, 'desc'],[1, 'desc']],
+					order: [[0, 'asc'],[1, 'desc']],
 				});
 			});
 		</script>

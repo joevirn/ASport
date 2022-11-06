@@ -97,8 +97,8 @@ else {
 							 <h3><b><?php echo $businessName ?></b></h3>
 							 <h5><b><?php echo "$locationCity, $locationState"; ?></b></h5>
 							 <p>
-								 <a href="" class="btn btn-default" style="width: 45%;">Complex Details</a>
-								 <a href="user-bookings-new3.php?businessFacilityID=<?php echo $businessFacilityID ?>" class="btn btn-primary" style="width: 45%;">Book Now</a>
+								 <a href="" class="btn btn-warning" style="width: 45%;"><b>VENUE DETAILS</b></a>
+								 <a href="user-bookings-new3.php?businessFacilityID=<?php echo $businessFacilityID ?>" class="btn btn-primary" style="width: 45%;"><b>BOOK NOW</b></a>
 							 </p>
 						 </div>
 					 </div>
