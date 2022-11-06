@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 //start the session
 session_start();
 error_reporting(0);
@@ -9,7 +9,7 @@ include('includes/dbconnection.php');
 if (strlen($_SESSION['ASportBusinessSessionCounter'] == 0)) {
 	header('location:business-logout.php');
 } else {
-?> -->
+?>
 
 	<!DOCTYPE html>
 	<!--start of html-->
@@ -45,7 +45,7 @@ if (strlen($_SESSION['ASportBusinessSessionCounter'] == 0)) {
 				<!--start of ordered list-->
 				<ol class="breadcrumb">
 					<!--start of list-->
-					<li><a href="dashboard.php">
+					<li><a href="business-dashboard.php">
 						<em class="fa fa-home"></em>
 					</a></li>
 					<li class="active">Dashboard</li>
