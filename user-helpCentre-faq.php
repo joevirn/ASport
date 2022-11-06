@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 //start the session
 session_start();
 error_reporting(0);
@@ -9,7 +9,7 @@ include('includes/dbconnection.php');
 if (strlen($_SESSION['ASportUserSessionCounter'] == 0)) {
 	header('location:user-logout.php');
 } else {
-?> -->
+?>
 
 	<!DOCTYPE html>
 	<!--start of html-->
