@@ -161,8 +161,7 @@ else {
 								{ label: "Football", y: 6 },
 								{ label: "Futsal", y: 5 },
 								{ label: "Squash", y: 5 },
-								{ label: "Tennis", y: 9 },
-								{ label: "Others", y: 0 }
+								{ label: "Tennis", y: 9 }
 							]
 					}]
 				};
@@ -185,8 +184,7 @@ else {
 								{ label: "Football", y: 10 },
 								{ label: "Futsal", y: 10 },
 								{ label: "Squash", y: 25 },
-								{ label: "Tennis", y: 30 },
-								{ label: "Others", y: 0 }
+								{ label: "Tennis", y: 30 }
 							]
 					}]
 				};
