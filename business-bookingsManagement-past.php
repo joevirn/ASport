@@ -85,7 +85,7 @@ else {
 	      <div class="col-md-12">
 	        <div class="panel panel-default">
 	          <div class="panel-body easypiechart-panel">
-	            <h3><b>Past Bookings</b></h3>
+	            <h3><b><span class="fa fa-arrow-down"></span><br>Past Bookings</b></h3>
 	            <div class="easypiechart" id="easypiechart-orange" data-percent="100" >
 	              <span class="percent">
 	                <?php echo "$count" ?>
@@ -122,7 +122,7 @@ else {
 												<td><?php echo $row['bookingFacilityNo'];?></td>
 												<td><?php echo $row['bookingPrice'];?></td>
 						            <td><?php echo $row['userBookingID'];?></td>
-												<td><a target="_blank" href="business-bookingsManagement-receipt.php?userBookingID=<?php echo $row['userBookingID'];?>">View</a></td>
+												<td><a target="_blank" href="business-entranceVerification.php?userBookingID=<?php echo $row['userBookingID'];?>&userID=<?php echo $row['userID'];?>"><b>VERIFY</b></a></td>
 	                    </tr>
 	                  <?php
 	                  }

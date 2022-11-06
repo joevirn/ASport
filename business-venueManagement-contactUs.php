@@ -125,7 +125,7 @@ else {
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<form role="form" method="post" action="">
-								<h3 align="center"><b>Contact Us</b></h3>
+								<h3 align="center"><b><span class="fa fa-phone"></span><br>Contact Us</b></h3>
 									<div class="col-md-2"></div>
 									<div class="col-md-8">
 										<div class="form-group">

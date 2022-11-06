@@ -67,9 +67,9 @@ if(isset($_POST['submit'])) {
 
 <body>
 	<div class="row">
-    <h2 align="center"><a href="business-dashboard.php"><img src="images/ASport.png" width="50px"/></a></h2>
-		<h2 align="center">ASport for Business</h2>
-	<hr/>
+    <h1 align="center"><a href="index.php"><img src="images/ASport.png" width="130px"/></a></h1>
+		<h1 align="center"><b><tt>ASport for Business</tt></b></h1>
+	  <br><br>
 		<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
 			<div class="login-panel panel panel-default">
 				<div class="panel-heading" style="text-align: center;">Register</div>
@@ -92,8 +92,8 @@ if(isset($_POST['submit'])) {
 								<input type="password" class="form-control" name="businessRepeatPassword" placeholder="Repeat Password" required="true">
 							</div>
 							<div class="checkbox">
-                <button type="submit" class="btn btn-primary" name="submit" value="submit" style="width: 100%;">REGISTER</button><br><br>
-                <p style="text-align: center;">Already registered? <a href="business-login.php">Login Now</a></p>
+                <button type="submit" class="btn btn-primary" name="submit" value="submit" style="width: 100%;"><b>REGISTER</b></button><br><br>
+                <p style="text-align: center;"><b>Already registered? <a href="business-login.php">Login Now</b></a></p>
 							</div>
 						</fieldset>
 					</form>
@@ -101,6 +101,10 @@ if(isset($_POST['submit'])) {
 			</div>
 		</div><!-- /.col-->
 	</div><!-- /.row -->
+  <br>  
+
+  <!--include the footer-->
+  <?php include_once('includes/footer.php'); ?>
 
   <script src="js/jquery-1.11.1.min.js"></script>
   <script src="js/bootstrap.min.js"></script>

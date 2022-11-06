@@ -92,16 +92,6 @@ else {
 							<div class="col-md-1"></div>
 						</div><!-- /.panel-body-->
 					</div><!-- /.panel-->
-					<div class="panel panel-default">
-						<div class="panel-body easypiechart-panel">
-							<h3><b><span class="fa fa-line-chart"></span><br>Total Sales Analysis<br></b></h3><br>
-							<div class="col-md-1"></div>
-							<div class="col-md-10">
-								<div id="lineGraphSalesThisWeek" style="height: 370px; width: 100%;"></div><br><br>
-							</div>
-							<div class="col-md-1"></div>
-						</div><!-- /.panel-body-->
-					</div><!-- /.panel-->
 				</div><!-- /.col-->
 
 				<div class="col-md-6">
@@ -143,19 +133,7 @@ else {
 							<div class="col-md-1"></div>
 						</div><!-- /.panel-body-->
 					</div><!-- /.panel-->
-					<div class="panel panel-default">
-						<div class="panel-body easypiechart-panel">
-							<h3><b><span class="fa fa-line-chart"></span><br>Total Sales Analysis<br></b></h3><br>
-							<div class="col-md-1"></div>
-							<div class="col-md-10">
-								<div id="lineGraphSalesThisMonth" style="height: 370px; width: 100%;"></div><br><br>
-							</div>
-							<div class="col-md-1"></div>
-						</div><!-- /.panel-body-->
-					</div><!-- /.panel-->
 				</div><!-- /.col-->
-
-
 
 			</div>
 
@@ -267,64 +245,6 @@ else {
 					]
 				};
 				$("#barChartBookingsThisMonth").CanvasJSChart(barChartBookingsThisMonth);
-
-				var lineGraphSalesThisWeek = {
-					animationEnabled: true,
-					title:{
-						text: ""
-					},
-					axisX: {
-						title: "Date",
-						valueFormatString: "DD MMM"
-					},
-					axisY: {
-						title: "Total Sales (RM)",
-						//prefix: "RM"
-					},
-					data: [{
-						yValueFormatString: "$#,###",
-						xValueFormatString: "DD MMM, YYYY",
-						type: "spline",
-						dataPoints: [
-							{ x: new Date(2022, 10, 1), y: 250 },
-							{ x: new Date(2022, 10, 2), y: 180 },
-							{ x: new Date(2022, 10, 3), y: 150 },
-							{ x: new Date(2022, 10, 4), y: 190 },
-							{ x: new Date(2022, 10, 5), y: 300 },
-							{ x: new Date(2022, 10, 6), y: 500 },
-							{ x: new Date(2022, 10, 7), y: 300 },
-						]
-					}]
-				};
-				$("#lineGraphSalesThisWeek").CanvasJSChart(lineGraphSalesThisWeek);
-
-				var lineGraphSalesThisMonth = {
-					animationEnabled: true,
-					title:{
-						text: ""
-					},
-					axisX: {
-						title: "Date",
-						valueFormatString: "DD MMM"
-					},
-					axisY: {
-						title: "Total Sales (RM)",
-						//prefix: "RM"
-					},
-					data: [{
-						yValueFormatString: "$#,###",
-						xValueFormatString: "DD MMM, YYYY",
-						type: "spline",
-						dataPoints: [
-							{ x: new Date(2022, 10, 5), y: 1120 },
-							{ x: new Date(2022, 10, 12), y: 720 },
-							{ x: new Date(2022, 10, 19), y: 680 },
-							{ x: new Date(2022, 10, 26), y: 0 },
-							{ x: new Date(2022, 10, 30), y: 0 },
-						]
-					}]
-				};
-				$("#lineGraphSalesThisMonth").CanvasJSChart(lineGraphSalesThisMonth);
 
 			}
 		</script>
