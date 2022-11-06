@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 //start the session
 session_start();
 error_reporting(0);
@@ -8,8 +8,64 @@ include('includes/dbconnection.php');
 //if the user id in the session is being cleared, log out the user
 if (strlen($_SESSION['ASportBusinessSessionCounter'] == 0)) {
 	header('location:business-logout.php');
-} else {
-?> -->
+}
+else {
+	$businessID = $_SESSION['ASportBusinessSessionCounter'];
+	$userBookingID = $_GET['userBookingID'];
+	$userID = $_GET['userID'];
+
+	if ($userBookingID && $userID) {
+
+		$sqlGetBusinessName = "SELECT businessName FROM business WHERE businessID=$businessID";
+		$resultBusinessName = mysqli_query($con,$sqlGetBusinessName);
+		while ($dataBusinessName = $resultBusinessName->fetch_assoc()){
+			$businessName = $dataBusinessName['businessName'];
+		}
+
+		$sql = "SELECT * FROM userBookings
+						WHERE userBookingID=$userBookingID AND userID=$userID AND bookingVenue='$businessName'";
+		$result = mysqli_query($con,$sql);
+		while ($data = $result->fetch_assoc()){
+			$userBookingID = $data['userBookingID'];
+			$businessFacilityID = $data['businessFacilityID'];
+			$userLoyaltyTransactionID = $data['userLoyaltyTransactionID'];
+			$bookingDate = $data['bookingDate'];
+			$bookingStartTime = $data['bookingStartTime'];
+			$bookingEndTime = $data['bookingEndTime'];
+			$bookingDuration = $data['bookingDuration'];
+			$bookingVenue = $data['bookingVenue'];
+			$bookingCategory = $data['bookingCategory'];
+			$bookingFacilityNo = $data['bookingFacilityNo'];
+			$bookingPrice = $data['bookingPrice'];
+			$bookingTransactionTimeStamp = $data['bookingTransactionTimeStamp'];
+			$bookingIsCancelled = $data['bookingIsCancelled'];
+			$bookingIsCancelledTimeStamp = $data['bookingIsCancelledTimeStamp'];
+		}
+
+		if (mysqli_num_rows($result) > 0) {
+			if ($bookingDate==date("Y-m-d")) {
+				$statusMessage = "<b>VALID BOOKING</b><br><br><tt><b>$bookingDate $bookingStartTime to $bookingEndTime<br>$bookingCategory<br>Court $bookingFacilityNo</b><br>User Booking ID: $userBookingID</tt><br><br>";
+				$isFound = true;
+				$isValid = true;
+			}
+			else {
+				$statusMessage = "<b>INVALID BOOKING</b><br><br><tt><b>Booking Date is not today.<br>Please check booking receipt for more information.</b></tt><br><br>";
+				$isFound = true;
+				$isValid = false;
+			}
+		}
+		else {
+			$statusMessage = "<b>RECORD NOT FOUND</b><br><br><tt><b>Please check booking receipt to ensure that you are at the correct venue or contact customer service.</b></tt><br><br>";
+			$isFound = false;
+		}
+	}
+
+	else {
+		$isEmpty = true;
+		$statusMessage = "<b>POINT QR CODE AT CAMERA TO VERIFY BOOKING</b><br><br>";
+	}
+
+?>
 
 	<!DOCTYPE html>
 	<!--start of html-->
@@ -45,7 +101,7 @@ if (strlen($_SESSION['ASportBusinessSessionCounter'] == 0)) {
 				<!--start of ordered list-->
 				<ol class="breadcrumb">
 					<!--start of list-->
-					<li><a href="dashboard.php">
+					<li><a href="business-dashboard.php">
 						<em class="fa fa-home"></em>
 					</a></li>
 					<li class="active">Entrance Verification</li>
@@ -68,7 +124,7 @@ if (strlen($_SESSION['ASportBusinessSessionCounter'] == 0)) {
   				<div class="panel panel-default">
   					<div class="panel-body">
 
-							<h3 align="center"><b>QR Scanner</b></h3><br>
+							<h3 align="center"><b><span class="fa fa-qrcode"></span><br>QR Scanner</b></h3><br>
 
 							<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 
@@ -78,10 +134,10 @@ if (strlen($_SESSION['ASportBusinessSessionCounter'] == 0)) {
 							</div>
 
 							<script type="text/javascript">
-								var scanner = new Instascan.Scanner({ video: document.getElementById('preview'), scanPeriod: 5, mirror: false });
+								var scanner = new Instascan.Scanner({ video: document.getElementById('preview'), scanPeriod: 15, mirror: false });
 								scanner.addListener('scan',function(content){
-									alert(content);
-									//window.location.href=content;
+									//confirm("QR code detected. Press OK for status check.");
+									window.location.href="business-entranceVerification.php?"+content;
 								});
 								Instascan.Camera.getCameras().then(function (cameras){
 									if(cameras.length>0){
@@ -113,38 +169,77 @@ if (strlen($_SESSION['ASportBusinessSessionCounter'] == 0)) {
 
 							<div align="center" class="form-group has-success" data-toggle="buttons">
 								<label class="btn btn-primary active">
-								<input type="radio" name="options" value="1" autocomplete="off" checked> Primary Camera
+									<input type="radio" name="options" value="1" autocomplete="off" checked> <b>Primary Camera</b>
 								</label>
-								<label class="btn btn-secondary">
-								<input type="radio" name="options" value="2" autocomplete="off"> Secondary Camera
+								<label class="btn btn-default">
+									<input type="radio" name="options" value="2" autocomplete="off"> <b>Secondary Camera</b>
 								</label>
 							</div>
 
   					</div><!-- /.panel-body-->
   				</div><!-- /.panel-->
-  			</div><!-- /.col-->
 
-				<div class="col-md-6">
-  				<div class="panel panel-default">
-  					<div class="panel-body">
-
-							<h3 align="center"><b>Status Check</b></h3><br>
-
-  					</div><!-- /.panel-body-->
-  				</div><!-- /.panel-->
   			</div><!-- /.col-->
 
 				<div class="col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-body">
+							<h3 align="center"><b><span class="fa fa-thumbs-up"></span><br>Status Check</b></h3><br>
+							<center>
+								<?php if ($isEmpty==true): ?>
+									<img src="images/qrScanner.png" width="80%"><br><br>
+								<?php else: ?>
+									<?php if ($isFound==true && $isValid==true): ?>
+										<img src="images/tick.png" width="200" height="200"><br><br>
+									<?php endif; ?>
+									<?php if ($isFound==true && $isValid==false): ?>
+										<img src="images/warning.png" width="200" height="200"><br><br>
+									<?php endif; ?>
+									<?php if ($isFound==false): ?>
+										<img src="images/cross.png" width="200" height="200"><br><br>
+									<?php endif; ?>
+								<?php endif; ?>
+								<h3><?php echo $statusMessage ?></h3>
+							</center>
+						</div><!-- /.panel-body-->
+					</div><!-- /.panel-->
+				</div>
 
-							<h3 align="center"><b>Booking Information</b></h3><br>
+			</div>
 
+			<?php if ($isFound==true): ?>
+
+			<div class="row">
+
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-body easypiechart-panel">
+							<h3><b><span class="fa fa-info"></span><br>Booking Information</b></h3>
+							<br><br>
+							<h3><tt><b><span class="fa fa-calendar"></span>&nbsp<?php echo $bookingDate ?></b></tt></h3>
+							<h3><tt><b><span class="fa fa-clock-o"></span>&nbsp<?php echo $bookingStartTime ?> - <?php echo $bookingEndTime ?></b></tt></h3>
+							<h3><tt><b><span class="fa fa-clock-o"></span>&nbsp<?php echo $bookingDuration ?> hours</b></tt></h3>
+							<h3><tt><b><span class="fa fa-id-card-o"></span>&nbspBooking ID: <?php echo $userBookingID ?></b></tt></h3>
+							<h3><tt><b><span class="fa fa-history"></span>&nbspBooked On: <?php echo $bookingTransactionTimeStamp ?></b></tt></h3>
+							<br><br><br>
+						</div><!-- /.panel-body-->
+					</div><!-- /.panel-->
+				</div><!-- /.col-->
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-body easypiechart-panel">
+							<h3><b><span class="fa fa-map"></span><br>Facility Information</b></h3>
+							<br><img src="images/<?php echo $bookingCategory ?>.png" width="200" height="200">
+							<h3><b><tt><?php echo $bookingCategory ?></tt></b></h3>
+							<h3><b><tt>Court <?php echo $bookingFacilityNo ?></tt></b></h3>
+							<br>
 						</div><!-- /.panel-body-->
 					</div><!-- /.panel-->
 				</div><!-- /.col-->
 
   		</div><!-- /.row -->
+
+			<?php endif; ?>
 
 
 			<!--include the footer-->
