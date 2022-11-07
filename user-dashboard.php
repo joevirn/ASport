@@ -13,7 +13,7 @@ else {
 	$userID = $_SESSION['ASportUserSessionCounter'];
 
 	$sql = "SELECT * FROM userBookings
-					WHERE userID=$userID AND bookingDate >= CURDATE() ORDER BY bookingDate ASC LIMIT 1";
+					WHERE userID=$userID AND bookingDate >= CURDATE() ORDER BY bookingDate ASC, bookingStartTime DESC LIMIT 1";
 	$result = mysqli_query($con,$sql);
 	while ($data = $result->fetch_assoc()){
 		$userBookingID = $data['userBookingID'];

@@ -70,7 +70,7 @@
 						</a>
 						<ul
 							<?php
-							if (PAGE == "New" || PAGE == "Upcoming" || PAGE == "Past") {
+							if (PAGE == "Upcoming" || PAGE == "Past" || PAGE == "Locked") {
 								echo "class='children collapse in'";
 							}
 							else {
@@ -79,16 +79,6 @@
 							?>
 							id="sub-item-1"
 						>
-							<li>
-								<a
-									<?php
-										if (PAGE == 'New') {
-											echo "class='active'";
-										}
-									?>
-									href="business-bookingsManagement-new1.php"><span class="fa fa-calendar-plus-o">&nbsp;</span> New
-								</a>
-							</li>
 							<li>
 								<a
 									<?php
@@ -109,6 +99,17 @@
 									href="business-bookingsManagement-past.php"><span class="fa fa-calendar-check-o">&nbsp;</span> Past
 								</a>
 							</li>
+							<li>
+								<a
+									<?php
+										if (PAGE == 'Locked') {
+											echo "class='active'";
+										}
+									?>
+									href="business-bookingsManagement-locked1.php"><span class="fa fa-lock">&nbsp;</span> Locked
+								</a>
+							</li>
+							<li>
 						</ul>
 					</li><!--parent-->
 
