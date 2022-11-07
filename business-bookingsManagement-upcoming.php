@@ -104,6 +104,9 @@ else {
 											<th style="text-align: center"><span class="fa fa-info-circle"></span><br>Facility No</th>
 											<th style="text-align: center"><span class="fa fa-money"></span><br>Price (RM)</th>
 											<th style="text-align: center"><span class="fa fa-id-card-o"></span><br>Booking ID</th>
+											<th style="text-align: center"><span class="fa fa-info"></span><br>Customer Name</th>
+											<th style="text-align: center"><span class="fa fa-phone"></span><br>Customer Phone Number</th>
+											<th style="text-align: center"><span class="fa fa-envelope"></span><br>Customer Email</th>
 											<th style="text-align: center"><span class="fa fa-eye"></span><br>ACTION</th>
 	                  </tr>
 	                </thead>
@@ -112,6 +115,15 @@ else {
 										$sql = "SELECT * FROM userBookings WHERE bookingVenue='$businessName' AND bookingDate>=CURDATE()";
 										$result = mysqli_query($con,$sql);
 										while ($row = $result->fetch_assoc()){
+
+											$id=$row['userID'];
+											$sql2 = "SELECT * FROM users WHERE userID=$id";
+											$result2 = mysqli_query($con,$sql2);
+											while ($row2 = $result2->fetch_assoc()){
+												$userName = $row2['userName'];
+												$userPhoneNumber = $row2['userPhoneNumber'];
+												$userEmail = $row2['userEmail'];
+											}
 	                  ?>
 	                    <tr>
 	                      <td><b><?php echo $row['bookingDate'];?></b></td>
@@ -122,6 +134,9 @@ else {
 												<td><?php echo $row['bookingFacilityNo'];?></td>
 												<td><?php echo $row['bookingPrice'];?></td>
 						            <td><?php echo $row['userBookingID'];?></td>
+												<td><?php echo $userName;?></td>
+												<td><?php echo $userPhoneNumber;?></td>
+												<td><?php echo $userEmail;?></td>
 												<td><a target="_blank" href="business-entranceVerification.php?userBookingID=<?php echo $row['userBookingID'];?>&userID=<?php echo $row['userID'];?>"><b>VERIFY</b></a></td>
 	                    </tr>
 	                  <?php

@@ -22,6 +22,14 @@ else {
 			$businessName = $dataBusinessName['businessName'];
 		}
 
+		$sql2 = "SELECT * FROM users WHERE userID=$userID";
+		$result2 = mysqli_query($con,$sql2);
+		while ($row2 = $result2->fetch_assoc()){
+			$userName = $row2['userName'];
+			$userPhoneNumber = $row2['userPhoneNumber'];
+			$userEmail = $row2['userEmail'];
+		}
+
 		$sql = "SELECT * FROM userBookings
 						WHERE userBookingID=$userBookingID AND userID=$userID AND bookingVenue='$businessName'";
 		$result = mysqli_query($con,$sql);
@@ -211,25 +219,37 @@ else {
 
 			<div class="row">
 
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
-							<h3><b><span class="fa fa-info"></span><br>Booking Information</b></h3>
+							<h3><b><span class="fa fa-id-card"></span><br>Customer Information</b></h3>
 							<br><br>
-							<h3><tt><b><span class="fa fa-calendar"></span>&nbsp<?php echo $bookingDate ?></b></tt></h3>
-							<h3><tt><b><span class="fa fa-clock-o"></span>&nbsp<?php echo $bookingStartTime ?> - <?php echo $bookingEndTime ?></b></tt></h3>
-							<h3><tt><b><span class="fa fa-clock-o"></span>&nbsp<?php echo $bookingDuration ?> hours</b></tt></h3>
-							<h3><tt><b><span class="fa fa-id-card-o"></span>&nbspBooking ID: <?php echo $userBookingID ?></b></tt></h3>
-							<h3><tt><b><span class="fa fa-history"></span>&nbspBooked On: <?php echo $bookingTransactionTimeStamp ?></b></tt></h3>
+							<h3><tt><span class="fa fa-info"></span>&nbspName :<br><b><?php echo $userName ?></tt></b></h3>
+							<h3><tt><span class="fa fa-phone"></span>&nbspPhone Number :<br><b><?php echo $userPhoneNumber ?></tt></b></h3>
+							<h3><tt><span class="fa fa-envelope-o"></span>&nbspEmail :<br><b><?php echo $userEmail ?></tt></b></h3>
 							<br><br><br>
 						</div><!-- /.panel-body-->
 					</div><!-- /.panel-->
 				</div><!-- /.col-->
-				<div class="col-md-6">
+				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-body easypiechart-panel">
+							<h3><b><span class="fa fa-info-circle"></span><br>Booking Information</b></h3>
+							<br>
+							<h3><tt><b><span class="fa fa-calendar"></span>&nbsp<?php echo $bookingDate ?></b></tt></h3>
+							<h3><tt><b><span class="fa fa-clock-o"></span>&nbsp<?php echo $bookingStartTime ?> - <?php echo $bookingEndTime ?></b></tt></h3>
+							<h3><tt><b><span class="fa fa-clock-o"></span>&nbsp<?php echo $bookingDuration ?> hour(s)</b></tt></h3>
+							<h3><tt><span class="fa fa-id-card-o"></span>&nbspBooking ID:<b> <?php echo $userBookingID ?></b></tt></h3>
+							<h3><tt><span class="fa fa-history"></span>&nbspBooked On<br><b><?php echo $bookingTransactionTimeStamp ?></b></tt></h3>
+							<br><br>
+						</div><!-- /.panel-body-->
+					</div><!-- /.panel-->
+				</div><!-- /.col-->
+				<div class="col-md-4">
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
 							<h3><b><span class="fa fa-map"></span><br>Facility Information</b></h3>
-							<br><img src="images/<?php echo $bookingCategory ?>.png" width="200" height="200">
+							<br><img src="images/<?php echo $bookingCategory ?>.png" width="200" height="190">
 							<h3><b><tt><?php echo $bookingCategory ?></tt></b></h3>
 							<h3><b><tt>Court <?php echo $bookingFacilityNo ?></tt></b></h3>
 							<br>
