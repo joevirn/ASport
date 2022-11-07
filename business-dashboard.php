@@ -65,8 +65,8 @@ else {
 									<span class="percent"><b>10</b></span>
 								</div>
 								<a href="business-bookingsManagement-upcoming.php"><button class="btn bg-teal" ><i class="fa fa-search fa-lg"></i><b>&nbsp VIEW DETAILS</b></button></a>
-								&nbsp &nbsp
-								<a href="business-entranceVerification.php"><button class="btn bg-teal" ><i class="fa fa-qrcode fa-lg"></i><b>&nbsp ENTRANCE VERIFICATION</b></button></a>
+								<br><br>
+								<a href="business-entranceVerification.php"><button class="btn bg-blue" ><i class="fa fa-qrcode fa-lg"></i><b>&nbsp ENTRANCE VERIFICATION</b></button></a>
 								<br><br>
 							</div><!-- /.panel-body-->
 						</div><!-- /.panel-->
@@ -95,6 +95,7 @@ else {
 				<div class="col-md-6">
 					<div class="col-md-12">
 						<div class="panel panel-default">
+							<br>
 							<div class="panel-body easypiechart-panel">
 								<h3><b><span class="fa fa-pie-chart"></span><br>Bookings Category<br>Analysis</b></h3>
 								<br>
@@ -104,6 +105,7 @@ else {
 								</div>
 								<div class="col-md-1"></div>
 							</div><!-- /.panel-body-->
+							<br>
 						</div><!-- /.panel-->
 					</div><!-- /.col-->
 				</div><!-- /.col-->

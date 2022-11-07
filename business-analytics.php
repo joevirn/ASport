@@ -149,7 +149,7 @@ else {
 						text: ""
 					},
 					data: [{
-							type: "pie",
+							type: "doughnut",
 							startAngle: 45,
 							showInLegend: "true",
 							legendText: "{label}",
@@ -172,7 +172,7 @@ else {
 						text: ""
 					},
 					data: [{
-							type: "pie",
+							type: "doughnut",
 							startAngle: 45,
 							showInLegend: "true",
 							legendText: "{label}",
