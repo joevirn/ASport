@@ -134,7 +134,7 @@ else {
 							<h3><b><span class="fa fa-info"></span><br>Booking Information</b></h3><br>
 							<h3><tt><b><span class="fa fa-calendar"></span>&nbsp<?php echo $bookingDate ?></b></tt></h3>
 							<h3><tt><b><span class="fa fa-clock-o"></span>&nbsp<?php echo $bookingStartTime ?> - <?php echo $bookingEndTime ?></b></tt></h3>
-							<h3><tt><b><span class="fa fa-clock-o"></span>&nbsp<?php echo $bookingDuration ?> hours</b></tt></h3>
+							<h3><tt><b><span class="fa fa-clock-o"></span>&nbsp<?php echo $bookingDuration ?> hour(s)</b></tt></h3>
 							<h3><tt><b><span class="fa fa-ticket"></span>&nbspBooking ID : <?php echo $userBookingID ?></b></tt></h3>
 							<br>
 							<a target="_blank" href="user-bookings-receipt.php?userBookingID=<?php echo $userBookingID ?>"><button class="btn bg-teal" ><i class="fa fa-search fa-lg"></i><b>&nbsp VIEW BOOKING RECEIPT</b></button></a>

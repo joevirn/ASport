@@ -237,6 +237,7 @@ else {
 														$newTime = date('H:i',strtotime('+1 hour',strtotime($slotTime)));
 														$slotTime = $newTime;
 													}
+													$slotTime = date('H:i',strtotime($sundayOpeningTime));
 												}
 												else if ($selectedDayNo==1 && $mondayIsOpen==1) {
 													//GET number of time slots to generate
@@ -248,6 +249,7 @@ else {
 														$newTime = date('H:i',strtotime('+1 hour',strtotime($slotTime)));
 														$slotTime = $newTime;
 													}
+													$slotTime = date('H:i',strtotime($mondayOpeningTime));
 												}
 												else if ($selectedDayNo==2 && $tuesdayIsOpen==1) {
 													//GET number of time slots to generate
@@ -259,6 +261,7 @@ else {
 														$newTime = date('H:i',strtotime('+1 hour',strtotime($slotTime)));
 														$slotTime = $newTime;
 													}
+													$slotTime = date('H:i',strtotime($tuesdayOpeningTime));
 												}
 												elseif ($selectedDayNo==3 && $wednesdayIsOpen==1) {
 													//GET number of time slots to generate
@@ -270,6 +273,7 @@ else {
 														$newTime = date('H:i',strtotime('+1 hour',strtotime($slotTime)));
 														$slotTime = $newTime;
 													}
+													$slotTime = date('H:i',strtotime($wednesdayOpeningTime));
 												}
 												elseif ($selectedDayNo==4 && $thursdayIsOpen==1) {
 													//GET number of time slots to generate
@@ -281,6 +285,7 @@ else {
 														$newTime = date('H:i',strtotime('+1 hour',strtotime($slotTime)));
 														$slotTime = $newTime;
 													}
+													$slotTime = date('H:i',strtotime($thursdayOpeningTime));
 												}
 												elseif ($selectedDayNo==5 && $fridayIsOpen==1) {
 													//GET number of time slots to generate
@@ -292,6 +297,7 @@ else {
 														$newTime = date('H:i',strtotime('+1 hour',strtotime($slotTime)));
 														$slotTime = $newTime;
 													}
+													$slotTime = date('H:i',strtotime($fridayOpeningTime));
 												}
 												elseif ($selectedDayNo==6 && $saturdayIsOpen==1) {
 													//GET number of time slots to generate
@@ -303,6 +309,7 @@ else {
 														$newTime = date('H:i',strtotime('+1 hour',strtotime($slotTime)));
 														$slotTime = $newTime;
 													}
+													$slotTime = date('H:i',strtotime($saturdayOpeningTime));
 												}
 											}
 											?>

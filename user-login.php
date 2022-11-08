@@ -15,7 +15,7 @@ if(isset($_POST['login']))
       header('location:user-dashboard.php');
     }
     else{
-      $msg="Invalid Details.";
+      $msg="Invalid Credentials.";
     }
   }
 ?>
