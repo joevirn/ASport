@@ -100,7 +100,8 @@ else {
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
 							<h3><b><span class="fa fa-money"></span><br>ASport RM5 Voucher</b></h3>
-							<h3>Points Required :<br><font color="blue"><b>50</b></font></h3><br>
+							<h3>Points Required :<br><font color="blue"><b>50</b></font></h3>
+							<h4>Voucher Validity : <b><br>30 days</b></h4><br>
 							<?php if ($current_pointsBalance>50): ?>
 								<a href="user-loyalty-rewardsCatalogue-redemptionConfirmation.php?voucherAmount=5"><button type="submit" class="btn btn-primary" name="submit" style="width: 30%;"><b>REDEEM</b></button></a>
 							<?php else: ?>
@@ -114,7 +115,8 @@ else {
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
 							<h3><b><span class="fa fa-money"></span><br>ASport RM10 Voucher</b></h3>
-							<h3>Points Required :<br><font color="blue"><b>100</b></font></h3><br>
+							<h3>Points Required :<br><font color="blue"><b>100</b></font></h3>
+							<h4>Voucher Validity : <b><br>30 days</b></h4><br>
 							<?php if ($current_pointsBalance>100): ?>
 								<a href="user-loyalty-rewardsCatalogue-redemptionConfirmation.php?voucherAmount=10"><button type="submit" class="btn btn-primary" name="submit" style="width: 30%;"><b>REDEEM</b></button></a>
 							<?php else: ?>
@@ -128,7 +130,8 @@ else {
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
 							<h3><b><span class="fa fa-money"></span><br>ASport RM15 Voucher</b></h3>
-							<h3>Points Required :<br><font color="blue"><b>150</b></font></h3><br>
+							<h3>Points Required :<br><font color="blue"><b>150</b></font></h3>
+							<h4>Voucher Validity : <b><br>30 days</b></h4><br>
 							<?php if ($current_pointsBalance>150): ?>
 								<a href="user-loyalty-rewardsCatalogue-redemptionConfirmation.php?voucherAmount=15"><button type="submit" class="btn btn-primary" name="submit" style="width: 30%;"><b>REDEEM</b></button></a>
 							<?php else: ?>
@@ -142,7 +145,8 @@ else {
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
 							<h3><b><span class="fa fa-money"></span><br>ASport RM20 Voucher</b></h3>
-							<h3>Points Required :<br><font color="blue"><b>200</b></font></h3><br>
+							<h3>Points Required :<br><font color="blue"><b>200</b></font></h3>
+							<h4>Voucher Validity : <b><br>30 days</b></h4><br>
 							<?php if ($current_pointsBalance>200): ?>
 								<a href="user-loyalty-rewardsCatalogue-redemptionConfirmation.php?voucherAmount=20"><button type="submit" class="btn btn-primary" name="submit" style="width: 30%;"><b>REDEEM</b></button></a>
 							<?php else: ?>

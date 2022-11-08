@@ -34,12 +34,15 @@ else {
 	$newPointsBalance = $current_pointsBalance - $pointsRequired;
 
 
+	$expiryDate = date("Y-m-d", strtotime('+30 days'));
+
 	if(isset($_POST['submit']))
 	{
+
 		//GENERATE REWARDS VOUCHER
 		$sqlAddRewardsVoucher = mysqli_query($con,
-			"INSERT INTO userRewardsVouchers(userID, rewardsVoucherValue, rewardsVoucherIssuedTimeStamp)
-			 VALUE            							('$userID', '$voucherAmount', now())
+			"INSERT INTO userRewardsVouchers(userID, rewardsVoucherValue, rewardsVoucherExpiryDate, rewardsVoucherIssuedTimeStamp)
+			 VALUE            							('$userID', '$voucherAmount', '$expiryDate', now())
 			");
 		//JAVASCRIPT ALERT STATUS
 		//Facility Add Status
@@ -213,7 +216,8 @@ else {
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
 							<h3><b><span class="fa fa-money"></span><br>ASport RM<?php echo $voucherAmount ?> Voucher</b></h3>
-							<h3>Points Required :<br><font color="blue"><b><?php echo $pointsRequired ?></b></font></h3><br>
+							<h3>Points Required :<br><font color="blue"><b><?php echo $pointsRequired ?></b></font></h3>
+							<h4>Voucher Validity : <b><br>30 days</b></h4><br>
 							<button type="submit" class="btn btn-primary" name="submit" style="width: 30%;"><b>CONFIRM REDEMPTION</b></button>
 							<br><br>
 						</div><!-- /.panel-body-->

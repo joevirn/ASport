@@ -81,6 +81,7 @@ else {
 	                <thead>
 	                  <tr>
 	                    <th style="text-align: center"><span class="fa fa-calendar"></span><br>Voucher Issued On</th>
+											<th style="text-align: center"><span class="fa fa-hourglass"></span><br>Voucher Expiry Date</th>
 											<th style="text-align: center"><span class="fa fa-gift"></span><br>Voucher ID</th>
 											<th style="text-align: center"><span class="fa fa-money"></span><br>Voucher Value (RM)</th>
 	                  </tr>
@@ -93,6 +94,7 @@ else {
 	                  ?>
 	                    <tr>
 	                      <td><b><?php echo $row['rewardsVoucherIssuedTimeStamp'];?></b></td>
+												<td><?php echo $row['rewardsVoucherExpiryDate'];?></td>
 												<td><?php echo $row['userRewardsVoucherID'];?></td>
 	                      <td><?php echo $row['rewardsVoucherValue'];?></td>
 	                    </tr>
@@ -122,6 +124,7 @@ else {
 										<tr>
 											<th style="text-align: center"><span class="fa fa-calendar"></span><br>Voucher Used On</th>
 											<th style="text-align: center"><span class="fa fa-calendar"></span><br>Voucher Issued On</th>
+											<th style="text-align: center"><span class="fa fa-hourglass"></span><br>Voucher Expiry Date</th>
 											<th style="text-align: center"><span class="fa fa-gift"></span><br>Voucher ID</th>
 											<th style="text-align: center"><span class="fa fa-money"></span><br>Voucher Value (RM)</th>
 										</tr>
@@ -135,6 +138,7 @@ else {
 											<tr>
 												<td><b><?php echo $row['rewardsVoucherIsUsedTimeStamp'];?></b></td>
 												<td><b><?php echo $row['rewardsVoucherIssuedTimeStamp'];?></b></td>
+												<td><?php echo $row['rewardsVoucherExpiryDate'];?></td>
 												<td><?php echo $row['userRewardsVoucherID'];?></td>
 												<td><?php echo $row['rewardsVoucherValue'];?></td>
 											</tr>
