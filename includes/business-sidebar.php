@@ -215,7 +215,7 @@
 						</a>
 						<ul
 							<?php
-							if (PAGE == "Profile Maintainance" || PAGE == "Change Password") {
+							if (PAGE == "Profile Maintenance" || PAGE == "Change Password") {
 								echo "class='children collapse in'";
 							}
 							else {
@@ -227,11 +227,11 @@
 							<li>
 								<a
 									<?php
-										if (PAGE == 'Profile Maintainance') {
+										if (PAGE == 'Profile Maintenance') {
 											echo "class='active'";
 										}
 									?>
-									href="business-settings-profileMaintainance.php"><span class="fa fa-user">&nbsp;</span> Profile Maintainance
+									href="business-settings-profileMaintenance.php"><span class="fa fa-user">&nbsp;</span> Profile Maintenance
 								</a>
 							</li>
 							<li>

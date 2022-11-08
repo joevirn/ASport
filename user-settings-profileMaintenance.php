@@ -5,33 +5,33 @@ error_reporting(0);
 //connect to database
 include('includes/dbconnection.php');
 
-//if the business id in the session is being cleared, log out the business
-if (strlen($_SESSION['ASportBusinessSessionCounter'] == 0)) {
-	header('location:business-logout.php');
+//if the user id in the session is being cleared, log out the user
+if (strlen($_SESSION['ASportUserSessionCounter'] == 0)) {
+	header('location:user-logout.php');
 }
 
 else {
-$businessID = $_SESSION['ASportBusinessSessionCounter'];
+$userID = $_SESSION['ASportUserSessionCounter'];
 
 if(isset($_POST['submit'])) {
-	$businessName = $_POST['businessName'];
-	$businessEmail = $_POST['businessEmail'];
-	$businessPhoneNumber = $_POST['businessPhoneNumber'];
+	$userName = $_POST['userName'];
+	$userEmail = $_POST['userEmail'];
+	$userPhoneNumber = $_POST['userPhoneNumber'];
 
 	$query = mysqli_query($con, "
 		UPDATE
-			business
+			users
 		SET
-			businessName = '$businessName',
-			businessEmail = '$businessEmail',
-			businessPhoneNumber = '$businessPhoneNumber',
-			businessLastUpdateDate = now()
+			userName = '$userName',
+			userEmail = '$userEmail',
+			userPhoneNumber = '$userPhoneNumber',
+			userLastUpdateDate = now()
 		WHERE
-			businessID = '$businessID'
+			userID = '$userID'
 	");
 
 	if ($query) {
-		$msg = "Business profile has been updated!";
+		$msg = "User profile has been updated!";
 		echo "<script>alert('$msg');</script>";
 	}
 	else {
@@ -51,9 +51,9 @@ if(isset($_POST['submit'])) {
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!--title of the webpage-->
-		<title>ASport for Business | Profile Maintainance</title>
+		<title>ASport | Profile Maintenance</title>
 		<?php
-	  include('includes/business-head-styles.php');
+	  include('includes/user-head-styles.php');
 	  ?>
 	</head>
 	<!--end of head-->
@@ -61,24 +61,24 @@ if(isset($_POST['submit'])) {
 	<!--start of body-->
 
 	<body>
-	  <?php define('PAGE', 'Profile Maintainance') ?>
-		<?php include_once('includes/business-header.php');?>
-		<?php include_once('includes/business-sidebar.php');?>
+	  <?php define('PAGE', 'Profile Maintenance') ?>
+		<?php include_once('includes/user-header.php');?>
+		<?php include_once('includes/user-sidebar.php');?>
 
 		<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 			<div class="row">
 				<ol class="breadcrumb">
-	        <li><a href="business-dashboard.php">
+	        <li><a href="user-dashboard.php">
 						<em class="fa fa-home"></em>
 					</a></li>
-					<li class="active">Settings -> Profile Maintainance</li>
+					<li class="active">Settings -> Profile Maintenance</li>
 				</ol>
 			</div><!--/.row-->
 
 	    <div class="row">
 	      <div class="col-md-12">
 	        <div class="panel panel-primary">
-	          <div class="panel-heading">Profile Maintainance</div>
+	          <div class="panel-heading">Profile Maintenance</div>
 	        </div>
 	      </div>
 	    </div>
@@ -90,23 +90,23 @@ if(isset($_POST['submit'])) {
 							<div class="col-md-2"></div>
 	            <div class="col-md-8">
 	  					  <?php
-	              $ret = mysqli_query($con,"SELECT * FROM business WHERE businessID='$businessID'");
+	              $ret = mysqli_query($con,"SELECT * FROM users WHERE userID='$userID'");
 	              while ($row = mysqli_fetch_array($ret)) {
-									$businessRegistrationDate = $row['businessRegistrationDate'];
-									$businessLastUpdateDate = $row['businessLastUpdateDate'];
+									$userRegistrationDate = $row['userRegistrationDate'];
+									$userLastUpdateDate = $row['userLastUpdateDate'];
 	              ?>
 	  							<form role="form" method="post" action="">
 	  								<div class="form-group">
-	  									<label><span class="fa fa-user"></span>&nbsp Business Name</label>
-	  									<input class="form-control" type="text" value="<?php  echo $row['businessName'];?>" name="businessName" required="true">
+	  									<label><span class="fa fa-user"></span>&nbsp Name</label>
+	  									<input class="form-control" type="text" value="<?php  echo $row['userName'];?>" name="userName" required="true">
 	  								</div>
 	  								<div class="form-group">
 	  									<label><span class="fa fa-envelope"></span>&nbsp Email</label>
-	                    <input class="form-control" type="email" name="businessEmail" value="<?php  echo $row['businessEmail'];?>" required="true">
+	                    <input class="form-control" type="email" name="userEmail" value="<?php  echo $row['userEmail'];?>" required="true">
 	  								</div>
 	  								<div class="form-group">
 	  									<label><span class="fa fa-phone"></span>&nbsp Phone Number</label>
-	  									<input class="form-control" type="text" name="businessPhoneNumber" value="<?php  echo $row['businessPhoneNumber'];?>" required="true" maxlength="10">
+	  									<input class="form-control" type="text" name="userPhoneNumber" value="<?php  echo $row['userPhoneNumber'];?>" required="true" maxlength="10">
 	  								</div>
 	                  <br>
 	                  <div align="center" class="form-group has-success">
@@ -122,19 +122,18 @@ if(isset($_POST['submit'])) {
 				<div class="col-md-4">
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
-							<br><h4><b><span class="fa fa-pencil"></span>&nbsp Last Update Date:</b><br><br><?php echo $businessLastUpdateDate; ?></h4><br>
+							<br><h4><b><span class="fa fa-pencil"></span>&nbsp Last Update Date:</b><br><br><?php echo $userLastUpdateDate; ?></h4><br>
 						</div><!-- /.panel-body-->
 					</div><!-- /.panel-->
 				</div><!-- /.col-->
 				<div class="col-md-4">
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
-							<br><h4><b><span class="fa fa-file-o"></span>&nbsp Registration Date:</b><br><br><?php echo $businessRegistrationDate; ?></h4><br>
+							<br><h4><b><span class="fa fa-file-o"></span>&nbsp Registration Date:</b><br><br><?php echo $userRegistrationDate; ?></h4><br>
 						</div><!-- /.panel-body-->
 					</div><!-- /.panel-->
 				</div><!-- /.col-->
 			</div><!-- /.row -->
-
 	    <?php include_once('includes/footer.php');?>
 		</div><!--/.main-->
 
