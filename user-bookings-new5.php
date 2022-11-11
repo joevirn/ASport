@@ -13,6 +13,26 @@ else {
 	$userID = $_SESSION['ASportUserSessionCounter'];
 
 	if(isset($_POST['submit'])){
+
+		// //prepare and bind
+		// $statement = $conn->prepare("INSERT INTO userBookings(userID, businessFacilityID,
+		// 														bookingDate, bookingStartTime, bookingEndTime, bookingDuration,
+		// 														bookingVenue, bookingCategory, bookingFacilityNo, bookingPrice)
+		//                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		// $statement->bind_param("ssssssssid",
+		// 												$userID, $businessFacilityID,
+		// 												$bookingDate, $bookingStartTime,$bookingEndTime, $bookingDuration,
+		// 												$bookingVenue, $bookingCategory, $bookingFacilityNo, $bookingPrice);
+		//
+		// $userID = $_SESSION['ASportUserSessionCounter'];				
+
+		// //execute parameters
+		// $statement->execute();
+		//
+		// //close
+		// $statement->close();
+
+
 		$businessFacilityID = $_POST['businessFacilityID'];
 
 		$bookingDate = $_POST['bookingDate'];

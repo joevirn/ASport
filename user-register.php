@@ -29,6 +29,24 @@ if(isset($_POST['submit'])) {
       }
     }
 }
+
+// //prepare and bind
+// $statement = $conn->prepare("INSERT INTO users(userName, userEmail, userPassword, userPhoneNumber)
+//                               VALUES (?, ?, ?, ?)");
+// $statement->bind_param("ssss", $name, $email, $password, $phoneNumber);
+//
+// //set parameters
+// $name = $_POST['userName'];
+// $email = $_POST['userEmail'];
+// $password = md5($_POST['userPassword']);
+// $phoneNumber = $_POST['userPhoneNumber'];
+//
+// //execute parameters
+// $statement->execute();
+//
+// //close
+// $statement->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -91,7 +109,7 @@ if(isset($_POST['submit'])) {
 			</div>
 		</div><!-- /.col-->
 	</div><!-- /.row -->
-  <br>  
+  <br>
 
   <!--include the footer-->
   <?php include_once('includes/footer.php'); ?>
