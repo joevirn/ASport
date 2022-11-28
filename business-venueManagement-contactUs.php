@@ -154,7 +154,7 @@ else {
 										</div>
 										<br>
 										<div align="center" class="form-group has-success">
-											<button type="submit" class="btn btn-primary" name="submit" style="width: 25%;">UPDATE</button>
+											<button type="submit" class="btn btn-primary" name="submit" style="width: 25%;"><b>UPDATE</b></button>
 										</div>
 									</div>
 									<div class="col-md-2"></div>

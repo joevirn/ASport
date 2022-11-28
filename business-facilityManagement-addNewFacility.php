@@ -328,7 +328,7 @@ else {
 								<div class="col-md-12">
 								<div align="center" class="form-group has-success">
 									<br>
-									<button type="submit" class="btn btn-primary" name="submit" style="width: 40%;">ADD</button>
+									<button type="submit" class="btn btn-primary" name="submit" style="width: 40%;"><b>ADD</b></button>
 								</div>
 							</form>
 						</div><!-- /.panel-body-->

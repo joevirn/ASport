@@ -114,7 +114,14 @@ else {
 				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
-							<h4><b><span class="fa fa-pencil"></span>&nbsp Last Update: </b><?php echo $timeStampLastEditLocation ?></h4>
+							<h4><b>
+								<span class="fa fa-pencil"></span>&nbsp Last Update: </b>
+								<?php if ($timeStampLastEditLocation): ?>
+									<?php echo $timeStampLastEditLocation; ?>
+								<?php else: ?>
+									No Updates Recorded
+								<?php endif; ?>
+							</h4>
 						</div><!-- /.panel-body-->
 					</div><!-- /.panel-->
 				</div><!-- /.col-->
@@ -147,7 +154,7 @@ else {
 										</div>
 										<br>
 										<div align="center" class="form-group has-success">
-											<button type="submit" class="btn btn-primary" name="submit" style="width: 25%;">UPDATE</button>
+											<button type="submit" class="btn btn-primary" name="submit" style="width: 25%;"><b>UPDATE</b></button>
 										</div>
 		              </div>
 									<div class="col-md-1"></div>

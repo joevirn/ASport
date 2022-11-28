@@ -19,10 +19,15 @@ else {
 		$businessName = $row['businessName'];
 	}
 
-	$sql = "SELECT * FROM userBookings WHERE bookingVenue='$businessName' AND bookingDate>=CURDATE()";
+	$sql = "SELECT * FROM userBookings WHERE bookingVenue='$businessName' AND bookingIsCancelled IS NULL AND bookingDate>=CURDATE()";
 	$result = mysqli_query($con,$sql);
-	while ($row = $result->fetch_assoc()){
-		$count++;
+	if (mysqli_num_rows($result) == 0) {
+		$count = 0;
+	}
+	else {
+		while ($row = $result->fetch_assoc()){
+			$count++;
+		}
 	}
 ?>
 
@@ -112,7 +117,7 @@ else {
 	                </thead>
 	                <tbody>
 	                  <?php
-										$sql = "SELECT * FROM userBookings WHERE bookingVenue='$businessName' AND bookingDate>=CURDATE()";
+										$sql = "SELECT * FROM userBookings WHERE bookingVenue='$businessName' AND bookingIsCancelled IS NULL AND bookingDate>=CURDATE()";
 										$result = mysqli_query($con,$sql);
 										while ($row = $result->fetch_assoc()){
 

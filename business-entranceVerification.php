@@ -22,12 +22,12 @@ else {
 			$businessName = $dataBusinessName['businessName'];
 		}
 
-		$sql2 = "SELECT * FROM users WHERE userID=$userID";
-		$result2 = mysqli_query($con,$sql2);
-		while ($row2 = $result2->fetch_assoc()){
-			$userName = $row2['userName'];
-			$userPhoneNumber = $row2['userPhoneNumber'];
-			$userEmail = $row2['userEmail'];
+		$sqlGetUserDetails = "SELECT * FROM users WHERE userID=$userID";
+		$resultUserDetails = mysqli_query($con,$sqlGetUserDetails);
+		while ($row = $resultUserDetails->fetch_assoc()){
+			$userName = $row['userName'];
+			$userPhoneNumber = $row['userPhoneNumber'];
+			$userEmail = $row['userEmail'];
 		}
 
 		$sql = "SELECT * FROM userBookings
@@ -51,15 +51,22 @@ else {
 		}
 
 		if (mysqli_num_rows($result) > 0) {
-			if ($bookingDate==date("Y-m-d")) {
-				$statusMessage = "<b>VALID BOOKING</b><br><br><tt><b>$bookingDate $bookingStartTime to $bookingEndTime<br>$bookingCategory<br>Court $bookingFacilityNo</b><br>User Booking ID: $userBookingID</tt><br><br>";
-				$isFound = true;
-				$isValid = true;
-			}
-			else {
-				$statusMessage = "<b>INVALID BOOKING</b><br><br><tt><b>Booking Date is not today.<br>Please check booking receipt for more information.</b></tt><br><br>";
+			if ($bookingIsCancelled==1) {
 				$isFound = true;
 				$isValid = false;
+				$statusMessage = "<b>INVALID BOOKING</b><br><br><tt><b><font color='red'><span class='fa fa-times fa-lg'></span><br>Booking Cancelled By Customer On<br>$bookingIsCancelledTimeStamp</font></b></tt><br><br>";
+			}
+			else {
+				if ($bookingDate==date("Y-m-d")) {
+					$statusMessage = "<b>VALID BOOKING</b><br><br><tt><b>$bookingDate $bookingStartTime to $bookingEndTime<br>$bookingCategory<br>Court $bookingFacilityNo</b><br>User Booking ID: $userBookingID</tt><br><br>";
+					$isFound = true;
+					$isValid = true;
+				}
+				else {
+					$isFound = true;
+					$isValid = false;
+					$statusMessage = "<b>INVALID BOOKING</b><br><br><tt><b>Booking Date is not today.<br>Please check booking receipt for more information.</b></tt><br><br>";
+				}
 			}
 		}
 		else {
@@ -239,8 +246,8 @@ else {
 							<h3><tt><b><span class="fa fa-calendar"></span>&nbsp<?php echo $bookingDate ?></b></tt></h3>
 							<h3><tt><b><span class="fa fa-clock-o"></span>&nbsp<?php echo $bookingStartTime ?> - <?php echo $bookingEndTime ?></b></tt></h3>
 							<h3><tt><b><span class="fa fa-clock-o"></span>&nbsp<?php echo $bookingDuration ?> hour(s)</b></tt></h3>
-							<h3><tt><span class="fa fa-id-card-o"></span>&nbspBooking ID:<b> <?php echo $userBookingID ?></b></tt></h3>
-							<h3><tt><span class="fa fa-history"></span>&nbspBooked On<br><b><?php echo $bookingTransactionTimeStamp ?></b></tt></h3>
+							<h3><tt><span class="fa fa-id-card-o"></span>&nbspBooking ID :<b> <?php echo $userBookingID ?></b></tt></h3>
+							<h3><tt><span class="fa fa-history"></span>&nbspBooked On :<br><b><?php echo $bookingTransactionTimeStamp ?></b></tt></h3>
 							<br><br>
 						</div><!-- /.panel-body-->
 					</div><!-- /.panel-->

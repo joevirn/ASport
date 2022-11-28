@@ -25,7 +25,7 @@ else {
 		/* Store the path of source file */
 		$sourceFilePath = $current_layoutFileName;
 		/* Store the path of destination file */
-		$destinationFilePath = './uploads/deleted/'.basename($sourceFilePath);
+		$destinationFilePath = './uploads/businessFacilityLayout/deleted/'.basename($sourceFilePath);
 		//FILE DELETION QUERY
 		$sqlDeleteFacilityLayout = mysqli_query($con,
 			"UPDATE

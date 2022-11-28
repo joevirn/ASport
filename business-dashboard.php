@@ -10,6 +10,128 @@ if (strlen($_SESSION['ASportBusinessSessionCounter'] == 0)) {
 	header('location:business-logout.php');
 }
 else {
+	$businessID = $_SESSION['ASportBusinessSessionCounter'];
+
+	//GET BUSINESS NAME
+	$sql = "SELECT businessName FROM business WHERE businessID=$businessID";
+	$result = mysqli_query($con,$sql);
+	while ($row = $result->fetch_assoc()){
+		$businessName = $row['businessName'];
+	}
+
+	//TODAY
+	//GET COUNT FOR TODAY'S TOTAL BOOKINGS AND TOTAL SALES AND BOOKINGS CATEGORY PIE CHART
+	$sqlToday1 = "SELECT * FROM userBookings WHERE bookingVenue='$businessName' AND bookingIsCancelled IS NULL AND bookingDate=CURDATE()";
+	$resultToday1 = mysqli_query($con,$sqlToday1);
+	if (mysqli_num_rows($resultToday1) == 0) {
+		$todayTotalBookings = 0;
+		$todayTotalSales = 0;
+		$todayTotalLoyaltyPoints = 0;
+	}
+	else {
+		while ($row = $resultToday1->fetch_assoc()){
+			$bookingPrice = $row['bookingPrice'];
+			$bookingCategory = $row['bookingCategory'];
+			//COUNTER FOR TOTAL BOOKINGS
+			$todayTotalSales += $bookingPrice;
+			//COUNTER FOR TOTAL BOOKINGS
+			$todayTotalBookings++;
+			//COUNTER FOR EACH BOOKING CATEGORY FOR PIE CHART
+			if ($bookingCategory == "Badminton") {
+				$todayTotalBadminton++;
+			}
+			elseif ($bookingCategory == "Basketball") {
+				$todayTotalBasketball++;
+			}
+			elseif ($bookingCategory == "Football") {
+				$todayTotalFootball++;
+			}
+			elseif ($bookingCategory == "Futsal") {
+				$todayTotalFutsal++;
+			}
+			elseif ($bookingCategory == "Squash") {
+				$todayTotalSquash++;
+			}
+			elseif ($bookingCategory == "Tennis") {
+				$todayTotalTennis++;
+			}
+			else {
+				$todayTotalBadminton = 0;
+				$todayTotalBasketball = 0;
+				$todayTotalFootball = 0;
+				$todayTotalFutsal = 0;
+				$todayTotalSquash = 0;
+				$todayTotalTennis = 0;
+			}
+			//GET COUNT FOR TODAY'S TOTAL LOYALTY POINTS
+			$userLoyaltyTransactionID = $row['userLoyaltyTransactionID'];
+			$sqlToday2 = "SELECT * FROM userLoyaltyTransactions WHERE userLoyaltyTransactionID='$userLoyaltyTransactionID'";
+			$resultToday2 = mysqli_query($con,$sqlToday2);
+			while ($row = $resultToday2->fetch_assoc()){
+				$pointsAddedAmount = $row['pointsAddedAmount'];
+				//COUNTER TODAY'S TOTAL LOYALTY POINTS
+				$todayTotalLoyaltyPoints += $pointsAddedAmount;
+			}
+		}
+	}
+
+	//ALL UPCOMING
+	//GET COUNT FOR ALL UPCOMING TOTAL BOOKINGS AND TOTAL SALES AND BOOKINGS CATEGORY PIE CHART
+	$sqlUpcoming1 = "SELECT * FROM userBookings WHERE bookingVenue='$businessName' AND bookingIsCancelled IS NULL AND bookingDate>=CURDATE()";
+	$resultUpcoming1 = mysqli_query($con,$sqlUpcoming1);
+
+	if (mysqli_num_rows($resultUpcoming1) == 0) {
+		$upcomingTotalBookings = 0;
+		$upcomingTotalSales = 0;
+		$upcomingTotalLoyaltyPoints = 0;
+	}
+	else {
+		while ($row = $resultUpcoming1->fetch_assoc()){
+			$bookingPrice = $row['bookingPrice'];
+			$bookingCategory = $row['bookingCategory'];
+			//COUNTER FOR TOTAL BOOKINGS
+			$upcomingTotalSales += $bookingPrice;
+			//COUNTER FOR TOTAL BOOKINGS
+			$upcomingTotalBookings++;
+			//COUNTER FOR EACH BOOKING CATEGORY FOR PIE CHART
+			if ($bookingCategory == "Badminton") {
+				$upcomingTotalBadminton++;
+			}
+			elseif ($bookingCategory == "Basketball") {
+				$upcomingTotalBasketball++;
+			}
+			elseif ($bookingCategory == "Football") {
+				$upcomingTotalFootball++;
+			}
+			elseif ($bookingCategory == "Futsal") {
+				$upcomingTotalFutsal++;
+			}
+			elseif ($bookingCategory == "Squash") {
+				$upcomingTotalSquash++;
+			}
+			elseif ($bookingCategory == "Tennis") {
+				$upcomingTotalTennis++;
+			}
+			else {
+				$upcomingTotalBadminton = 0;
+				$upcomingTotalBasketball = 0;
+				$upcomingTotalFootball = 0;
+				$upcomingTotalFutsal = 0;
+				$upcomingTotalSquash = 0;
+				$upcomingTotalTennis = 0;
+			}
+			//GET COUNT FOR TOTAL LOYALTY POINTS
+			$userLoyaltyTransactionID = $row['userLoyaltyTransactionID'];
+			$sqlUpcoming2 = "SELECT * FROM userLoyaltyTransactions WHERE userLoyaltyTransactionID='$userLoyaltyTransactionID'";
+			$resultUpcoming2 = mysqli_query($con,$sqlUpcoming2);
+			while ($row = $resultUpcoming2->fetch_assoc()){
+				$pointsAddedAmount = $row['pointsAddedAmount'];
+				//COUNTER TOTAL LOYALTY POINTS
+				$upcomingTotalLoyaltyPoints += $pointsAddedAmount;
+			}
+		}
+	}
+
 ?>
 
 	<!DOCTYPE html>
@@ -33,15 +155,6 @@ else {
 
 		<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 
-			<!-- <div class="row">
-				<ol class="breadcrumb">
-					<li><a href="business-dashboard.php">
-						<em class="fa fa-home"></em>
-					</a></li>
-					<li class="active">Dashboard</li>
-				</ol>
-			</div> -->
-
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel panel-primary">
@@ -53,7 +166,7 @@ else {
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel panel-teal">
-						<div class="panel-heading"><center>TODAY ( <?php echo date("l - d/m/y") ?> )</center></div>
+						<div class="panel-heading"><center>TODAY ( <?php echo date("l - Y-m-d") ?> )</center></div>
 					</div>
 				</div>
 				<div class="col-md-6">
@@ -62,7 +175,7 @@ else {
 							<div class="panel-body easypiechart-panel">
 								<h3><b><span class="fa fa-ticket"></span><br>Total Bookings</b></h3>
 								<div class="easypiechart" id="easypiechart-teal" data-percent="100" >
-									<span class="percent"><b>10</b></span>
+									<span class="percent"><b><?php echo $todayTotalBookings ?></b></span>
 								</div>
 								<a href="business-bookingsManagement-upcoming.php"><button class="btn bg-teal" ><i class="fa fa-search fa-lg"></i><b>&nbsp VIEW DETAILS</b></button></a>
 								<br><br>
@@ -76,7 +189,7 @@ else {
 							<div class="panel-body easypiechart-panel">
 								<br>
 								<h3><b><span class="fa fa-money"></span><br>Total<br>Sales</b></h3><br>
-								<h3 class="color-teal"><b>RM1380</b></h3>
+								<h3 class="color-teal"><b>RM<?php echo $todayTotalSales ?></b></h3>
 								<br><br>
 							</div><!-- /.panel-body-->
 						</div><!-- /.panel-->
@@ -86,7 +199,7 @@ else {
 							<div class="panel-body easypiechart-panel">
 								<br>
 								<h3><b><span class="fa fa-star"></span><br>Total<br>Loyalty Points</b></h3><br>
-								<h3 class="color-teal"><b>1380</b></h3>
+								<h3 class="color-teal"><b><?php echo $todayTotalLoyaltyPoints ?></b></h3>
 								<br><br>
 							</div><!-- /.panel-body-->
 						</div><!-- /.panel-->
@@ -101,7 +214,13 @@ else {
 								<br>
 								<div class="col-md-1"></div>
 								<div class="col-md-10">
-									<div id="categoryPieChartToday" style="height: 370px; width: 100%;"></div><br><br>
+									<?php if ($todayTotalBookings): ?>
+										<div id="categoryPieChartToday" style="height: 370px; width: 100%;"></div><br><br>
+									<?php else: ?>
+										<br><center><img src="images/icon-noResultsAvailable.png" height="280"></center><br>
+										<h3 style="color: red"><b><tt>Chart Graphics Unavailable<br>(No Bookings Found)</tt></b></h3>
+										<div id="categoryPieChartToday" style="height: 1px; width: 100%;"></div>
+									<?php endif; ?>
 								</div>
 								<div class="col-md-1"></div>
 							</div><!-- /.panel-body-->
@@ -123,7 +242,7 @@ else {
 							<div class="panel-body easypiechart-panel">
 								<h3><b><span class="fa fa-ticket"></span><br>Total Bookings</b></h3>
 								<div class="easypiechart" id="easypiechart-orange" data-percent="100" >
-									<span class="percent"><b>36</b></span>
+									<span class="percent"><b><?php echo $upcomingTotalBookings ?></b></span>
 								</div>
 								<a href="business-bookingsManagement-upcoming.php"><button class="btn bg-orange" ><i class="fa fa-search fa-lg"></i><b>&nbsp VIEW DETAILS</b></button></a>
 								<br><br>
@@ -135,7 +254,7 @@ else {
 							<div class="panel-body easypiechart-panel">
 								<br>
 								<h3><b><span class="fa fa-money"></span><br>Total<br>Sales</b></h3><br>
-								<h3 class="color-orange"><b>RM2360</b></h3>
+								<h3 class="color-orange"><b>RM<?php echo $upcomingTotalSales ?></b></h3>
 								<br><br>
 							</div><!-- /.panel-body-->
 						</div><!-- /.panel-->
@@ -145,7 +264,7 @@ else {
 							<div class="panel-body easypiechart-panel">
 								<br>
 								<h3><b><span class="fa fa-star"></span><br>Total<br>Loyalty Points</b></h3><br>
-								<h3 class="color-orange"><b>2360</b></h3>
+								<h3 class="color-orange"><b><?php echo $upcomingTotalLoyaltyPoints ?></b></h3>
 								<br><br>
 							</div><!-- /.panel-body-->
 						</div><!-- /.panel-->
@@ -159,7 +278,13 @@ else {
 								<br>
 								<div class="col-md-1"></div>
 								<div class="col-md-10">
-									<div id="categoryPieChartAllUpcoming" style="height: 370px; width: 100%;"></div><br><br>
+									<?php if ($upcomingTotalBookings): ?>
+										<div id="categoryPieChartAllUpcoming" style="height: 370px; width: 100%;"></div><br><br>
+									<?php else: ?>
+										<br><center><img src="images/icon-noResultsAvailable.png" height="280"></center><br>
+										<h3 style="color: red"><b><tt>Chart Graphics Unavailable<br>(No Bookings Found)</tt></b></h3>
+										<div id="categoryPieChartAllUpcoming" style="height: 1px; width: 100%;"></div><br>
+									<?php endif; ?>
 								</div>
 								<div class="col-md-1"></div>
 							</div><!-- /.panel-body-->
@@ -176,7 +301,7 @@ else {
 		<script type="text/javascript">
 			window.onload = function() {
 
-				var categoryPieChartThisWeek = {
+				var categoryPieChartToday = {
 					title: {
 						text: ""
 					},
@@ -188,16 +313,16 @@ else {
 							indexLabel: "{label} ({y})",
 							yValueFormatString:"#,##0.#"%"",
 							dataPoints: [
-								{ label: "Badminton", y: 6 },
-								{ label: "Basketball", y: 2 },
-								{ label: "Football", y: 0 },
-								{ label: "Futsal", y: 0 },
-								{ label: "Squash", y: 0 },
-								{ label: "Tennis", y: 3 }
+								{ label: "Badminton", y: '<?php echo $todayTotalBadminton ?>' },
+								{ label: "Basketball", y: '<?php echo $todayTotalBasketball ?>' },
+								{ label: "Football", y: '<?php echo $todayTotalFootball ?>' },
+								{ label: "Futsal", y: '<?php echo $todayTotalFutsal ?>' },
+								{ label: "Squash", y: '<?php echo $todayTotalSquash ?>' },
+								{ label: "Tennis", y: '<?php echo $todayTotalTennis ?>' }
 							]
 					}]
 				};
-				$("#categoryPieChartToday").CanvasJSChart(categoryPieChartThisWeek);
+				$("#categoryPieChartToday").CanvasJSChart(categoryPieChartToday);
 
 				var categoryPieChartAllUpcoming = {
 					title: {
@@ -211,12 +336,12 @@ else {
 							indexLabel: "{label} ({y})",
 							yValueFormatString:"#,##0.#"%"",
 							dataPoints: [
-								{ label: "Badminton", y: 20 },
-								{ label: "Basketball", y: 5 },
-								{ label: "Football", y: 0 },
-								{ label: "Futsal", y: 0 },
-								{ label: "Squash", y: 6 },
-								{ label: "Tennis", y: 5 }
+								{ label: "Badminton", y: '<?php echo $upcomingTotalBadminton ?>' },
+								{ label: "Basketball", y: '<?php echo $upcomingTotalBasketball ?>' },
+								{ label: "Football", y: '<?php echo $upcomingTotalFootball ?>' },
+								{ label: "Futsal", y: '<?php echo $upcomingTotalFutsal ?>' },
+								{ label: "Squash", y: '<?php echo $upcomingTotalSquash ?>' },
+								{ label: "Tennis", y: '<?php echo $upcomingTotalTennis ?>' }
 							]
 					}]
 				};
