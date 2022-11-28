@@ -60,7 +60,7 @@
 						</a>
 						<ul
 							<?php
-							if (PAGE == "Upcoming" || PAGE == "Past") {
+							if (PAGE == "Upcoming" || PAGE == "Past" || PAGE == "Cancelled") {
 								echo "class='children collapse in'";
 							}
 							else {
@@ -87,6 +87,16 @@
 										}
 									?>
 									href="user-bookings-past.php"><span class="fa fa-calendar-check-o">&nbsp;</span> Past
+								</a>
+							</li>
+							<li>
+								<a
+									<?php
+										if (PAGE == 'Cancelled') {
+											echo "class='active'";
+										}
+									?>
+									href="user-bookings-cancelled.php"><span class="fa fa-close">&nbsp;</span> Cancelled
 								</a>
 							</li>
 						</ul>

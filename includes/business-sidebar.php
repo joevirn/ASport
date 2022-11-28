@@ -70,7 +70,7 @@
 						</a>
 						<ul
 							<?php
-							if (PAGE == "Upcoming" || PAGE == "Past" || PAGE == "Locked") {
+							if (PAGE == "Upcoming" || PAGE == "Past" || PAGE == "Cancelled") {
 								echo "class='children collapse in'";
 							}
 							else {
@@ -102,11 +102,11 @@
 							<li>
 								<a
 									<?php
-										if (PAGE == 'Locked') {
+										if (PAGE == 'Cancelled') {
 											echo "class='active'";
 										}
 									?>
-									href="business-bookingsManagement-locked1.php"><span class="fa fa-lock">&nbsp;</span> Locked
+									href="business-bookingsManagement-cancelled.php"><span class="fa fa-times">&nbsp;</span> Cancelled
 								</a>
 							</li>
 							<li>
