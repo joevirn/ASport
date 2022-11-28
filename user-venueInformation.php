@@ -122,7 +122,7 @@ else {
 	<body>
 		<?php
 		//include the header and the sidebar
-		define('PAGE', 'New Booking');
+		define('PAGE', 'Venue Information');
 		include_once('includes/user-header.php');
 		include_once('includes/user-sidebar.php');
 		?>
@@ -260,28 +260,26 @@ else {
 					</div><!-- /.panel-->
 				</div><!-- /.col-->
 				<div class="col-md-12">
-					<a href="http://<?php echo $youtubeLink ?>" target="_blank">
-						<div class="panel panel-default">
-							<div class="panel-body easypiechart-panel">
-								<br><br>
-								<img src="images/info.png" width="50" height="50"></p<br>
-								<h3><b>About Us</b></h3><br>
-								<div class="col-md-1"></div>
-								<div class="col-md-10">
-									<h3>
-										<tt>
-										<?php echo $aboutUsLine1 ?><br>
-										<?php echo $aboutUsLine2 ?><br>
-										<?php echo $aboutUsLine3 ?><br>
-										<?php echo $aboutUsLine4 ?><br>
-										<?php echo $aboutUsLine5 ?><br>
-										</tt>
-									</h3>
-								</div>
-								<div class="col-md-1"></div>
-							</div><!-- /.panel-body-->
-						</div><!-- /.panel-->
-					</a>
+					<div class="panel panel-default">
+						<div class="panel-body easypiechart-panel">
+							<br><br>
+							<img src="images/info.png" width="50" height="50"></p<br>
+							<h3><b>About Us</b></h3><br>
+							<div class="col-md-1"></div>
+							<div class="col-md-10">
+								<h3>
+									<tt>
+									<?php echo $aboutUsLine1 ?><br>
+									<?php echo $aboutUsLine2 ?><br>
+									<?php echo $aboutUsLine3 ?><br>
+									<?php echo $aboutUsLine4 ?><br>
+									<?php echo $aboutUsLine5 ?><br>
+									</tt>
+								</h3>
+							</div>
+							<div class="col-md-1"></div>
+						</div><!-- /.panel-body-->
+					</div><!-- /.panel-->
 				</div><!-- /.col-->
 			</div><!-- /.row-->
 

@@ -135,7 +135,7 @@ else {
 					<li><a href="user-dashboard.php">
 						<em class="fa fa-home"></em>
 					</a></li>
-					<li class="active">Loyalty -> Rewards Catalogue</li>
+					<li class="active">Loyalty -> Rewards Catalogue -> Redemption Confirmation</li>
 					<!--end of list-->
 				</ol>
 				<!--end of ordered list-->

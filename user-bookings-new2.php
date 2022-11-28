@@ -11,6 +11,26 @@ if (strlen($_SESSION['ASportUserSessionCounter'] == 0)) {
 }
 else {
 	$businessFacilityCategoryID = $_GET['businessFacilityCategoryID'];
+
+	if ($businessFacilityCategoryID==1) {
+		$title = "Badminton";
+	}
+	elseif ($businessFacilityCategoryID==2) {
+		$title = "Basketball";
+	}
+	elseif ($businessFacilityCategoryID==3) {
+		$title = "Football";
+	}
+	elseif ($businessFacilityCategoryID==4) {
+		$title = "Futsal";
+	}
+	elseif ($businessFacilityCategoryID==5) {
+		$title = "Squash";
+	}
+	elseif ($businessFacilityCategoryID==6) {
+		$title = "Tennis";
+	}
+
 ?>
 
 	<!DOCTYPE html>
@@ -50,7 +70,7 @@ else {
 					<li><a href="user-dashboard.php">
 						<em class="fa fa-home"></em>
 					</a></li>
-					<li class="active">New Booking</li>
+					<li class="active">New Booking -> <?php echo $title ?></li>
 					<!--end of list-->
 				</ol>
 				<!--end of ordered list-->
@@ -60,21 +80,21 @@ else {
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel panel-primary">
-						<div class="panel-heading">Badminton</div>
+						<div class="panel-heading"><?php echo $title ?></div>
 					</div>
 				</div>
 			</div>
 
-			<div class="row">
+			<!-- <div class="row">
 				<div class="col-md-12">
 					<h4 align="left"><font color="#30a5ff"><span class="fa fa-search"></span></font>&nbsp &nbsp<tt><input id="myInput" type="text" placeholder="Search.."></tt></h4>
 				</div>
-			</div>
+			</div> -->
 
 			<div class="row">
 				<?php
 					$sql =
-					"SELECT businessFacility.businessFacilityID, businessFacility.businessID, business.businessName, businessVenueManagement.locationCity, businessVenueManagement.locationState
+					"SELECT businessFacility.businessFacilityID, businessFacility.businessID, business.businessName, businessVenueManagement.locationCity, businessVenueManagement.locationState, businessVenueManagement.coverImageFileName
 					FROM businessFacility, business, businessVenueManagement
 					WHERE businessFacility.businessFacilityCategoryID='$businessFacilityCategoryID' AND businessFacility.businessID=business.businessID AND businessVenueManagement.businessID=business.businessID
 					";
@@ -85,24 +105,25 @@ else {
 						$businessName = $column['businessName'];
 						$locationCity = $column['locationCity'];
 						$locationState = $column['locationState'];
-
-						$str = $businessName;
-						$new_str = str_replace(' ', '', $str);
-						$imageFilePath = "images/facilities-".$new_str.".png";
+						$coverImageFileName = $column['coverImageFileName'];
 				 ?>
-				 <div class="col-md-4">
-					 <div class="panel panel-default">
-						 <div class="panel-body easypiechart-panel">
-							 <p><img src="<?php echo $imageFilePath ?>" width="100%" height="250"></p>
-							 <h3><b><?php echo $businessName ?></b></h3>
-							 <h5><b><?php echo "$locationCity, $locationState"; ?></b></h5>
-							 <p>
-								 <a href="" class="btn btn-warning" style="width: 45%;"><b>VENUE DETAILS</b></a>
-								 <a href="user-bookings-new3.php?businessFacilityID=<?php echo $businessFacilityID ?>" class="btn btn-primary" style="width: 45%;"><b>BOOK NOW</b></a>
-							 </p>
+					 <div class="col-md-4">
+						 <div class="panel panel-default">
+							 <div class="panel-body easypiechart-panel">
+								 <?php if ($coverImageFileName): ?>
+									 <p><img src="<?php echo $coverImageFileName ?>" width="100%" height="250"></p>
+								 <?php else: ?>
+									 <center><img src="images/icon-noImageAvailable.png" height="250"></center>
+								 <?php endif; ?>
+								 <h3><b><?php echo $businessName ?></b></h3>
+								 <h5><b><?php echo "$locationCity, $locationState"; ?></b></h5>
+								 <p>
+									 <a href="user-venueInformation.php?businessID=<?php echo $businessID ?>" class="btn btn-warning" style="width: 45%;"><b>VENUE DETAILS</b></a>
+									 <a href="user-bookings-new3.php?businessFacilityID=<?php echo $businessFacilityID ?>" class="btn btn-primary" style="width: 45%;"><b>BOOK NOW</b></a>
+								 </p>
+							 </div>
 						 </div>
 					 </div>
-				 </div>
 
 				 <?php
 			 		}

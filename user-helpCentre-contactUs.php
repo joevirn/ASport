@@ -63,26 +63,77 @@ if (strlen($_SESSION['ASportUserSessionCounter'] == 0)) {
 				</div>
 			</div>
 
-      <div class="row">
-  			<div class="col-md-12">
-  				<div class="panel panel-default">
-  					<div class="panel-body">
-
-
-              <div class="col-md-2"></div>
-
-              <div class="col-md-8">
-
-
-
-              </div>
-
-              <div class="col-md-2"></div>
-
-  					</div><!-- /.panel-body-->
-  				</div><!-- /.panel-->
-  			</div><!-- /.col-->
-  		</div><!-- /.row -->
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-body easypiechart-panel">
+							<br><br>
+							<p><img src="images/ASport.png" width="180" height="180"></p>
+							<h1><b><tt>ASport</tt></b></h1><br>
+						</div><!-- /.panel-body-->
+					</div><!-- /.panel-->
+				</div><!-- /.col-->
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-body easypiechart-panel">
+							<br><br>
+							<p><img src="images/address.png" width="50" height="50"></p>
+							<h3><b>Address :</b><br><br><tt>1-Z, Lebuh Bukit Jambul, Bukit Jambul, 11900 Bayan Lepas, Penang</tt></h3><br>
+							<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3972.4919888048717!2d100.27739139687176!3d5.341603783770761!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x304ac048a161f277%3A0x881c46d428b3162c!2sINTI%20International%20College%20Penang!5e0!3m2!1sen!2smy!4v1669489555496!5m2!1sen!2smy" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+						</div><!-- /.panel-body-->
+					</div><!-- /.panel-->
+				</div><!-- /.col-->
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-body easypiechart-panel">
+							<br><br>
+							<p><img src="images/phone.png" width="50" height="50"></p>
+							<h3><b>Phone :</b><br><br><tt>+60 18 472 3128</tt></h3><br>
+						</div><!-- /.panel-body-->
+					</div><!-- /.panel-->
+				</div><!-- /.col-->
+				<div class="col-md-6">
+					<a href="mailto:info@asport.com">
+						<div class="panel panel-default">
+							<div class="panel-body easypiechart-panel">
+								<br><br>
+								<p><img src="images/email.png" width="50" height="50"></p>
+								<h3><b>Email :</b><br><br><tt>info@asport.com</tt></h3><br>
+							</div><!-- /.panel-body-->
+						</div><!-- /.panel-->
+					</a>
+				</div><!-- /.col-->
+				<div class="col-md-4">
+					<a href="http://www.facebook.com" target="_blank">
+						<div class="panel panel-default">
+							<div class="panel-body easypiechart-panel">
+								<h3><b>Facebook</b></h4><br>
+								<p><img src="images/facebook.png" width="100" height="100"></p><br>
+							</div><!-- /.panel-body-->
+						</div><!-- /.panel-->
+					</a>
+				</div><!-- /.col-->
+				<div class="col-md-4">
+					<a href="http://www.twitter.com" target="_blank">
+						<div class="panel panel-default">
+							<div class="panel-body easypiechart-panel">
+								<h3><b>Twitter</b></h4><br>
+								<p><img src="images/twitter.png" width="100" height="100"></p><br>
+							</div><!-- /.panel-body-->
+						</div><!-- /.panel-->
+					</a>
+				</div><!-- /.col-->
+				<div class="col-md-4">
+					<a href="http://www.instagram.com" target="_blank">
+						<div class="panel panel-default">
+							<div class="panel-body easypiechart-panel">
+								<h3><b>Instagram</b></h4><br>
+								<p><img src="images/instagram.png" width="100" height="100"></p><br>
+							</div><!-- /.panel-body-->
+						</div><!-- /.panel-->
+					</a>
+				</div><!-- /.col-->
+			</div><!-- /.row-->
 
 			<!--include the footer-->
 			<?php include_once('includes/footer.php'); ?>

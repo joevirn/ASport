@@ -38,22 +38,15 @@ if (strlen($_SESSION['ASportUserSessionCounter'] == 0)) {
 		include_once('includes/user-sidebar.php');
 		?>
 
-		<!--start of division class 1-->
 		<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-			<!--start of division class 2-->
 			<div class="row">
-				<!--start of ordered list-->
 				<ol class="breadcrumb">
-					<!--start of list-->
 					<li><a href="user-dashboard.php">
 						<em class="fa fa-home"></em>
 					</a></li>
 					<li class="active">Help Centre -> Terms and Conditions</li>
-					<!--end of list-->
 				</ol>
-				<!--end of ordered list-->
 			</div>
-			<!--end of division class 2-->
 
 			<div class="row">
 				<div class="col-md-12">
@@ -64,24 +57,43 @@ if (strlen($_SESSION['ASportUserSessionCounter'] == 0)) {
 			</div>
 
       <div class="row">
-  			<div class="col-md-12">
-  				<div class="panel panel-default">
-  					<div class="panel-body">
-
-
-              <div class="col-md-2"></div>
-
-              <div class="col-md-8">
-
-
-
-              </div>
-
-              <div class="col-md-2"></div>
-
-  					</div><!-- /.panel-body-->
-  				</div><!-- /.panel-->
-  			</div><!-- /.col-->
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-body easypiechart-panel">
+							<br><br>
+							<p><img src="images/voucher.png" width="60" height="60"></p>
+							<h3><b><tt>Loyalty Rewards Voucher</tt><br>Terms and Conditions</b></h3>
+							<br>
+							<div class="col-md-1"></div>
+							<div class="col-md-10">
+								<h4>
+								<ul>
+									<li>Each voucher is valid for one-time use only.</li><br>
+									<li>Voucher is non-transferable, non-refundable and non-exchangeable.</li><br>
+									<li>Users can retrieve all redeemed vouchers from Loyalty -> Rewards.</li><br>
+									<li>ASport reserves the right to vary and amend these terms and conditions at any time without prior notice.</li><br>
+									<li>ASport reserves the sole and absolute right to alter or end this promotion, without giving prior notice, or compensation in cash or any kind.</li><br>
+								</ul>
+								</h4>
+							</div>
+							<div class="col-md-1"></div>
+							<br><br>
+						</div><!-- /.panel-body-->
+					</div><!-- /.panel-->
+				</div><!-- /.col-->
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-body easypiechart-panel">
+							<br><br>
+							<p><img src="images/tnc.png" width="50" height="50"></p>
+							<h3><b><tt>General</tt><br>Terms and Conditions</b></h3><br>
+							<center>
+								<a href="documents/sample-tnc.pdf" target="_blank" class="btn btn-primary"><b><i class="fa fa-search fa-lg"></i>&nbsp VIEW PDF</b></a>
+							</center>
+							<br>
+						</div><!-- /.panel-body-->
+					</div><!-- /.panel-->
+				</div><!-- /.col-->
   		</div><!-- /.row -->
 
 			<!--include the footer-->

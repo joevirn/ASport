@@ -84,7 +84,7 @@ else {
 	}
 
 	$sql =
-	"SELECT businessFacility.businessID, business.businessName, businessVenueManagement.locationCity, businessVenueManagement.locationState
+	"SELECT businessFacility.businessID, business.businessName, businessVenueManagement.locationCity, businessVenueManagement.locationState, businessVenueManagement.coverImageFileName
 	FROM businessFacility, business, businessVenueManagement
 	WHERE businessFacility.businessFacilityID = $businessFacilityID AND businessFacility.businessID=business.businessID AND businessVenueManagement.businessID=business.businessID
 	";
@@ -94,10 +94,7 @@ else {
 		$businessName = $column['businessName'];
 		$locationCity = $column['locationCity'];
 		$locationState = $column['locationState'];
-
-		$str = $businessName;
-		$new_str = str_replace(' ', '', $str);
-		$imageFilePath = "images/facilities-".$new_str.".png";
+		$coverImageFileName = $column['coverImageFileName'];
 	}
 ?>
 
@@ -130,18 +127,11 @@ else {
 			.available {
 				background-color: white;
 			}
-			td:hover.available{
-			 cursor: pointer;
-			 background-color: #30a5ff;
-			}
 			.booked {
 				background-color: lightgray;
 			}
 			.locked {
 				background-color: gray;
-			}
-			.selection {
-				background-color: #30a5ff;
 			}
 		</style>
 	</head>
@@ -167,7 +157,7 @@ else {
 					<li><a href="user-dashboard.php">
 						<em class="fa fa-home"></em>
 					</a></li>
-					<li class="active">New Booking</li>
+					<li class="active">New Booking -> <?php echo $bookingCategory ?> -> <?php echo $businessName ?></li>
 					<!--end of list-->
 				</ol>
 				<!--end of ordered list-->
@@ -204,11 +194,10 @@ else {
 									<label><span class="fa fa-table"></span>&nbsp <a href="#liveAvailability">View Live Availability</a></label>
 
 									<h5><b>Step 3: Select Available Slots</b></h5>
-
 									<div class="form-group">
 										<label><span class="fa fa-info-circle"></span>&nbsp Facility No</label>
 										<select class="form-control" name="bookingFacilityNo" required>
-											<option value="" selected="true" disabled="disabled">SELECT AVAILABLE COURT</option>
+											<option value="" selected="true" disabled="disabled">SELECT COURT</option>
 											<?php
 											if (isset($_POST['bookingDateForAvailabilityCheck'])) {
 												for ($i=1; $i <= $totalNo; $i++) {
@@ -221,7 +210,7 @@ else {
 									<div class="form-group">
 										<label><span class="fa fa-clock-o"></span>&nbsp Start Time</label>
 										<select class="form-control" name="bookingStartTime" required>
-											<option value="" selected="true" disabled="disabled">SELECT AVAILABLE START TIME</option>
+											<option value="" selected="true" disabled="disabled">SELECT START TIME</option>
 											<?php
 											if (isset($_POST['bookingDateForAvailabilityCheck'])) {
 												$bookingDateForAvailabilityCheck = $_POST['bookingDateForAvailabilityCheck'];
@@ -318,7 +307,7 @@ else {
 									<div class="form-group">
 										<label><span class="fa fa-list"></span>&nbsp Duration (hour)</label>
 										<select class="form-control" name="bookingDuration" required>
-											<option value="" selected="true" disabled="disabled">SELECT AVAILABLE DURATION</option>
+											<option value="" selected="true" disabled="disabled">SELECT DURATION</option>
 											<?php
 											if (isset($_POST['bookingDateForAvailabilityCheck'])) {
 												echo "<option>1</option>";
@@ -388,10 +377,32 @@ else {
 										?>
 												<tr>
 													<th><?php echo $slotTime;?></th>
-													<?php for ($j=0; $j<$totalNo; $j++) {?>
-													<td><?php echo $slotPrice;?></td>
+													<?php for ($j=0; $j<$totalNo; $j++) {
+														$hourBefore = date("H:i", strtotime("-1 hour", strtotime($slotTime)));
+
+														//CHECK IF SLOT IS BOOKED FOR SLOT TIME WITH DURATION 1 HOUR
+														$sqlCheckBooked1 = "SELECT * FROM userBookings WHERE businessFacilityID=$businessFacilityID AND bookingDate='$bookingDateForAvailabilityCheck' AND bookingStartTime='$slotTime' AND bookingFacilityNo=$facilityNo AND bookingDuration=1";
+														$resultCheckBooked1 = mysqli_query($con,$sqlCheckBooked1);
+														//CHECK IF SLOT IS BOOKED FOR SLOT TIME WITH DURATION 2 HOURS
+														$sqlCheckBooked2 = "SELECT * FROM userBookings WHERE businessFacilityID=$businessFacilityID AND bookingDate='$bookingDateForAvailabilityCheck' AND bookingStartTime='$slotTime' AND bookingFacilityNo=$facilityNo AND bookingDuration=2";
+														$resultCheckBooked2 = mysqli_query($con,$sqlCheckBooked2);
+														//CHECK IF SLOT IS BOOKED FOR 1 HOUR BEFORE SLOT TIME WITH DURATION 2 HOURS
+														$sqlCheckBooked3 = "SELECT * FROM userBookings WHERE businessFacilityID=$businessFacilityID AND bookingDate='$bookingDateForAvailabilityCheck' AND bookingStartTime='$hourBefore' AND bookingFacilityNo=$facilityNo AND bookingDuration=2";
+														$resultCheckBooked3 = mysqli_query($con,$sqlCheckBooked3);
+
+														$facilityNo++;
+													?>
+														<?php if (mysqli_num_rows($resultCheckBooked1)!=0): ?>
+															<td id="BookedColor" class="booked">B</td>
+														<?php elseif (mysqli_num_rows($resultCheckBooked2)!=0): ?>
+															<td id="BookedColor" class="booked">B</td>
+														<?php elseif (mysqli_num_rows($resultCheckBooked3)!=0): ?>
+															<td id="BookedColor" class="booked">B</td>
+														<?php else: ?>
+															<td>RM<?php echo $slotPrice;?></td>
+														<?php endif; ?>
+
 													<?php
-													$facilityNo++;
 													}
 													?>
 												</tr>
@@ -517,11 +528,15 @@ else {
 				 <div class="panel panel-default">
 					 <div class="panel-body easypiechart-panel">
 						 <h3><b>Venue Information</b></h3>
-						 <p><img src="<?php echo $imageFilePath ?>" width="100%" height="250"></p>
+						 <?php if ($coverImageFileName): ?>
+							 <p><img src="<?php echo $coverImageFileName ?>" width="100%" height="250"></p>
+						 <?php else: ?>
+							 <center><img src="images/icon-noImageAvailable.png" height="250"></center>
+						 <?php endif; ?>
 						 <h3><b><?php echo $businessName ?></b></h3>
 						 <h5><b><?php echo "$locationCity, $locationState"; ?></b></h5>
 						 <p>
-							 <a href="" class="btn btn-warning" style="width: 45%;"><b>VENUE DETAILS</b></a>
+							 <a href="user-venueInformation.php?businessID=<?php echo $businessID ?>" target="_blank" class="btn btn-warning" style="width: 45%;"><b>VENUE DETAILS</b></a>
 						 </p>
 					 </div>
 				 </div>

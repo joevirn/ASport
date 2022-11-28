@@ -24,7 +24,7 @@ else {
 		// 												$bookingDate, $bookingStartTime,$bookingEndTime, $bookingDuration,
 		// 												$bookingVenue, $bookingCategory, $bookingFacilityNo, $bookingPrice);
 		//
-		// $userID = $_SESSION['ASportUserSessionCounter'];				
+		// $userID = $_SESSION['ASportUserSessionCounter'];
 
 		// //execute parameters
 		// $statement->execute();

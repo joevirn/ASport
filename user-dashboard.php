@@ -13,8 +13,11 @@ else {
 	$userID = $_SESSION['ASportUserSessionCounter'];
 
 	$sql = "SELECT * FROM userBookings
-					WHERE userID=$userID AND bookingDate >= CURDATE() ORDER BY bookingDate ASC, bookingStartTime DESC LIMIT 1";
+					WHERE userID=$userID AND bookingIsCancelled IS NULL AND bookingDate >= CURDATE() ORDER BY bookingDate ASC, bookingStartTime DESC LIMIT 1";
 	$result = mysqli_query($con,$sql);
+	if (mysqli_num_rows($result) == 0) {
+		$noNextBooking = true;
+	}
 	while ($data = $result->fetch_assoc()){
 		$userBookingID = $data['userBookingID'];
 		$businessFacilityID = $data['businessFacilityID'];
@@ -35,22 +38,37 @@ else {
 	//GET PONTS BALANCE
 	$sql = "SELECT * FROM userLoyaltyTransactions WHERE userID=$userID ORDER BY userLoyaltyTransactionID DESC LIMIT 1";
 	$result = mysqli_query($con,$sql);
-	while ($row = $result->fetch_assoc()){
-		$pointsBalance = $row['pointsBalance'];
+	if (mysqli_num_rows($result) == 0) {
+		$pointsBalance = 0;
+	}
+	else {
+		while ($row = $result->fetch_assoc()){
+			$pointsBalance = $row['pointsBalance'];
+		}
 	}
 
 	//GET TOTAL NO OF UPCOMING BOOKINGS
-	$sql = "SELECT * FROM userBookings WHERE userID=$userID AND bookingDate >= CURDATE()";
+	$sql = "SELECT * FROM userBookings WHERE userID=$userID AND bookingIsCancelled IS NULL AND bookingDate >= CURDATE()";
 	$result = mysqli_query($con,$sql);
-	while ($row = $result->fetch_assoc()){
-		$upcomingBookingsCount++;
+	if (mysqli_num_rows($result) == 0) {
+		$upcomingBookingsCount = 0;
+	}
+	else {
+		while ($row = $result->fetch_assoc()){
+			$upcomingBookingsCount++;
+		}
 	}
 
 	//GET TOTAL NO OF PAST BOOKINGS
-	$sql = "SELECT * FROM userBookings WHERE userID=$userID AND bookingDate < CURDATE()";
+	$sql = "SELECT * FROM userBookings WHERE userID=$userID AND bookingIsCancelled IS NULL AND bookingDate < CURDATE()";
 	$result = mysqli_query($con,$sql);
-	while ($row = $result->fetch_assoc()){
-		$pastBookingsCount++;
+	if (mysqli_num_rows($result) == 0) {
+		$pastBookingsCount = 0;
+	}
+	else {
+		while ($row = $result->fetch_assoc()){
+			$pastBookingsCount++;
+		}
 	}
 
 ?>
@@ -80,17 +98,7 @@ else {
 		?>
 
 		<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-			<!-- <div class="row">
-				<ol class="breadcrumb">
-					<li><a href="user-dashboard.php">
-						<em class="fa fa-home"></em>
-					</a></li>
-					<li class="active">Dashboard</li>
-				</ol>
-			</div> -->
-
 			<br>
-
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel panel-primary">
@@ -105,61 +113,74 @@ else {
 						<div class="panel-heading"><center>YOUR NEXT BOOKING</center></div>
 					</div>
 				</div>
-				<div class="col-md-4">
-					<div class="panel panel-default">
-						<div class="panel-body easypiechart-panel">
-							<h3><b><span class="fa fa-ticket"></span><br>QR Code</b></h3><br>
-							<p>
-								<canvas id="qr-code"></canvas>
-								<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
-								<script>
-									var qr;
-									(function() {
-											qr = new QRious({
-											element: document.getElementById('qr-code'),
-											size: 200,
-											value: 'userBookingID=<?php echo $userBookingID ?>&userID=<?php echo $userID ?>'
-										});
-									})();
-								</script>
-							</p>
-							<h5>Present this QR code at check-in counter<br>for entry verification.</h5>
-							<br>
-						</div><!-- /.panel-body-->
-					</div><!-- /.panel-->
-				</div><!-- /.col-->
-				<div class="col-md-4">
-					<div class="panel panel-default">
-						<div class="panel-body easypiechart-panel">
-							<h3><b><span class="fa fa-info"></span><br>Booking Information</b></h3><br>
-							<h3><tt><b><span class="fa fa-calendar"></span>&nbsp<?php echo $bookingDate ?></b></tt></h3>
-							<h3><tt><b><span class="fa fa-clock-o"></span>&nbsp<?php echo $bookingStartTime ?> - <?php echo $bookingEndTime ?></b></tt></h3>
-							<h3><tt><b><span class="fa fa-clock-o"></span>&nbsp<?php echo $bookingDuration ?> hour(s)</b></tt></h3>
-							<h3><tt><b><span class="fa fa-ticket"></span>&nbspBooking ID : <?php echo $userBookingID ?></b></tt></h3>
-							<br>
-							<a target="_blank" href="user-bookings-receipt.php?userBookingID=<?php echo $userBookingID ?>"><button class="btn bg-teal" ><i class="fa fa-search fa-lg"></i><b>&nbsp VIEW BOOKING RECEIPT</b></button></a>
-							<br><br>
-						</div><!-- /.panel-body-->
-					</div><!-- /.panel-->
-				</div><!-- /.col-->
-				<div class="col-md-4">
-					<div class="panel panel-default">
-						<div class="panel-body easypiechart-panel">
-							<h3><b><span class="fa fa-map"></span><br>Venue & Facility Information</b></h3>
-							<h3><tt><b><span class="fa fa-location-arrow"></span>&nbsp<?php echo $bookingVenue ?></b></tt></h3><br>
-							<table>
-								<tr>
-									<td style="border:none; text-align:right;" width="55%"><img src="images/<?php echo $bookingCategory ?>.png" width="200" height="200"></td>
-									<td style="border:none; text-align:left;" width="45%">
-										<h3><b><tt>&nbsp &nbsp<?php echo $bookingCategory ?></tt></b></h3>
-										<h3><b><tt>&nbsp &nbsp Court <?php echo $bookingFacilityNo ?></tt></b></h3>
-									</td>
-								</tr>
-							</table>
-							<br>
-						</div><!-- /.panel-body-->
-					</div><!-- /.panel-->
-				</div><!-- /.col-->
+				<?php if ($noNextBooking==true): ?>
+					<div class="col-md-12">
+						<div class="panel panel-default">
+							<div class="panel-body easypiechart-panel">
+								<h3><b><span class="fa fa-ticket"></span><br>No Next Booking Found</b></h3><br>
+								<a href="user-bookings-new1.php"><button class="btn bg-teal" ><i class="fa fa-calendar-plus-o"></i><b>&nbsp MAKE A NEW BOOKING</b></button></a>
+								<br><br>
+							</div><!-- /.panel-body-->
+						</div><!-- /.panel-->
+					</div><!-- /.col-->
+				<?php else: ?>
+					<div class="col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-body easypiechart-panel">
+								<h3><b><span class="fa fa-ticket"></span><br>QR Code</b></h3><br>
+								<p>
+									<canvas id="qr-code"></canvas>
+									<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+									<script>
+										var qr;
+										(function() {
+												qr = new QRious({
+												element: document.getElementById('qr-code'),
+												size: 200,
+												value: 'userBookingID=<?php echo $userBookingID ?>&userID=<?php echo $userID ?>'
+											});
+										})();
+									</script>
+								</p>
+								<h5>Present this QR code at check-in counter<br>for entry verification.</h5>
+								<br>
+							</div><!-- /.panel-body-->
+						</div><!-- /.panel-->
+					</div><!-- /.col-->
+					<div class="col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-body easypiechart-panel">
+								<h3><b><span class="fa fa-info"></span><br>Booking Information</b></h3><br>
+								<h3><tt><b><span class="fa fa-calendar"></span>&nbsp<?php echo $bookingDate ?></b></tt></h3>
+								<h3><tt><b><span class="fa fa-clock-o"></span>&nbsp<?php echo $bookingStartTime ?> - <?php echo $bookingEndTime ?></b></tt></h3>
+								<h3><tt><b><span class="fa fa-clock-o"></span>&nbsp<?php echo $bookingDuration ?> hour(s)</b></tt></h3>
+								<h3><tt><b><span class="fa fa-ticket"></span>&nbspBooking ID : <?php echo $userBookingID ?></b></tt></h3>
+								<br>
+								<a href="user-bookings-receipt.php?userBookingID=<?php echo $userBookingID ?>"><button class="btn bg-teal" ><i class="fa fa-search fa-lg"></i><b>&nbsp VIEW BOOKING RECEIPT</b></button></a>
+								<br><br>
+							</div><!-- /.panel-body-->
+						</div><!-- /.panel-->
+					</div><!-- /.col-->
+					<div class="col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-body easypiechart-panel">
+								<h3><b><span class="fa fa-map"></span><br>Venue & Facility Information</b></h3>
+								<h3><tt><b><span class="fa fa-location-arrow"></span>&nbsp<?php echo $bookingVenue ?></b></tt></h3><br>
+								<table>
+									<tr>
+										<td style="border:none; text-align:right;" width="55%"><img src="images/<?php echo $bookingCategory ?>.png" width="200" height="200"></td>
+										<td style="border:none; text-align:left;" width="45%">
+											<h3><b><tt>&nbsp &nbsp<?php echo $bookingCategory ?></tt></b></h3>
+											<h3><b><tt>&nbsp &nbsp Court <?php echo $bookingFacilityNo ?></tt></b></h3>
+										</td>
+									</tr>
+								</table>
+								<br>
+							</div><!-- /.panel-body-->
+						</div><!-- /.panel-->
+					</div><!-- /.col-->
+				<?php endif; ?>
+
 			</div>
 
 			<div class="row">

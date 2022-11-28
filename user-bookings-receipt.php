@@ -33,6 +33,13 @@ else {
 		$bookingIsCancelledTimeStamp = $data['bookingIsCancelledTimeStamp'];
 	}
 
+	//FOR CANCELLATION ELIGIBILITY CHECK
+	$todayDate = date('Y-m-d', time());
+	//cancellation can only be made before the booking date
+	if ($bookingDate<=$todayDate) {
+		$cancellationIneligible = true;
+	}
+
 	$sql = "SELECT * FROM userLoyaltyTransactions
 					WHERE userLoyaltyTransactionID=$userLoyaltyTransactionID AND userBookingID=$userBookingID AND userID=$userID";
 	$result = mysqli_query($con,$sql);
@@ -50,7 +57,7 @@ else {
 	}
 
 	$sql =
-	"SELECT businessFacility.businessID, business.businessName, businessVenueManagement.locationCity, businessVenueManagement.locationState
+	"SELECT businessFacility.businessID, business.businessName, businessVenueManagement.locationCity, businessVenueManagement.locationState, businessVenueManagement.coverImageFileName
 	FROM businessFacility, business, businessVenueManagement
 	WHERE businessFacility.businessFacilityID = $businessFacilityID AND businessFacility.businessID=business.businessID AND businessVenueManagement.businessID=business.businessID
 	";
@@ -60,10 +67,7 @@ else {
 		$businessName = $column['businessName'];
 		$locationCity = $column['locationCity'];
 		$locationState = $column['locationState'];
-
-		$str = $businessName;
-		$new_str = str_replace(' ', '', $str);
-		$imageFilePath = "images/facilities-".$new_str.".png";
+		$coverImageFileName = $column['coverImageFileName'];
 	}
 ?>
 
@@ -88,28 +92,34 @@ else {
 
 	<body>
 		<?php
+		$date_now = date("Y-m-d");
 		//include the header and the sidebar
-		define('PAGE', 'Upcoming');
+		if ($bookingIsCancelled) {
+			define('PAGE', 'Cancelled');
+			$breadcrumb = "Cancelled";
+		}
+		else {
+			if ($bookingDate>= $date_now) {
+				define('PAGE', 'Upcoming');
+				$breadcrumb = "Upcoming";
+			} else {
+				define('PAGE', 'Past');
+				$breadcrumb = "Past";
+			}
+		}
 		include_once('includes/user-header.php');
 		include_once('includes/user-sidebar.php');
 		?>
 
-		<!--start of division class 1-->
 		<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-			<!--start of division class 2-->
 			<div class="row">
-				<!--start of ordered list-->
 				<ol class="breadcrumb">
-					<!--start of list-->
 					<li><a href="user-dashboard.php">
 						<em class="fa fa-home"></em>
 					</a></li>
-					<li class="active">Booking Receipt</li>
-					<!--end of list-->
+					<li class="active">My Bookings -> <?php echo $breadcrumb ?> -> Booking Receipt</li>
 				</ol>
-				<!--end of ordered list-->
 			</div>
-			<!--end of division class 2-->
 
 			<div class="row">
 				<div class="col-md-12">
@@ -123,25 +133,34 @@ else {
 				<div class="col-md-7">
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
-							<h3><b>QR Code</b></h3>
-							<p>
-								<canvas id="qr-code"></canvas>
-								<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
-								<script>
-									var qr;
-									(function() {
-											qr = new QRious({
-											element: document.getElementById('qr-code'),
-											size: 200,
-											value: 'userBookingID=<?php echo $userBookingID ?>&userID=<?php echo $userID ?>'
-										});
-									})();
-								</script>
-							</p>
-							<h5>Present this QR code at check-in counter for entry verification.</h5>
+							<?php if ($bookingIsCancelled): ?>
+								<br><br>
+								<img src="images/cross.png" width="100" height="100">
+								<br><br>
+								<h3 style="color:red"><b>Booking Cancelled On<br><br><tt><?php echo $bookingIsCancelledTimeStamp ?></tt></b></h3>
+								<br><br>
+							<?php else: ?>
+								<h3><b>QR Code</b></h3>
+								<p>
+									<canvas id="qr-code"></canvas>
+									<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+									<script>
+										var qr;
+										(function() {
+												qr = new QRious({
+												element: document.getElementById('qr-code'),
+												size: 200,
+												value: 'userBookingID=<?php echo $userBookingID ?>&userID=<?php echo $userID ?>'
+											});
+										})();
+									</script>
+								</p>
+								<h5>Present this QR code at check-in counter for entry verification.</h5>
+							<?php endif; ?>
 						</div>
 					</div>
 				</div>
+
 
 				<div class="col-md-5">
 					<div class="panel panel-default">
@@ -149,23 +168,26 @@ else {
 							<h3><b>Loyalty Points Earned For<br><br>This Transaction</b></h3><br>
 							<center>
 								<table>
-								<tr>
-									<td><img src="images/loyalty.png" width="100" height="100">&nbsp &nbsp &nbsp &nbsp</td>
-									<td>
-										<div class="easypiechart" id="easypiechart-blue" data-percent="100" >
-											<span class="percent">
-												<?php echo "$pointsAddedAmount" ?>
-											</span>
-										</div>
-									</td>
-								</tr>
-							</table>
-						</center><br>
+									<tr>
+										<td><img src="images/loyalty.png" width="100" height="100">&nbsp &nbsp &nbsp &nbsp</td>
+										<td>
+											<div class="easypiechart" id="easypiechart-blue" data-percent="100" >
+												<span class="percent">
+													<?php if ($bookingIsCancelled): ?>
+														<?php echo "0" ?>
+													<?php else: ?>
+														<?php echo "$pointsAddedAmount" ?>
+													<?php endif; ?>
+												</span>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</center><br>
 						</div><!-- /.panel-body-->
 					</div><!-- /.panel-->
 				</div><!-- /.col-->
 
-				<form method="post" action="">
 				<div class="col-md-7">
 					<div class="panel panel-default">
 						<div class="panel-body">
@@ -214,14 +236,33 @@ else {
 									</div>
 	                <br>
 									<div align="center" class="form-group has-success">
-										<button type="submit" class="btn btn-danger" name="submit" style="width: 40%;"><b>CANCEL BOOKING</b></button>
+										<?php if ($bookingIsCancelled || $cancellationIneligible): ?>
+											<a class="btn btn-danger" style="width: 40%;" disabled>
+												<b>CANCEL BOOKING</b>
+											</a>
+										<?php else: ?>
+											<a href="user-bookings-cancellation.php?userBookingID=<?php echo $userBookingID ?>"
+												onclick="return confirm('Are you sure to cancel this booking? This action cannot be reverted!')"
+												class="btn btn-danger"
+												style="width: 40%;"
+											>
+												<b><span class="fa fa-times"></span>&nbsp CANCEL BOOKING</b>
+											</a>
+										<?php endif; ?>
 									</div>
+									<center>
+										<p style="color: red"><b><tt>* Cancellation can only be made before the booking date. *</tt></b></p>
+										<p><b><tt>
+											<a href="user-helpCentre-faq.php" target="blank">View Frequently Asked Questions</a>
+											<br>
+											<a href="user-helpCentre-tnc.php" target="blank">View Terms & Conditions</a>
+										</tt></b></p>
+									</center>
 	              </div>
 								<div class="col-md-1"></div>
 						</div><!-- /.panel-body-->
 					</div><!-- /.panel-->
 				</div><!-- /.col-->
-				</form>
 
 				<div class="col-md-5">
 					<div class="panel panel-default">
@@ -255,19 +296,23 @@ else {
 					</div><!-- /.panel-->
 				</div><!-- /.col-->
 
-			 <div class="col-md-5">
-				 <div class="panel panel-default">
-					 <div class="panel-body easypiechart-panel">
-						 <h3><b>Venue Information</b></h3>
-						 <p><img src="<?php echo $imageFilePath ?>" width="100%" height="250"></p>
-						 <h3><b><?php echo $businessName ?></b></h3>
-						 <h5><b><?php echo "$locationCity, $locationState"; ?></b></h5>
-						 <p>
-							 <a href="" class="btn btn-warning" style="width: 45%;"><b>VENUE DETAILS</b></a>
-						 </p>
-					 </div>
-				 </div>
-			 </div>
+				<div class="col-md-5">
+ 				 <div class="panel panel-default">
+ 					 <div class="panel-body easypiechart-panel">
+ 						 <h3><b>Venue Information</b></h3>
+ 						 <?php if ($coverImageFileName): ?>
+ 							 <p><img src="<?php echo $coverImageFileName ?>" width="100%" height="250"></p>
+ 						 <?php else: ?>
+ 							 <center><img src="images/icon-noImageAvailable.png" height="250"></center>
+ 						 <?php endif; ?>
+ 						 <h3><b><?php echo $businessName ?></b></h3>
+ 						 <h5><b><?php echo "$locationCity, $locationState"; ?></b></h5>
+ 						 <p>
+ 							 <a href="user-venueInformation.php?businessID=<?php echo $businessID ?>" target="_blank" class="btn btn-warning" style="width: 45%;"><b>VENUE DETAILS</b></a>
+ 						 </p>
+ 					 </div>
+ 				 </div>
+ 			 </div>
 
 			</div><!-- /.row-->
 

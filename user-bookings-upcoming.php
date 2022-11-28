@@ -13,10 +13,16 @@ else {
 
 	$userID = $_SESSION['ASportUserSessionCounter'];
 
-	$sql = "SELECT * FROM userBookings WHERE userID=$userID AND bookingDate >= CURDATE()";
+	//GET TOTAL NO OF UPCOMING BOOKINGS
+	$sql = "SELECT * FROM userBookings WHERE userID=$userID AND bookingIsCancelled IS NULL AND bookingDate >= CURDATE()";
 	$result = mysqli_query($con,$sql);
-	while ($row = $result->fetch_assoc()){
-		$count++;
+	if (mysqli_num_rows($result) == 0) {
+		$count = 0;
+	}
+	else {
+		while ($row = $result->fetch_assoc()){
+			$count++;
+		}
 	}
 ?>
 
@@ -104,7 +110,7 @@ else {
 	                </thead>
 	                <tbody>
 	                  <?php
-										$sql = "SELECT * FROM userBookings WHERE userID=$userID AND bookingDate >= CURDATE()";
+										$sql = "SELECT * FROM userBookings WHERE userID=$userID AND bookingIsCancelled IS NULL AND bookingDate >= CURDATE()";
 										$result = mysqli_query($con,$sql);
 										while ($row = $result->fetch_assoc()){
 	                  ?>
@@ -118,7 +124,7 @@ else {
 												<td><?php echo $row['bookingFacilityNo'];?></td>
 												<td><?php echo $row['bookingPrice'];?></td>
 						            <td><?php echo $row['userBookingID'];?></td>
-												<td><a target="_blank" href="user-bookings-receipt.php?userBookingID=<?php echo $row['userBookingID'];?>"><b>VIEW</b></a></td>
+												<td><a href="user-bookings-receipt.php?userBookingID=<?php echo $row['userBookingID'];?>"><b>VIEW</b></a></td>
 	                    </tr>
 	                  <?php
 	                  }

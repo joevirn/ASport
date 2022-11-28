@@ -27,70 +27,93 @@ else {
 		$bookingPrice = $slotPrice * $bookingDuration;
 		$bookingEndTime = date('H:i',strtotime($bookingStartTime.'+'.$bookingDuration.' hours'));
 
-		$sql = "SELECT * FROM businessFacility WHERE businessFacilityID='$businessFacilityID'";
-		$result = mysqli_query($con,$sql);
-		while ($data = $result->fetch_assoc()){
-			$businessFacilityID = $data['businessFacilityID'];
-			$businessFacilityCategoryID = $data['businessFacilityCategoryID'];
+		$hourBefore = date("H:i", strtotime("-1 hour", strtotime($bookingStartTime)));
 
-			$totalNo = $data['totalNo'];
+		//CHECK IF SLOT IS BOOKED FOR SLOT TIME WITH DURATION 1 HOUR
+		$sqlCheckBooked1 = "SELECT * FROM userBookings WHERE businessFacilityID=$businessFacilityID AND bookingDate='$bookingDate' AND bookingStartTime='$bookingStartTime' AND bookingFacilityNo=$bookingFacilityNo AND bookingDuration=1";
+		$resultCheckBooked1 = mysqli_query($con,$sqlCheckBooked1);
+		//CHECK IF SLOT IS BOOKED FOR SLOT TIME WITH DURATION 2 HOURS
+		$sqlCheckBooked2 = "SELECT * FROM userBookings WHERE businessFacilityID=$businessFacilityID AND bookingDate='$bookingDate' AND bookingStartTime='$bookingStartTime' AND bookingFacilityNo=$bookingFacilityNo AND bookingDuration=2";
+		$resultCheckBooked2 = mysqli_query($con,$sqlCheckBooked2);
+		//CHECK IF SLOT IS BOOKED FOR 1 HOUR BEFORE SLOT TIME WITH DURATION 2 HOURS
+		$sqlCheckBooked3 = "SELECT * FROM userBookings WHERE businessFacilityID=$businessFacilityID AND bookingDate='$bookingDate' AND bookingStartTime='$hourBefore' AND bookingFacilityNo=$bookingFacilityNo AND bookingDuration=2";
+		$resultCheckBooked3 = mysqli_query($con,$sqlCheckBooked3);
 
-			$mondayIsOpen = $data['mondayIsOpen'];
-			$mondayOpeningTime = date('H:i',strtotime($data['mondayOpeningTime']));
-			$mondayClosingTime = date('H:i',strtotime($data['mondayClosingTime']));
-			$mondayPrice = $data['mondayPrice'];
-
-			$tuesdayIsOpen = $data['tuesdayIsOpen'];
-			$tuesdayOpeningTime = date('H:i',strtotime($data['tuesdayOpeningTime']));
-			$tuesdayClosingTime = date('H:i',strtotime($data['tuesdayClosingTime']));
-			$tuesdayPrice = $data['tuesdayPrice'];
-
-			$wednesdayIsOpen = $data['wednesdayIsOpen'];
-			$wednesdayOpeningTime = date('H:i',strtotime($data['wednesdayOpeningTime']));
-			$wednesdayClosingTime = date('H:i',strtotime($data['wednesdayClosingTime']));
-			$wednesdayPrice = $data['wednesdayPrice'];
-
-			$thursdayIsOpen = $data['thursdayIsOpen'];
-			$thursdayOpeningTime = date('H:i',strtotime($data['thursdayOpeningTime']));
-			$thursdayClosingTime = date('H:i',strtotime($data['thursdayClosingTime']));
-			$thursdayPrice = $data['thursdayPrice'];
-
-			$fridayIsOpen = $data['fridayIsOpen'];
-			$fridayOpeningTime = date('H:i',strtotime($data['fridayOpeningTime']));
-			$fridayClosingTime = date('H:i',strtotime($data['fridayClosingTime']));
-			$fridayPrice = $data['fridayPrice'];
-
-			$saturdayIsOpen = $data['saturdayIsOpen'];
-			$saturdayOpeningTime = date('H:i',strtotime($data['saturdayOpeningTime']));
-			$saturdayClosingTime = date('H:i',strtotime($data['saturdayClosingTime']));
-			$saturdayPrice = $data['saturdayPrice'];
-
-			$sundayIsOpen = $data['sundayIsOpen'];
-			$sundayOpeningTime = date('H:i',strtotime($data['sundayOpeningTime']));
-			$sundayClosingTime = date('H:i',strtotime($data['sundayClosingTime']));
-			$sundayPrice = $data['sundayPrice'];
-
-			$timeStampAdded = $data['timeStampAdded'];
-			$timeStampEdited = $data['timeStampEdited'];
-
-			$layoutFileName = $data['layoutFileName'];
+		if (mysqli_num_rows($resultCheckBooked1)!=0) {
+			echo "<script>alert('The selected slot is unavailable! Please refer to the live availability table for available slots!');</script>";
+			echo "<script>window.location.href='user-bookings-new3.php?businessFacilityID=$businessFacilityID'</script>";
 		}
+		elseif (mysqli_num_rows($resultCheckBooked2)!=0) {
+			echo "<script>alert('The selected slot is unavailable! Please refer to the live availability table for available slots!');</script>";
+			echo "<script>window.location.href='user-bookings-new3.php?businessFacilityID=$businessFacilityID'</script>";
+		}
+		elseif (mysqli_num_rows($resultCheckBooked3)!=0) {
+			echo "<script>alert('The selected slot is unavailable! Please refer to the live availability table for available slots!');</script>";
+			echo "<script>window.location.href='user-bookings-new3.php?businessFacilityID=$businessFacilityID'</script>";
+		}
+		else {
+			$sql = "SELECT * FROM businessFacility WHERE businessFacilityID='$businessFacilityID'";
+			$result = mysqli_query($con,$sql);
+			while ($data = $result->fetch_assoc()){
+				$businessFacilityID = $data['businessFacilityID'];
+				$businessFacilityCategoryID = $data['businessFacilityCategoryID'];
 
-		$sql =
-		"SELECT businessFacility.businessID, business.businessName, businessVenueManagement.locationCity, businessVenueManagement.locationState
-		FROM businessFacility, business, businessVenueManagement
-		WHERE businessFacility.businessFacilityID = $businessFacilityID AND businessFacility.businessID=business.businessID AND businessVenueManagement.businessID=business.businessID
-		";
-		$result = mysqli_query($con,$sql);
-		while ($column = $result->fetch_assoc()){
-			$businessID = $column['businessID'];
-			$businessName = $column['businessName'];
-			$locationCity = $column['locationCity'];
-			$locationState = $column['locationState'];
+				$totalNo = $data['totalNo'];
 
-			$str = $businessName;
-			$new_str = str_replace(' ', '', $str);
-			$imageFilePath = "images/facilities-".$new_str.".png";
+				$mondayIsOpen = $data['mondayIsOpen'];
+				$mondayOpeningTime = date('H:i',strtotime($data['mondayOpeningTime']));
+				$mondayClosingTime = date('H:i',strtotime($data['mondayClosingTime']));
+				$mondayPrice = $data['mondayPrice'];
+
+				$tuesdayIsOpen = $data['tuesdayIsOpen'];
+				$tuesdayOpeningTime = date('H:i',strtotime($data['tuesdayOpeningTime']));
+				$tuesdayClosingTime = date('H:i',strtotime($data['tuesdayClosingTime']));
+				$tuesdayPrice = $data['tuesdayPrice'];
+
+				$wednesdayIsOpen = $data['wednesdayIsOpen'];
+				$wednesdayOpeningTime = date('H:i',strtotime($data['wednesdayOpeningTime']));
+				$wednesdayClosingTime = date('H:i',strtotime($data['wednesdayClosingTime']));
+				$wednesdayPrice = $data['wednesdayPrice'];
+
+				$thursdayIsOpen = $data['thursdayIsOpen'];
+				$thursdayOpeningTime = date('H:i',strtotime($data['thursdayOpeningTime']));
+				$thursdayClosingTime = date('H:i',strtotime($data['thursdayClosingTime']));
+				$thursdayPrice = $data['thursdayPrice'];
+
+				$fridayIsOpen = $data['fridayIsOpen'];
+				$fridayOpeningTime = date('H:i',strtotime($data['fridayOpeningTime']));
+				$fridayClosingTime = date('H:i',strtotime($data['fridayClosingTime']));
+				$fridayPrice = $data['fridayPrice'];
+
+				$saturdayIsOpen = $data['saturdayIsOpen'];
+				$saturdayOpeningTime = date('H:i',strtotime($data['saturdayOpeningTime']));
+				$saturdayClosingTime = date('H:i',strtotime($data['saturdayClosingTime']));
+				$saturdayPrice = $data['saturdayPrice'];
+
+				$sundayIsOpen = $data['sundayIsOpen'];
+				$sundayOpeningTime = date('H:i',strtotime($data['sundayOpeningTime']));
+				$sundayClosingTime = date('H:i',strtotime($data['sundayClosingTime']));
+				$sundayPrice = $data['sundayPrice'];
+
+				$timeStampAdded = $data['timeStampAdded'];
+				$timeStampEdited = $data['timeStampEdited'];
+
+				$layoutFileName = $data['layoutFileName'];
+			}
+
+			$sql =
+			"SELECT businessFacility.businessID, business.businessName, businessVenueManagement.locationCity, businessVenueManagement.locationState, businessVenueManagement.coverImageFileName
+			FROM businessFacility, business, businessVenueManagement
+			WHERE businessFacility.businessFacilityID = $businessFacilityID AND businessFacility.businessID=business.businessID AND businessVenueManagement.businessID=business.businessID
+			";
+			$result = mysqli_query($con,$sql);
+			while ($column = $result->fetch_assoc()){
+				$businessID = $column['businessID'];
+				$businessName = $column['businessName'];
+				$locationCity = $column['locationCity'];
+				$locationState = $column['locationState'];
+				$coverImageFileName = $column['coverImageFileName'];
+			}
 		}
 	}
 ?>
@@ -132,7 +155,7 @@ else {
 					<li><a href="user-dashboard.php">
 						<em class="fa fa-home"></em>
 					</a></li>
-					<li class="active">New Booking</li>
+					<li class="active">New Booking -> <?php echo $bookingCategory ?> -> <?php echo $businessName ?> -> Booking Confirmation</li>
 					<!--end of list-->
 				</ol>
 				<!--end of ordered list-->
@@ -232,19 +255,23 @@ else {
 					</div><!-- /.panel-->
 				</div><!-- /.col-->
 
-			 <div class="col-md-5">
-				 <div class="panel panel-default">
-					 <div class="panel-body easypiechart-panel">
-						 <h3><b>Venue Information</b></h3>
-						 <p><img src="<?php echo $imageFilePath ?>" width="100%" height="250"></p>
-						 <h3><b><?php echo $businessName ?></b></h3>
-						 <h5><b><?php echo "$locationCity, $locationState"; ?></b></h5>
-						 <p>
-							 <a href="" class="btn btn-warning" style="width: 45%;"><b>VENUE DETAILS</b></a>
-						 </p>
-					 </div>
-				 </div>
-			 </div>
+				<div class="col-md-5">
+					<div class="panel panel-default">
+						<div class="panel-body easypiechart-panel">
+							<h3><b>Venue Information</b></h3>
+							<?php if ($coverImageFileName): ?>
+								<p><img src="<?php echo $coverImageFileName ?>" width="100%" height="250"></p>
+							<?php else: ?>
+								<center><img src="images/icon-noImageAvailable.png" height="250"></center>
+							<?php endif; ?>
+							<h3><b><?php echo $businessName ?></b></h3>
+							<h5><b><?php echo "$locationCity, $locationState"; ?></b></h5>
+							<p>
+								<a href="user-venueInformation.php?businessID=<?php echo $businessID ?>" target="_blank" class="btn btn-warning" style="width: 45%;"><b>VENUE DETAILS</b></a>
+							</p>
+						</div>
+					</div>
+				</div>
 
 			</div><!-- /.row-->
 

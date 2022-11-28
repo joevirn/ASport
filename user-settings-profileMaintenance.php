@@ -110,7 +110,7 @@ if(isset($_POST['submit'])) {
 	  								</div>
 	                  <br>
 	                  <div align="center" class="form-group has-success">
-	                    <button type="submit" class="btn btn-primary" name="submit" style="width: 50%;">UPDATE</button>
+	                    <button type="submit" class="btn btn-primary" name="submit" style="width: 50%;"><b>UPDATE</b></button>
 	                  </div>
 	  							</form>
 	  					  <?php } ?>
@@ -122,7 +122,15 @@ if(isset($_POST['submit'])) {
 				<div class="col-md-4">
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
-							<br><h4><b><span class="fa fa-pencil"></span>&nbsp Last Update Date:</b><br><br><?php echo $userLastUpdateDate; ?></h4><br>
+							<br>
+							<h4><b>
+								<span class="fa fa-pencil"></span>&nbsp Last Update Date:</b><br><br>
+								<?php if ($userLastUpdateDate): ?>
+									<?php echo $userLastUpdateDate; ?>
+								<?php else: ?>
+									No Updates Recorded
+								<?php endif; ?>
+							</h4><br>
 						</div><!-- /.panel-body-->
 					</div><!-- /.panel-->
 				</div><!-- /.col-->

@@ -15,19 +15,31 @@ else {
 	//GET PONTS BALANCE
 	$sql = "SELECT * FROM userLoyaltyTransactions WHERE userID=$userID ORDER BY userLoyaltyTransactionID DESC LIMIT 1";
 	$result = mysqli_query($con,$sql);
-	while ($row = $result->fetch_assoc()){
-		$current_pointsBalance = $row['pointsBalance'];
+	if (mysqli_num_rows($result) == 0) {
+		$current_pointsBalance = 0;
+	}
+	else {
+		while ($row = $result->fetch_assoc()){
+			$current_pointsBalance = $row['pointsBalance'];
+		}
 	}
 
 	//GET TOTAL POINTS COLLECTED & USED
 	$sql = "SELECT * FROM userLoyaltyTransactions WHERE userID=$userID";
 	$result = mysqli_query($con,$sql);
-	while ($row = $result->fetch_assoc()){
-		$current_pointsAdded = $row['pointsAddedAmount'];
-		$current_pointsDeducted = $row['pointsDeductedAmount'];
 
-		$current_totalPointsAdded += $current_pointsAdded;
-		$current_totalPointsDeducted+= $current_pointsDeducted;
+	if (mysqli_num_rows($result) == 0) {
+		$current_totalPointsAdded = 0;
+		$current_totalPointsDeducted = 0;
+	}
+	else {
+		while ($row = $result->fetch_assoc()){
+			$current_pointsAdded = $row['pointsAddedAmount'];
+			$current_pointsDeducted = $row['pointsDeductedAmount'];
+
+			$current_totalPointsAdded += $current_pointsAdded;
+			$current_totalPointsDeducted += $current_pointsDeducted;
+		}
 	}
 ?>
 

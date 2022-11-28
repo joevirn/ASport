@@ -164,7 +164,6 @@ else {
 						<div class="panel-body easypiechart-panel">
 							<h3><b><span class="fa fa-info-circle"></span><br>Voucher Terms and Conditions</b></h3>
 							<br>
-
 							<div class="col-md-1"></div>
 							<div class="col-md-10">
 								<h4>
@@ -178,7 +177,6 @@ else {
 								</h4>
 							</div>
 							<div class="col-md-1"></div>
-
 							<br><br>
 						</div><!-- /.panel-body-->
 					</div><!-- /.panel-->

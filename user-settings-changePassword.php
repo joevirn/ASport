@@ -125,7 +125,7 @@ else {
 									</div>
 	                <br>
 	                <div align="center" class="form-group has-success">
-	                  <button type="submit" class="btn btn-primary" name="submit" style="width: 50%;">CHANGE</button>
+	                  <button type="submit" class="btn btn-primary" name="submit" style="width: 50%;"><b>CHANGE</b></button>
 	                </div>
 	              </form>
 								<?php } ?>
@@ -137,7 +137,15 @@ else {
 				<div class="col-md-4">
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
-							<br><h4><b><span class="fa fa-pencil"></span>&nbsp Last Password Change Date:</b><br><br><?php echo $userLastPasswordChangeDate; ?></h4><br>
+							<br>
+							<h4><b>
+								<span class="fa fa-pencil"></span>&nbsp Last Password Change Date:</b><br><br>
+								<?php if ($userLastPasswordChangeDate): ?>
+									<?php echo $userLastPasswordChangeDate; ?>
+								<?php else: ?>
+									No Updates Recorded
+								<?php endif; ?>
+							</h4><br>
 						</div><!-- /.panel-body-->
 					</div><!-- /.panel-->
 				</div><!-- /.col-->
