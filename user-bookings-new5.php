@@ -59,7 +59,7 @@ else {
 		//JAVASCRIPT ALERT STATUS
 		//Facility Add Status
 		if($sqlAdd){
-			echo "<script>alert('Booking successfull!');</script>";
+			echo "<script>alert('Booking successful!');</script>";
 			//GET THE CURRENT BOOKING ID
 			$sql = "SELECT * FROM userBookings ORDER BY userBookingID DESC LIMIT 1";
 			$result = mysqli_query($con,$sql);
