@@ -15,10 +15,14 @@ else {
 	//GET PONTS BALANCE
 	$sql = "SELECT * FROM userLoyaltyTransactions WHERE userID=$userID ORDER BY userLoyaltyTransactionID DESC LIMIT 1";
 	$result = mysqli_query($con,$sql);
-	while ($row = $result->fetch_assoc()){
-		$current_pointsBalance = $row['pointsBalance'];
+	if (mysqli_num_rows($result) == 0) {
+		$current_pointsBalance = 0;
 	}
-
+	else {
+		while ($row = $result->fetch_assoc()){
+			$current_pointsBalance = $row['pointsBalance'];
+		}
+	}
 ?>
 
 	<!DOCTYPE html>

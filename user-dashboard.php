@@ -13,7 +13,7 @@ else {
 	$userID = $_SESSION['ASportUserSessionCounter'];
 
 	$sql = "SELECT * FROM userBookings
-					WHERE userID=$userID AND bookingIsCancelled IS NULL AND bookingDate >= CURDATE() ORDER BY bookingDate ASC, bookingStartTime DESC LIMIT 1";
+					WHERE userID=$userID AND bookingIsCancelled IS NULL AND bookingDate >= CURDATE() ORDER BY bookingDate ASC, bookingStartTime ASC LIMIT 1";
 	$result = mysqli_query($con,$sql);
 	if (mysqli_num_rows($result) == 0) {
 		$noNextBooking = true;

@@ -75,6 +75,9 @@ if(isset($_POST['submit'])) {
 				<div class="panel-heading" style="text-align: center;">Register</div>
 				<div class="panel-body">
 					<form role="form" action="" method="post" id="" name="register" onsubmit="return checkpass();">
+            <p style="font-size:16px; color:red" align="center"> <?php if($msg){
+              echo $msg;
+            }  ?> </p>
 						<fieldset>
 							<div class="form-group">
 								<input type="text" class="form-control" name="businessName" placeholder="Business Name" required="true">
@@ -101,7 +104,7 @@ if(isset($_POST['submit'])) {
 			</div>
 		</div><!-- /.col-->
 	</div><!-- /.row -->
-  <br>  
+  <br>
 
   <!--include the footer-->
   <?php include_once('includes/footer.php'); ?>

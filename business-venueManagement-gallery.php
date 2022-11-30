@@ -79,7 +79,7 @@ else {
 	}
 
 	//PHOTO GALLERY UPLOAD
-	if(isset($_POST["upload"])){
+	if(isset($_POST["uploadGallery"])){
 		$imageDescription = $_POST['imageDescription'];
 		$targetDir = "./uploads/businessGallery/";
 		$imageFileName = $_FILES["file"]["name"];
@@ -93,8 +93,8 @@ else {
 				// Upload file to server
 				if(move_uploaded_file($tempName, $targetFilePath)){
 					$sqlUpload = mysqli_query($con,
-						"INSERT INTO businessVenueGallery(businessID, imageFileName, imageDescription, imagePosition)
-						 VALUE            							('$businessID', '$targetFilePath', '$imageDescription', '$imagePosition')
+						"INSERT INTO businessVenueGallery(businessID, imageFileName, imageDescription)
+						 VALUE            							('$businessID', '$targetFilePath', '$imageDescription')
 						");
 					if($sqlUpload){
 						$statusMsg = "New image file \'".$imageFileName."\' has been uploaded successfully.";
@@ -319,7 +319,7 @@ else {
 										<div class="col-md-3"></div>
 									</div><br>
 									<div style="text-align: center;" class="form-group has-success">
-										<button type="submit" name="upload" class="btn bg-teal" ><i class="fa fa-upload fa-lg"></i><b>&nbsp UPLOAD IMAGE</b></button>
+										<button type="submit" name="uploadGallery" class="btn bg-teal" ><i class="fa fa-upload fa-lg"></i><b>&nbsp UPLOAD IMAGE</b></button>
 									</div><br>
 								</center>
 							</form>
